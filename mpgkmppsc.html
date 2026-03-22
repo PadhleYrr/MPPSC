@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MP GK Master Notes 2026 — MPPSC</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#212121;line-height:1.6}
+.topbar{background:#1A237E;color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+.topbar h1{font-size:16px;font-weight:600}
+.topbar span{font-size:12px;color:#FFD54F}
+.wrap{max-width:980px;margin:0 auto;padding:16px}
+.cover{background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;border-top:5px solid #1A237E;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.cover h2{font-size:26px;font-weight:700;color:#1A237E;margin-bottom:4px}
+.cover p{font-size:13px;color:#555;margin-bottom:14px}
+.stats-bar{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.stat{background:#F3F4FF;border-radius:8px;padding:10px;text-align:center;border:1px solid #C5CAE9}
+.stat-val{font-size:18px;font-weight:700;color:#1A237E}
+.stat-lbl{font-size:10px;color:#555;margin-top:2px}
+.tabs-wrap{background:#fff;border-radius:12px;padding:12px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tab{padding:6px 12px;border:1.5px solid #C5CAE9;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;transition:all 0.15s;font-weight:500}
+.tab:hover{background:#E8EAF6;color:#1A237E}
+.tab.active{background:#1A237E;color:#fff;border-color:#1A237E}
+.section{display:none}
+.section.active{display:block}
+.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.sec-head{background:#1A237E;color:#fff;padding:10px 16px;border-radius:8px;font-size:14px;font-weight:600;margin:0 0 12px}
+.sub-head{background:#FF6B00;color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;margin:12px 0 8px}
+.kv-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px}
+.kv-table td{padding:7px 10px;border:1px solid #E0E0E0;vertical-align:top;line-height:1.5}
+.kv-table tr:nth-child(odd) td{background:#F3F4FF}
+.kv-table tr:nth-child(even) td{background:#fff}
+.kv-table td:first-child{font-weight:600;color:#1A237E;width:36%;background:#E8EAF6 !important}
+.note{padding:10px 14px;border-radius:8px;font-size:12px;margin:10px 0;border-left:4px solid}
+.note-warn{background:#FFFDE7;color:#5D4037;border-color:#F9A825}
+.note-red{background:#FFEBEE;color:#B71C1C;border-color:#B71C1C}
+.note-grn{background:#E8F5E9;color:#1B5E20;border-color:#2E7D32}
+.blist{background:#FFF3E0;border-radius:8px;padding:12px 14px;margin-bottom:12px}
+.blist-item{font-size:13px;padding:4px 0 4px 18px;position:relative;color:#212121;line-height:1.5;border-bottom:1px solid #FFE0B2}
+.blist-item:last-child{border-bottom:none}
+.blist-item::before{content:"▸";position:absolute;left:2px;color:#FF6B00}
+.comp-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px}
+.comp-table th{background:#1A237E;color:#fff;padding:8px 10px;font-weight:600;text-align:left}
+.comp-table td{padding:7px 10px;border:1px solid #E0E0E0;line-height:1.4;vertical-align:top}
+.comp-table tr:nth-child(odd) td{background:#F3F4FF}
+.ext-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px}
+.ext-table th{background:#1A237E;color:#fff;padding:8px 10px;font-weight:600}
+.ext-table td{padding:7px 10px;border:1px solid #E0E0E0;line-height:1.4;vertical-align:top}
+.ext-n{background:#E3F2FD}.ext-s{background:#FFEBEE}.ext-w{background:#FFF3E0}.ext-e{background:#E0F7FA}
+.upd-wrap{border:1px solid #E0E0E0;border-radius:8px;overflow:hidden;margin-bottom:12px}
+.upd-row{display:grid;grid-template-columns:1fr 32px 1fr;gap:4px;padding:7px 12px;border-bottom:1px solid #F5F5F5;font-size:12px;align-items:center;background:#FFFDE7}
+.upd-row:last-child{border-bottom:none}
+.upd-old{color:#C62828;font-weight:600}
+.upd-new{color:#1B5E20;font-weight:600}
+.upd-arr{color:#F9A825;font-size:18px;text-align:center;font-weight:700}
+/* QUIZ */
+.score-bar{background:#E8EAF6;border-radius:10px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;border:1px solid #C5CAE9}
+.score-num{font-size:26px;font-weight:700;color:#1A237E}
+.score-lbl{font-size:12px;color:#555;margin-top:2px}
+.quiz-controls{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto;align-items:center}
+.filter-btn{padding:5px 12px;border:1.5px solid #C5CAE9;border-radius:20px;font-size:11px;cursor:pointer;background:#fff;color:#555;font-weight:500}
+.filter-btn.on{background:#1A237E;color:#fff;border-color:#1A237E}
+.reset-btn{padding:5px 12px;border:1.5px solid #C62828;border-radius:20px;font-size:11px;cursor:pointer;background:#FFEBEE;color:#C62828;font-weight:500}
+.mcq-card{background:#fff;border:1px solid #E0E0E0;border-radius:10px;margin-bottom:10px;overflow:hidden;border-top:3px solid #1A237E;transition:box-shadow 0.2s}
+.mcq-card:nth-child(even){border-top-color:#FF6B00}
+.mcq-card:hover{box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.mcq-header{padding:10px 14px 6px;display:flex;align-items:flex-start;gap:8px}
+.mcq-num{background:#1A237E;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;min-width:28px;text-align:center;margin-top:2px}
+.mcq-card:nth-child(even) .mcq-num{background:#FF6B00}
+.mcq-q{font-size:13px;font-weight:600;color:#1A237E;line-height:1.5;flex:1}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px 14px 10px}
+.opt-btn{padding:8px 12px;border:1.5px solid #E0E0E0;border-radius:8px;font-size:12px;cursor:pointer;background:#fff;color:#212121;text-align:left;transition:all 0.2s;line-height:1.4;font-family:'Segoe UI',Arial,sans-serif}
+.opt-btn:hover:not(:disabled){background:#E8EAF6;border-color:#9FA8DA}
+.opt-btn.correct{background:#E8F5E9;border-color:#2E7D32;color:#1B5E20;font-weight:600}
+.opt-btn.wrong{background:#FFEBEE;border-color:#C62828;color:#B71C1C}
+.opt-btn:disabled{cursor:default;opacity:0.85}
+.ans-bar{padding:8px 14px 10px;font-size:12px;display:none;background:#F1F8E9;border-top:1px solid #C8E6C9}
+.ans-bar.show{display:block}
+.ans-correct{color:#1B5E20;font-weight:600;font-size:13px}
+.ans-note{color:#555;margin-top:3px}
+.ans-update{color:#FF6B00;font-weight:600;margin-top:3px}
+.reveal-btn{padding:5px 12px;border:1.5px solid #C5CAE9;border-radius:6px;font-size:11px;cursor:pointer;background:#fff;color:#1A237E;margin:0 14px 8px;font-weight:500;transition:all 0.15s}
+.reveal-btn:hover{background:#E8EAF6}
+.reveal-btn{display:none}
+.reveal-vis{display:inline-block}
+.mcq-answered-correct .mcq-header{background:#F1F8E9}
+.mcq-answered-wrong .mcq-header{background:#FFEBEE}
+.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;margin-left:6px}
+.badge-upd{background:#FFF3E0;color:#E65100;border:1px solid #FFCC80}
+@media(max-width:600px){
+  .stats-bar{grid-template-columns:repeat(3,1fr)}
+  .opts{grid-template-columns:1fr}
+  .score-bar{flex-direction:column;align-items:flex-start}
+  .quiz-controls{margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>📚 MP GK Master Notes — MPPSC 2026</h1>
+  <span>Updated: 22 March 2026 | All content combined</span>
+</div>
+
+<div class="wrap">
+
+<!-- COVER -->
+<div class="cover">
+  <h2>Madhya Pradesh — Complete GK Master Notes</h2>
+  <p>MPPSC / MP Police / State Exams &nbsp;·&nbsp; PW Lectures + Research + Deep Notes &nbsp;·&nbsp; All 16 Chapters</p>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-val">55</div><div class="stat-lbl">Districts 2026</div></div>
+    <div class="stat"><div class="stat-val">16</div><div class="stat-lbl">Chapters</div></div>
+    <div class="stat"><div class="stat-val">50</div><div class="stat-lbl">MCQs</div></div>
+    <div class="stat"><div class="stat-val">2nd</div><div class="stat-lbl">Area Rank</div></div>
+    <div class="stat"><div class="stat-val">5th</div><div class="stat-lbl">Pop. Rank</div></div>
+    <div class="stat"><div class="stat-val">7</div><div class="stat-lbl">Tiger Reserves</div></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+<div class="tabs" id="tabs">
+  <button class="tab active" onclick="showTab('intro')">1. Parichay</button>
+  <button class="tab" onclick="showTab('geo')">2. Geo Position</button>
+  <button class="tab" onclick="showTab('extreme')">3. Extreme Districts</button>
+  <button class="tab" onclick="showTab('pop')">4. Population</button>
+  <button class="tab" onclick="showTab('symbols')">5. Rajya Prateek</button>
+  <button class="tab" onclick="showTab('upnaam')">6. Upnaam</button>
+  <button class="tab" onclick="showTab('capitals')">7. Capitals</button>
+  <button class="tab" onclick="showTab('admin')">8. Prashasan</button>
+  <button class="tab" onclick="showTab('political')">9. Rajneetik</button>
+  <button class="tab" onclick="showTab('days')">10. Divas & Varsh</button>
+  <button class="tab" onclick="showTab('history')">11. Gathan Itihaas</button>
+  <button class="tab" onclick="showTab('geo2')">12. Geography</button>
+  <button class="tab" onclick="showTab('economy')">13. Economy</button>
+  <button class="tab" onclick="showTab('revision')">14. Quick Revision</button>
+  <button class="tab" onclick="showTab('updates')">15. Kya Badla?</button>
+  <button class="tab" onclick="showTab('quiz')" style="background:#FF6B00;color:#fff;border-color:#FF6B00">16. 50 MCQs ★</button>
+</div>
+</div>
+
+<!-- TAB 1 -->
+<div class="section active card" id="tab-intro">
+<div class="sec-head">Chapter 1 · Parichay — Introduction & Basic Facts</div>
+<table class="kv-table"><tbody>
+<tr><td>Sthaapana</td><td>1 November 1956</td></tr>
+<tr><td>Upnaam</td><td>Bharat ka Hridaya | Nadiyon ka Maika | Laghu Bharat | Soya Rajya | Tiger State | Leopard State | Diamond State</td></tr>
+<tr><td>Rajdhani</td><td>Bhopal (was a tehsil of Sehore before 1956)</td></tr>
+<tr><td>Sabse Bada Shahar</td><td>Indore (largest by population & commerce)</td></tr>
+<tr><td>Rajbhaasha</td><td>Hindi | Also: Urdu, Bundeli, Bagheli, Malvi, Nimadi, Gondi, Korku</td></tr>
+<tr><td>Ksheatrafal</td><td>3,08,252 sq km — 9.38% of India</td></tr>
+<tr><td>Area Rank</td><td>2nd Largest (after Rajasthan)</td></tr>
+<tr><td>Undivided MP Area</td><td>4,43,444 sq km (before Chhattisgarh separation, 2000)</td></tr>
+<tr><td>Hemisphere</td><td>Northern (latitude) + Eastern (longitude)</td></tr>
+<tr><td>Seemayen</td><td>N: UP | NE & E: Chhattisgarh | S: Maharashtra | W: Gujarat | NW: Rajasthan</td></tr>
+<tr><td>Sabse Lamba Seema</td><td>Uttar Pradesh — longest shared border</td></tr>
+<tr><td>Sabse Chhota Seema</td><td>Gujarat — shortest shared border</td></tr>
+<tr><td>N–S Lambai</td><td>605 km (Undivided MP: 1,127 km)</td></tr>
+<tr><td>E–W Lambai</td><td>870 km (Undivided MP: 996 km)</td></tr>
+<tr><td>Seema Rajya</td><td>5 States — Completely Landlocked (Bhuaaveshit)</td></tr>
+<tr><td>Kark Rekha</td><td>14 districts: Ratlam, Ujjain, Agar-Malwa, Rajgarh, Sehore, Bhopal, Vidisha, Raisen, Sagar, Damoh, Katni, Jabalpur, Umaria, Shahdol</td></tr>
+<tr><td>Pratham Rajyapal</td><td>B.P. Sitaramaiya (1956)</td></tr>
+<tr><td>Pratham CM</td><td>Ravi Shankar Shukla (1956)</td></tr>
+<tr><td>High Court</td><td>Jabalpur (Main) | Benches: Indore & Gwalior</td></tr>
+</tbody></table>
+</div>
+
+<!-- TAB 2 -->
+<div class="section card" id="tab-geo">
+<div class="sec-head">Chapter 2 · Bhaugolik Sthiti — Geographical Position</div>
+<div class="note note-warn">★ MPPSC KEY: Undivided MP latitude starts from 17°46'N (Chhattisgarh's south included). Present MP starts from 21°6'N. Undivided MP was 1st largest; Present MP is 2nd.</div>
+<table class="comp-table">
+<thead><tr><th>Vishay</th><th>Undivided MP (Before 2000)</th><th>Present MP (After 2000)</th></tr></thead>
+<tbody>
+<tr><td><b>Area</b></td><td>4,43,444 sq km</td><td><b>3,08,252 sq km (9.38%)</b></td></tr>
+<tr><td><b>N–S Lambai</b></td><td>1,127 km</td><td>605 km</td></tr>
+<tr><td><b>E–W Lambai</b></td><td>996 km</td><td>870 km</td></tr>
+<tr><td><b>Latitude (N)</b></td><td>17°46' — 26°30'</td><td><b>21°6' — 26°30'</b></td></tr>
+<tr><td><b>Longitude (E)</b></td><td>74°9' — 84°51'</td><td><b>74°9' — 82°48'</b></td></tr>
+<tr><td><b>Area Rank</b></td><td>1st Largest</td><td>2nd Largest</td></tr>
+</tbody></table>
+<table class="kv-table"><tbody>
+<tr><td>Golaardh</td><td>Northern Hemisphere (Latitude) + Eastern Hemisphere (Longitude)</td></tr>
+<tr><td>Bhooaaveshit</td><td>MP is COMPLETELY landlocked — Purnatah Bhuaaveshit Pradesh</td></tr>
+<tr><td>Kark Rekha</td><td>14 districts from Ratlam (west) to Shahdol (east)</td></tr>
+<tr><td>Madhyavarti Jile</td><td>18 districts share NO border with any other state (fully interior)</td></tr>
+</tbody></table>
+</div>
+
+<!-- TAB 3 -->
+<div class="section card" id="tab-extreme">
+<div class="sec-head">Chapter 3 · Seemaant Jile — Extreme Border Districts</div>
+<div class="note note-warn">★ Most asked in MPPSC — All 4 extreme districts with associated facts.</div>
+<table class="ext-table">
+<thead><tr><th>Direction</th><th>District</th><th>Border State</th><th>Key Facts</th></tr></thead>
+<tbody>
+<tr class="ext-n"><td><b>⬆ Uttaratam (North)</b></td><td><b>Morena</b></td><td>UP & Rajasthan</td><td>Chambal division. Historic Chambal dacoit region. Chambal river forms boundary.</td></tr>
+<tr class="ext-s"><td><b>⬇ Dakshinatam (South)</b></td><td><b>Burhanpur</b></td><td>Maharashtra</td><td>Indore division. Tapti river. Mumtaz Mahal died here (1631). Historic Mughal city.</td></tr>
+<tr class="ext-w"><td><b>⬅ Pashchimatam (West)</b></td><td><b>Alirajpur</b></td><td>Gujarat & Rajasthan</td><td>Tribal district. Bhil dominant. Highest ST% in MP. Narmada flows nearby.</td></tr>
+<tr class="ext-e"><td><b>➡ Poorvatam (East)</b></td><td><b>Singrauli</b></td><td>UP & Chhattisgarh</td><td>50th district (2008). Energy Capital. NTPC Vindhyachal. Asia's thickest coal seam.</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- TAB 4 -->
+<div class="section card" id="tab-pop">
+<div class="sec-head">Chapter 4 · Janasankhya — Population & Ranks</div>
+<div class="sub-head">MP ki Ranks in India</div>
+<table class="kv-table"><tbody>
+<tr><td>Ksheatrafal Rank</td><td><b>2nd</b> (after Rajasthan)</td></tr>
+<tr><td>Janasankhya Rank</td><td><b>5th</b> (since 2014, after CG separation)</td></tr>
+<tr><td>ST Janasankhya Rank</td><td><b>1st — Highest ST population in India ★</b></td></tr>
+<tr><td>Saksharata Rank</td><td>28th overall | 21st among States only</td></tr>
+<tr><td>Ling Anupaat Rank</td><td>20th overall | 18th among States only</td></tr>
+</tbody></table>
+<div class="sub-head">Census 2011 Official Data</div>
+<table class="kv-table"><tbody>
+<tr><td>Kul Janasankhya</td><td>7,26,26,809 (7.26 Crore)</td></tr>
+<tr><td>Purush / Male</td><td>3,76,12,306 (3.76 Crore)</td></tr>
+<tr><td>Mahila / Female</td><td>3,50,14,503 (3.50 Crore)</td></tr>
+<tr><td>Ling Anupaat</td><td>931 per 1,000 males</td></tr>
+<tr><td>Shishu Ling Anupaat (0–6)</td><td>918 per 1,000 males</td></tr>
+<tr><td>Ghanatv / Density</td><td>236 persons per sq km</td></tr>
+<tr><td>Saksharata</td><td>69.32% (28th nationally | 21st among states)</td></tr>
+<tr><td>Purush Saksharata</td><td>78.73%</td></tr>
+<tr><td>Mahila Saksharata</td><td>59.24%</td></tr>
+<tr><td>SC Janasankhya</td><td>15.6%</td></tr>
+<tr><td>ST Janasankhya</td><td>21.1% — 1st rank in India | Bhil = largest tribe | Gond = 2nd | PVTGs: Bhariya, Baiga, Sahariya</td></tr>
+<tr><td>Shahri / Urban</td><td>27.63%</td></tr>
+<tr><td>Gramin / Rural</td><td>72.37%</td></tr>
+<tr><td>Sabse Badi Aabaadi Jila</td><td>Indore (32.76 lakh)</td></tr>
+<tr><td>Sabse Kam Aabaadi Jila</td><td>Harda (5.70 lakh)</td></tr>
+<tr><td>Anumaanik 2026</td><td>~8.93–8.97 Crore (5th most populous)</td></tr>
+</tbody></table>
+<div class="note note-red">★ NOTE: Census 2021 deferred due to COVID-19. Not yet conducted as of 22 March 2026. 2026 figures = National Commission on Population projections only.</div>
+</div>
+
+<!-- TAB 5 -->
+<div class="section card" id="tab-symbols">
+<div class="sec-head">Chapter 5 · Rajya ke Prateek — State Symbols (Deep Notes)</div>
+<div class="note note-warn">★ Key Dates: Pashu, Pakshi, Vriksha, Pushpa declared 1 November 1981 (25th foundation day). Rajya Khel (Malkhamb) declared 9 April 2013 — NOT 1981!</div>
+<div class="sub-head">Rajya Chinh — State Emblem</div>
+<table class="kv-table"><tbody>
+<tr><td>Elements (outer to centre)</td><td>① 24 Stupa figures (outermost) ② Circle (limitless progress) ③ "MP Shaasan" + "Satyamev Jayate" ④ Wheat & Paddy stalks ⑤ Ashoka Stambh Lion + Bargad tree (centre)</td></tr>
+<tr><td>Significance</td><td>24 Stupas = Buddhist heritage (Sanchi) | Ashoka Lion = power | Bargad = life & stability</td></tr>
+</tbody></table>
+<div class="sub-head">Rajya Pashu — Barasingha (State Animal)</div>
+<table class="kv-table"><tbody>
+<tr><td>Scientific Name</td><td>Rucervus duvaucelii</td></tr>
+<tr><td>Species</td><td><b>Braderi species</b> — Hard Ground Barasingha — unique to Kanha NP</td></tr>
+<tr><td>Mukhy Kshetra</td><td>Kanha Kisli National Park, <b>Mandla district</b></td></tr>
+<tr><td>Conservation Story</td><td>From ~66 animals (near extinction) → 900+ saved at Kanha. "Baara" = 12 (antlers).</td></tr>
+<tr><td>★ MPPSC Trap</td><td>Braderi = Hard Ground at Kanha. Only state animal saved from extinction. Scientific: Rucervus NOT Cervus.</td></tr>
+</tbody></table>
+<div class="sub-head">Rajya Pakshi — Dodhraj / Shah Bulbul (State Bird)</div>
+<table class="kv-table"><tbody>
+<tr><td>English Name</td><td>Paradise Flycatcher</td></tr>
+<tr><td>Scientific Name</td><td>Terpsiphone paradisi</td></tr>
+<tr><td>Mukhy Kshetra</td><td>NW MP — Selana Sanctuary (Ratlam) & Sardarpur Sanctuary (Dhar)</td></tr>
+<tr><td>Sabse Adhik</td><td>Most found in <b>Malwa region</b></td></tr>
+<tr><td>★ MPPSC Trap</td><td>Main sanctuaries: Selana (Ratlam) + Sardarpur (Dhar). Scientific: Terpsiphone paradisi.</td></tr>
+</tbody></table>
+<div class="sub-head">Summary — All State Symbols</div>
+<table class="kv-table"><tbody>
+<tr><td>Rajya Vriksha</td><td>Bargad / Banyan — Ficus benghalensis | Shown in state emblem</td></tr>
+<tr><td>Rajya Pushpa</td><td>Safed Lily / White Lily — Lilium candidum</td></tr>
+<tr><td>Rajya Machali</td><td>Mahasheer — Tor putitora — "King of Freshwater Fish"</td></tr>
+<tr><td>Rajya Naatya</td><td>Mach / Maach — Malwa region — mythological drama — night performances on raised stage</td></tr>
+<tr><td>Rajya Khel</td><td>Malkhamb — declared <b>9 April 2013</b> ★ — Malkhamb Academy at <b>Ujjain</b></td></tr>
+<tr><td>Rajya Fasal</td><td>Soyabean — MP = India's #1 — 55–60% national production</td></tr>
+<tr><td>Rajya Gaan</td><td>"Sukh ka daata sab ka saathi..." — Author: Mahesh Shri Srivastava</td></tr>
+<tr><td>Rajya Lok Nritya</td><td>Rai = Bundelkhand (folk dance) | Karma = tribal eastern MP | Mach = Malwa (drama, not dance)</td></tr>
+<tr><td>Ghoshna Tithi</td><td>1 November 1981 — 25th foundation day</td></tr>
+</tbody></table>
+</div>
+
+<!-- TAB 6 -->
+<div class="section card" id="tab-upnaam">
+<div class="sec-head">Chapter 6 · Upnaam — Aliases / Nicknames of MP</div>
+<div class="note note-warn">★ MPPSC Tip: Learn the REASON for each alias — the reason is the real MCQ trap!</div>
+<table class="kv-table"><tbody>
+<tr><td>1. Heart of India / Bharat ka Hridaya</td><td>Geographically central | Borders 5 states | "Madhya" = Central in Sanskrit | No other state more centrally located</td></tr>
+<tr><td>2. Central India</td><td>Literal meaning: "Madhya Pradesh" = Central Province. Earlier: Central Provinces & Berar.</td></tr>
+<tr><td>3. Laghu Bharat / Mini India</td><td>46 tribal groups — highest in India | Diverse cultures, languages, geography | 3 PVTGs: Bhariya, Baiga, Sahariya</td></tr>
+<tr><td>4. Diamond State / Heeron ki Dharti</td><td>Only diamond-producing state | Majhgawan mine, Panna (NMDC) | ~90% of India's production | NOTE: AP has highest RESERVES; MP has only PRODUCTION ★</td></tr>
+<tr><td>5. Soya State / Soyabean Rajya</td><td>55–60% of national soyabean | State Crop of MP | Malwa Plateau black soil region</td></tr>
+<tr><td>6. Tiger State / Baghon ka Rajya</td><td>785 tigers (2022 census) — highest in India | 7 Tiger Reserves | Overtook Karnataka in 2022</td></tr>
+<tr><td>7. Leopard State / Tenduo ka Rajya</td><td>Highest leopard population in India (WII survey) | Satpura & Panna famous for leopards</td></tr>
+<tr><td>8. Motherland of Rivers / Nadiyon ka Maika</td><td>9+ major rivers originate here: Narmada, Chambal, Betwa, Ken, Tapti, Shipra, Sone, Mahi, Wainganga, Johila</td></tr>
+</tbody></table>
+<div class="note note-red">★ MCQ Trap: AP = highest diamond RESERVES; MP = only PRODUCER. Bhil = largest ST tribe in MP, NOT Gond. 3 rivers from Amarkantak: Narmada + Sone + Johila.</div>
+</div>
+
+<!-- TAB 7 -->
+<div class="section card" id="tab-capitals">
+<div class="sec-head">Chapter 7 · Vishesh Rajdhaniyaan — Specific Capitals (Deep Notes)</div>
+<table class="kv-table"><tbody>
+<tr><td>🏛️ Bhopal</td><td>Rajdhani | Jheelon ka Shahar | Bhoj Wetland = Ramsar Site | Bhopal Gas Tragedy: 2–3 Dec 1984 (MIC gas, Union Carbide) — World's worst industrial disaster | Begums ruled 1819–1926 | Named: Bhoja + Pal (dam) | City of Nawabs</td></tr>
+<tr><td>💼 Indore</td><td>Vyavsayik Rajdhani | Mini Mumbai | Sports Capital | Cleanest City 8x (Swachh 2024) | Sirpur Lake = Ramsar Site | Chambal origin: Janapav Hill, Mhow (Indore) | Shipra origin: Kakra Bardi, Indore | Pithampur = Detroit of MP | IIM (1996) + IIT (2009)</td></tr>
+<tr><td>🎨 Gwalior</td><td>Sanskritic Rajdhani | City of Music (Gwalior Gharana) | Tansen born at Behat near Gwalior | Tansen Samaroha (Nov–Dec) | Fort = "Pearl among fortresses" (Babur) | Rajmata Vijayaraje Scindia Airport = largest runway in MP | Scindia dynasty</td></tr>
+<tr><td>⚖️ Jabalpur</td><td>Sanskritic Rajdhani (also) | Marble City | MP High Court (main bench) | Bhedaghat (Narmada marble gorge) | Dhuandhar Falls | Chausath Yogini Temple (10th century)</td></tr>
+<tr><td>💎 Panna</td><td>Heera Rajdhani | Only diamond mine in India (Majhgawan, NMDC) | Tiger reintroduction success (went extinct 2009, reintroduced) | Ken-Betwa Project | Sagar division</td></tr>
+<tr><td>⚡ Singrauli (Baidhan)</td><td>Urja Rajdhani | Coal Capital | 50th district (24 May 2008, from Sidhi) | NTPC Vindhyachal = India's largest thermal plant (4,760 MW) | NCL = Northern Coalfields | Asia's thickest coal seam</td></tr>
+<tr><td>🕉️ Ujjain</td><td>Dharmic Rajdhani | Mahakaleshwar = only Dakshinamukhi Jyotirlinga ★ | Simhastha Kumbh every 12 years on Shipra | Ancient prime meridian of India | Vikram Samvat (57 BCE, Vikramaditya) | Kalidasa's city | Malkhamb Academy here</td></tr>
+<tr><td>🏔️ Pachmarhi</td><td>Paryatan Rajdhani | Satpura ki Rani | Only Hill Station of MP | Narmadapuram district (NOT Hoshangabad) ★ | Dhupgarh 1,352 m = highest peak | UNESCO Biosphere 2009 | Rajat Prapat = highest waterfall of MP | Discovered: Capt. James Forsyth, 1857 | Panch + Marhi = 5 caves (Pandavas)</td></tr>
+<tr><td>🪨 Balaghat</td><td>Maneej Rajdhani | Manganese Capital | Malajkhand = India's largest open-cast copper mine (HCL, inaugurated 1982) | Molybdenum deposits | Adjacent to Kanha NP</td></tr>
+<tr><td>🎵 Maihar</td><td>Sangeet Rajdhani | Ustad Alauddin Khan (Maihar Gharana) | Guru of Ravi Shankar & Ali Akbar Khan | Sharda Mata Temple (1,063 steps, Trikut Hill) | New district since 2023 (from Satna)</td></tr>
+<tr><td>🐅 Rewa</td><td>Safed Sher ki Dharti | 1st White Tiger found here (1951, Maharaja Martand Singh) | 750 MW Rewa Solar Park (powers Delhi Metro) | Mauganj = new district from Rewa (2023)</td></tr>
+<tr><td>💵 Dewas</td><td>Currency Note Press — 1 of only 4 in India (RBI operated)</td></tr>
+<tr><td>🏗️ Satna</td><td>Cement Capital of MP — largest cement cluster | Maihar (Satna) became new district 2023</td></tr>
+<tr><td>✏️ Mandsaur</td><td>Opium City | Slate Pencil Capital | Only slate producer in India ★ | Rock Phosphate reserves</td></tr>
+<tr><td>🎤 Khandwa</td><td>Kishore Kumar Nagariya — birthplace of legendary singer Kishore Kumar</td></tr>
+</tbody></table>
+</div>
+
+<!-- TAB 8 -->
+<div class="section card" id="tab-admin">
+<div class="sec-head">Chapter 8 · Prashasan — Administrative Divisions (2026)</div>
+<table class="kv-table"><tbody>
+<tr><td>Jile — Districts</td><td><b>55 ★</b> (3 new in 2023)</td></tr>
+<tr><td>3 Naye Jile 2023</td><td>Mauganj (from Rewa) | Maihar (from Satna) | Pandhurna (from Chhindwara)</td></tr>
+<tr><td>51st District (2013)</td><td>Agar Malwa (from Shajapur)</td></tr>
+<tr><td>52nd District (2018)</td><td>Niwari (from Tikamgarh) — 24 May 2018</td></tr>
+<tr><td>Sambhag — Divisions</td><td>10</td></tr>
+<tr><td>Tehsilen — Tehsils</td><td>428</td></tr>
+<tr><td>Vikas Khanda</td><td>313 (Janpad Panchayats)</td></tr>
+<tr><td>Aadivasi Vikas Khanda</td><td>89</td></tr>
+<tr><td>Gram Panchayat</td><td>~23,043</td></tr>
+<tr><td>Nagar Nigam</td><td>18</td></tr>
+<tr><td>Nagar Palika</td><td>100</td></tr>
+<tr><td>Nagar Panchayat</td><td>264</td></tr>
+<tr><td>Kul ULB</td><td>382 (18+100+264)</td></tr>
+<tr><td>Sabse Bada Jila (Area)</td><td>Chhindwara (11,815 sq km)</td></tr>
+<tr><td>Sabse Chhota Jila (Area)</td><td>Niwari (1,170 sq km)</td></tr>
+</tbody></table>
+<div class="sub-head">10 Sambhag — All Divisions with Districts (Updated 2026)</div>
+<table class="kv-table"><tbody>
+<tr><td>1. Bhopal</td><td>Bhopal, Vidisha, Raisen, Rajgarh, Sehore (5)</td></tr>
+<tr><td>2. Chambal</td><td>Morena, Bhind, Sheopur (3)</td></tr>
+<tr><td>3. Gwalior</td><td>Gwalior, Guna, Shivpuri, Datia, Ashoknagar (5)</td></tr>
+<tr><td>4. Indore</td><td>Indore, Dhar, Jhabua, Alirajpur, Barwani, Burhanpur, Khandwa, Khargone (8)</td></tr>
+<tr><td>5. Jabalpur</td><td>Jabalpur, Balaghat, Chhindwara, Katni, Mandla, Narsinghpur, Seoni, Dindori, Pandhurna (9)</td></tr>
+<tr><td>6. Narmadapuram</td><td>Narmadapuram, Betul, Harda (3) [renamed from Hoshangabad: 28 Aug 2008]</td></tr>
+<tr><td>7. Rewa</td><td>Rewa, Sidhi, Singrauli, Satna, Mauganj (5)</td></tr>
+<tr><td>8. Sagar</td><td>Sagar, Panna, Damoh, Chhatarpur, Tikamgarh, Niwari (6)</td></tr>
+<tr><td>9. Shahdol</td><td>Shahdol, Anuppur, Umaria (3)</td></tr>
+<tr><td>10. Ujjain</td><td>Ujjain, Shajapur, Dewas, Agar-Malwa, Ratlam, Mandsaur, Neemuch (7)</td></tr>
+</tbody></table>
+</div>
+
+<!-- TAB 9 -->
+<div class="section card" id="tab-political">
+<div class="sec-head">Chapter 9 · Rajneetik — Political Representation</div>
+<table class="kv-table"><tbody>
+<tr><td>Lok Sabha Seats</td><td>29</td></tr>
+<tr><td>Rajya Sabha Seats</td><td>11</td></tr>
+<tr><td>Vidhan Sabha Seats</td><td>230 (reduced from 320 after CG split, Nov 2000)</td></tr>
+<tr><td>SC Reserved (VS)</td><td>35 seats</td></tr>
+<tr><td>ST Reserved (VS)</td><td>47 seats</td></tr>
+<tr><td>Current CM — 2026</td><td><b>Mohan Yadav (BJP)</b> — sworn in 13 December 2023</td></tr>
+<tr><td>Current Governor — 2026</td><td>Mangu Bhai Patel</td></tr>
+<tr><td>Deputy CMs</td><td>Rajendra Shukla & Jagdish Devda</td></tr>
+<tr><td>Lok Sabha 2024</td><td>BJP: 29/29 (swept all seats) | INC: 0</td></tr>
+<tr><td>Vidhan Sabha 2023</td><td>BJP: 163 | INC: 66 | Others: 1</td></tr>
+<tr><td>Previous CM (2005–2023)</td><td>Shivraj Singh Chouhan (BJP — 4 terms, longest-serving CM of MP)</td></tr>
+<tr><td>Pratham CM (1956)</td><td>Ravi Shankar Shukla</td></tr>
+<tr><td>Pratham Rajyapal (1956)</td><td>B.P. Sitaramaiya</td></tr>
+</tbody></table>
+</div>
+
+<!-- TAB 10 -->
+<div class="section card" id="tab-days">
+<div class="sec-head">Chapter 10 · Vishesh Divas & Varsh — Special Days & Years</div>
+<table class="kv-table"><tbody>
+<tr><td>MP Diwas / Sthaapana Diwas</td><td>1 November (every year)</td></tr>
+<tr><td>Beti Bachao Diwas</td><td>5 October</td></tr>
+<tr><td>Nagariya Nikaay Diwas</td><td>2 November</td></tr>
+<tr><td>Sushasan Diwas</td><td>25 December</td></tr>
+<tr><td>Lokasewa Diwas</td><td>25 September</td></tr>
+<tr><td>Kartavya Parv</td><td>25 September — 2 October</td></tr>
+<tr><td>Panchayati Raj Diwas</td><td>25 January</td></tr>
+<tr><td>Vikas Diwas</td><td>6 April 2013</td></tr>
+<tr><td>Janasankhya Niyantran Diwas</td><td>11 May</td></tr>
+<tr><td>Mahila Sashaktikaran Diwas</td><td>18 June</td></tr>
+<tr><td>Mahua Diwas (Declared)</td><td>11 July 2011</td></tr>
+<tr><td>Mahua Varsh</td><td>2011</td></tr>
+<tr><td>Tikaakaran Varsh</td><td>2012</td></tr>
+<tr><td>Soochana Praudyogiki Varsh</td><td>2013</td></tr>
+<tr><td>Paryatan Varsh</td><td>2015</td></tr>
+<tr><td>Gareeb Kalyan Varsh</td><td>2016</td></tr>
+</tbody></table>
+</div>
+
+<!-- TAB 11 -->
+<div class="section card" id="tab-history">
+<div class="sec-head">Chapter 11 · Gathan Itihaas — Formation History (1947 → 2023)</div>
+<div class="blist">
+<div class="blist-item"><b>1947:</b> Central Provinces & Berar + Baghelkhand + Chhattisgarh → "Madhya Pradesh" (Category A). Capital: Nagpur.</div>
+<div class="blist-item"><b>1947:</b> Western princely states → "Madhya Bharat" (Category B). Capitals: Indore & Gwalior.</div>
+<div class="blist-item"><b>1947:</b> Northern states → "Vindhya Pradesh" (Category C). Capital: Rewa. Bhopal = separate princely state.</div>
+<div class="blist-item"><b>State Reorganisation Commission:</b> Fazal Ali (Chairman), Hridaynath Kunzru, Dr. K.M. Panikkar. Recommended new MP from 1 Nov 1956.</div>
+<div class="blist-item"><b>1 Nov 1956 — OUT:</b> Buldhana, Akola, Amravati, Yavatmal, Wardha, Nagpur, Bhandara, Chanda → joined Bombay State.</div>
+<div class="blist-item"><b>1 Nov 1956 — IN:</b> Bhanpura of Mandsaur (except Sunel Tapla) | Kota's Sironje Tehsil (Rajasthan) → Vidisha, MP.</div>
+<div class="blist-item"><b>1 Nov 1956:</b> Bhopal + Vindhya Pradesh + Madhya Bharat merged → New MP with 43 districts. Capital: Bhopal.</div>
+<div class="blist-item"><b>26 Jan 1972:</b> Bhopal & Rajnandgaon created → 45 districts.</div>
+<div class="blist-item"><b>1998:</b> Districts increased to 61 via two batches of new districts.</div>
+<div class="blist-item"><b>★ 1 November 2000 — CRITICAL:</b> Chhattisgarh became 26th state. MP Vidhan Sabha: 320 → 230 seats.</div>
+<div class="blist-item"><b>24 May 2008:</b> Singrauli = 50th district (carved from Sidhi).</div>
+<div class="blist-item"><b>2013:</b> Agar Malwa = 51st district (from Shajapur).</div>
+<div class="blist-item"><b>24 May 2018:</b> Niwari = 52nd district (from Tikamgarh).</div>
+<div class="blist-item"><b>★ 2023 — LATEST:</b> Mauganj (Rewa) = 53rd | Pandhurna (Chhindwara) = 54th | Maihar (Satna) = 55th → TOTAL: 55 districts.</div>
+<div class="blist-item"><b>Approved Pending (18 Mar 2020):</b> Chachaura & Nagda — not yet officially formed as of March 2026.</div>
+</div>
+</div>
+
+<!-- TAB 12 -->
+<div class="section card" id="tab-geo2">
+<div class="sec-head">Chapter 12 · Bhaugolik — Geography, Rivers & Soil</div>
+<div class="sub-head">Physical Geography</div>
+<table class="kv-table"><tbody>
+<tr><td>Highest Peak</td><td><b>Dhupgarh / Dhoopgarh — 1,352 m</b> (Satpura Range, Pachmarhi, Narmadapuram district)</td></tr>
+<tr><td>Pramukh Parwat</td><td>Vindhya Range | Satpura Range | Maikal Hills | Kaimur Range</td></tr>
+<tr><td>Forest Cover</td><td>~30.7% — <b>1st rank in India</b> for TOTAL forest area (FSI 2023) ★</td></tr>
+<tr><td>Tiger Reserves</td><td>7 — Bandhavgarh, Kanha, Pench, Satpura, Sanjay-Dubri, Panna, Nauradehi</td></tr>
+<tr><td>National Parks</td><td>11 — Kanha, Bandhavgarh, Satpura, Panna, Pench, Sanjay, Madhav, Van Vihar, Kuno, Mandla Fossil, Dinosaur (Dhar)</td></tr>
+<tr><td>Biosphere Reserves</td><td>3 — Pachmarhi (1999, UNESCO 2009), Amarkantak, Panna</td></tr>
+<tr><td>Ramsar Sites</td><td>2 — Bhoj Wetland (Bhopal) & Sirpur Lake (Indore)</td></tr>
+<tr><td>UNESCO Heritage</td><td>Khajuraho 1986 | Sanchi 1989 | Bhimbetka 2003</td></tr>
+<tr><td>Minerals</td><td>Diamonds (Panna, 90% of India) | Copper (Malajkhand, Balaghat — HCL) | Manganese (Balaghat) | Coal (Singrauli — Asia's thickest seam) | Slate (Mandsaur — only in India)</td></tr>
+</tbody></table>
+<div class="sub-head">Pramukh Nadiyan — Major Rivers (Origins)</div>
+<table class="kv-table"><tbody>
+<tr><td>Narmada</td><td>Amarkantak (Anuppur) | 1,312 km total | 1,077 km in MP | Flows WEST → Arabian Sea | "Lifeline of MP"</td></tr>
+<tr><td>Chambal</td><td>Janapav Hill, Mhow (Indore district) | Flows NE | Border with Rajasthan & UP | Tributary of Yamuna</td></tr>
+<tr><td>Betwa</td><td>Kumra village, Raisen | 590 km | Meets Yamuna at Hamirpur, UP | Ken-Betwa interlinking</td></tr>
+<tr><td>Ken</td><td>Ahirgawan, Jabalpur | 427 km | Meets Yamuna at Chilla (Fatehpur)</td></tr>
+<tr><td>Tapti / Tapi</td><td>Multai, Betul | 724 km | Flows WEST (parallel to Narmada) | Arabian Sea</td></tr>
+<tr><td>Shipra / Kshipra</td><td>Kakra Bardi Mountain, Indore | "Ganga of Malwa" | Tributary of Chambal | Kumbh at Ujjain</td></tr>
+<tr><td>Sone</td><td>Amarkantak — SAME origin as Narmada ★ | Flows NE → Ganga (Bihar)</td></tr>
+<tr><td>Johila</td><td>Amarkantak | ★★ 3 rivers from Amarkantak: Narmada + Sone + Johila</td></tr>
+<tr><td>Mahi</td><td>Dhar/Jhabua | Flows west | Crosses Tropic of Cancer TWICE ★ | Arabian Sea</td></tr>
+<tr><td>Wainganga</td><td>Seoni | Godavari basin | Flows into Maharashtra</td></tr>
+</tbody></table>
+<div class="sub-head">Mitti ke Prakar — Soil Types</div>
+<table class="kv-table"><tbody>
+<tr><td>Kaali Mitti (Black)</td><td>Malwa Plateau & Narmada Valley | Best for cotton, soyabean, wheat | Retains moisture</td></tr>
+<tr><td>Laal Mitti (Red)</td><td>Baghelkhand & Bundelkhand | Iron oxide rich | Millets, groundnut</td></tr>
+<tr><td>Alluvial</td><td>Chambal & Narmada floodplains | Most fertile | Rice, sugarcane</td></tr>
+<tr><td>Laterite</td><td>Eastern MP — Balaghat, Mandla | Acidic, iron-rich | Dense forests</td></tr>
+</tbody></table>
+</div>
+
+<!-- TAB 13 -->
+<div class="section card" id="tab-economy">
+<div class="sec-head">Chapter 13 · Arthvyavastha — Economy & Infrastructure (2024–26)</div>
+<table class="kv-table"><tbody>
+<tr><td>Rajya Fasal</td><td>Soyabean — 55–60% national production — India's #1 state</td></tr>
+<tr><td>Pramukh Faslein</td><td>Wheat, Rice, Cotton, Sugarcane, Gram, Pulses, Maize, Soyabean</td></tr>
+<tr><td>Diamonds</td><td>Panna — Only producer in India | Majhgawan mine (NMDC) | ~90% of India's output</td></tr>
+<tr><td>Copper</td><td>Malajkhand, Balaghat (HCL) — India's largest open-cast copper mine — Inaugurated 1982 by Indira Gandhi</td></tr>
+<tr><td>Power Capacity (Mar 2024)</td><td>27,108.55 MW total installed</td></tr>
+<tr><td>Electricity Access</td><td>97% households</td></tr>
+<tr><td>Rewa Solar Park</td><td>750 MW | Gurh Tehsil, Rewa | 2020 commissioned | Powers Delhi Metro</td></tr>
+<tr><td>NTPC Vindhyachal</td><td>India's largest thermal power station (4,760 MW) — located in Singrauli</td></tr>
+<tr><td>Smart Cities</td><td>7 — Bhopal, Indore, Gwalior, Jabalpur, Satna, Ujjain, Sagar</td></tr>
+<tr><td>Swachh Survekshan 2024</td><td>Indore — Cleanest City 8 consecutive times in India</td></tr>
+<tr><td>Currency Note Press</td><td>Dewas — 1 of only 4 in India (RBI operated)</td></tr>
+<tr><td>IIT in MP</td><td>IIT Indore (Est. 2009, Simrol campus)</td></tr>
+<tr><td>IIM in MP</td><td>IIM Indore (Est. 1996)</td></tr>
+<tr><td>AIIMS in MP</td><td>AIIMS Bhopal (Est. 2012)</td></tr>
+<tr><td>Airports</td><td>Bhopal (Raja Bhoj) | Indore (Devi Ahilyabai Holkar) | Gwalior (Rajmata VS — largest runway) | Jabalpur | Khajuraho</td></tr>
+<tr><td>Forest Area Rank</td><td>1st in India (FSI 2023) ★</td></tr>
+<tr><td>Fiscal Health 2025</td><td>Rank 9th (Score: 42.2)</td></tr>
+</tbody></table>
+</div>
+
+<!-- TAB 14 -->
+<div class="section card" id="tab-revision">
+<div class="sec-head">Chapter 14 · Tatkal Smaran — Quick Revision Bullets (Exam Ready)</div>
+<div class="blist">
+<div class="blist-item">MP Sthaapana: 1 November 1956 | Rajdhani: Bhopal | Largest City: Indore</div>
+<div class="blist-item">Area: 3,08,252 sq km — 2nd largest — 9.38% of India | Undivided: 4,43,444 sq km (1st largest)</div>
+<div class="blist-item">Jile: 55 ★ | Sambhag: 10 | Tehsil: 428 | Vikas Khanda: 313 | Aadivasi VK: 89</div>
+<div class="blist-item">Gram Panchayat: ~23,043 | Nagar Nigam: 18 | Nagar Palika: 100 | Nagar Panchayat: 264</div>
+<div class="blist-item">Extreme Districts: N=Morena | S=Burhanpur | W=Alirajpur | E=Singrauli</div>
+<div class="blist-item">Present Lat: 21°6'N–26°30'N | Long: 74°9'E–82°48'E</div>
+<div class="blist-item">Undivided MP Lat: 17°46'N–26°30'N | Long: 74°9'E–84°51'E</div>
+<div class="blist-item">Population 2026: ~8.97 Crore | Rank: 5th | ST rank: 1st | Literacy: 28th/21st among states</div>
+<div class="blist-item">Sex Ratio: 931 (20th overall / 18th among states)</div>
+<div class="blist-item">2024 LS: BJP 29/29 | 2023 VS: BJP 163, INC 66</div>
+<div class="blist-item">CM: Mohan Yadav (BJP, Dec 2023) | Governor: Mangu Bhai Patel | Deputy CMs: Rajendra Shukla & Jagdish Devda</div>
+<div class="blist-item">Rajya Pashu: Barasingha (Rucervus duvaucelii, Braderi species, Kanha Kisli NP, Mandla)</div>
+<div class="blist-item">Rajya Pakshi: Dodhraj (Terpsiphone paradisi, Selana+Sardarpur, most in Malwa)</div>
+<div class="blist-item">Rajya Khel: Malkhamb — declared 9 April 2013 ★ — Academy at Ujjain</div>
+<div class="blist-item">Rajya Naatya: Mach (Malwa, mythological drama) | Rai = Bundelkhand folk dance</div>
+<div class="blist-item">Symbols declared: 1 November 1981 (25th foundation day)</div>
+<div class="blist-item">State Emblem: 24 Stupas + Circle + Satyamev Jayate + Wheat/Paddy + Ashoka Lion + Bargad (centre)</div>
+<div class="blist-item">Kark Rekha (Tropic of Cancer): 14 districts | MP: Northern + Eastern Hemisphere</div>
+<div class="blist-item">Highest Peak: Dhupgarh 1,352 m (Satpura Range, Pachmarhi, Narmadapuram district)</div>
+<div class="blist-item">Tiger Reserves: 7 | National Parks: 11 | Biosphere: 3 | Ramsar: 2 (Bhoj Wetland + Sirpur Lake)</div>
+<div class="blist-item">★ 3 rivers from Amarkantak: Narmada + Sone + Johila</div>
+<div class="blist-item">Chambal origin: Janapav Hill, Mhow (Indore) | Shipra origin: Kakra Bardi, Indore</div>
+<div class="blist-item">Mahi crosses Tropic of Cancer TWICE ★</div>
+<div class="blist-item">Forest area: 1st in India (FSI 2023) | ST population: 1st in India</div>
+<div class="blist-item">Soyabean: 55–60% national | Diamond: 90% national (Panna) | Copper: Malajkhand (HCL, 1982)</div>
+<div class="blist-item">Singrauli = 50th (2008) | Agar Malwa = 51st (2013) | Niwari = 52nd (2018) | 55th = 2023</div>
+<div class="blist-item">Bhopal Gas Tragedy: 2–3 December 1984 | MIC gas | Union Carbide | World's worst industrial disaster</div>
+<div class="blist-item">Only Dakshinamukhi Jyotirlinga: Mahakaleshwar, Ujjain | Simhastha Kumbh every 12 years</div>
+<div class="blist-item">White Tiger: Rewa 1951 (Maharaja Martand Singh) | Currency Note Press: Dewas (1 of 4 in India)</div>
+<div class="blist-item">Malkhamb Academy: Ujjain | Maihar Gharana: Ustad Alauddin Khan (guru of Ravi Shankar)</div>
+<div class="blist-item">Chhattisgarh separated: 1 November 2000 | VS: 320 → 230</div>
+</div>
+</div>
+
+<!-- TAB 15 -->
+<div class="section card" id="tab-updates">
+<div class="sec-head">Chapter 15 · Kya Badla? — Old Textbook vs Updated 2026</div>
+<div class="note note-red">⚠ Exam Alert: These are the most common MCQ traps in MPPSC & MP Police exams. Old textbook answers will cost marks!</div>
+<div class="upd-wrap">
+<div class="upd-row"><span class="upd-old">51 Jile</span><span class="upd-arr">→</span><span class="upd-new">55 Jile (2013→51 Agar Malwa, 2018→52 Niwari, 2023→55)</span></div>
+<div class="upd-row"><span class="upd-old">16 Nagar Nigam</span><span class="upd-arr">→</span><span class="upd-new">18 Nagar Nigam</span></div>
+<div class="upd-row"><span class="upd-old">371 Tehsilen</span><span class="upd-arr">→</span><span class="upd-new">428 Tehsilen</span></div>
+<div class="upd-row"><span class="upd-old">98 Nagar Palika</span><span class="upd-arr">→</span><span class="upd-new">100 Nagar Palika</span></div>
+<div class="upd-row"><span class="upd-old">272 Nagar Panchayat</span><span class="upd-arr">→</span><span class="upd-new">264 Nagar Panchayat</span></div>
+<div class="upd-row"><span class="upd-old">476 Kul Nagar</span><span class="upd-arr">→</span><span class="upd-new">382 ULBs (18 Nigam + 100 Palika + 264 Panchayat)</span></div>
+<div class="upd-row"><span class="upd-old">22,816 Gram Panchayat</span><span class="upd-arr">→</span><span class="upd-new">~23,043 Gram Panchayat</span></div>
+<div class="upd-row"><span class="upd-old">CM: Shivraj Singh Chouhan</span><span class="upd-arr">→</span><span class="upd-new">CM: Mohan Yadav (since 13 Dec 2023)</span></div>
+<div class="upd-row"><span class="upd-old">VS: 320 seats</span><span class="upd-arr">→</span><span class="upd-new">230 seats (CG separation Nov 2000)</span></div>
+<div class="upd-row"><span class="upd-old">MP: 2nd most populous</span><span class="upd-arr">→</span><span class="upd-new">5th most populous (area rank stays 2nd)</span></div>
+<div class="upd-row"><span class="upd-old">Forest rank: 3rd</span><span class="upd-arr">→</span><span class="upd-new">1st — Largest total forest area in India (FSI 2023)</span></div>
+<div class="upd-row"><span class="upd-old">Rajya Khel ghoshit: 1981</span><span class="upd-arr">→</span><span class="upd-new">Malkhamb declared: 9 April 2013 (NOT 1981)</span></div>
+<div class="upd-row"><span class="upd-old">Highest Peak: 1,350 m</span><span class="upd-arr">→</span><span class="upd-new">1,352 m (Dhupgarh/Dhoopgarh)</span></div>
+<div class="upd-row"><span class="upd-old">313 Vikas Khanda</span><span class="upd-arr">→</span><span class="upd-new">313 — CONFIRMED UNCHANGED</span></div>
+<div class="upd-row"><span class="upd-old">29 LS + 11 RS</span><span class="upd-arr">→</span><span class="upd-new">CONFIRMED SAME — 40 Parliament seats</span></div>
+</div>
+</div>
+
+<!-- TAB 16: QUIZ -->
+<div class="section card" id="tab-quiz">
+<div class="sec-head">Chapter 16 · Vastunishth Prashn — 50 MCQs with Spoiler Answers</div>
+
+<div class="score-bar">
+  <div>
+    <div class="score-num" id="score-disp">0</div>
+    <div class="score-lbl">correct answers</div>
+  </div>
+  <div>
+    <div class="score-num" id="wrong-disp" style="color:#C62828">0</div>
+    <div class="score-lbl">wrong answers</div>
+  </div>
+  <div>
+    <div class="score-num" id="remain-disp" style="color:#FF6B00">50</div>
+    <div class="score-lbl">remaining</div>
+  </div>
+  <div class="quiz-controls">
+    <button class="filter-btn on" id="f-all" onclick="filterQ('all')">All (50)</button>
+    <button class="filter-btn" id="f-wrong" onclick="filterQ('wrong')">Wrong</button>
+    <button class="filter-btn" id="f-unanswered" onclick="filterQ('unanswered')">Unanswered</button>
+    <button class="reset-btn" onclick="resetQuiz()">Reset All</button>
+  </div>
+</div>
+
+<div class="note note-grn">Click an option to answer. Correct = green ✓, Wrong = red. Use "Show Answer" button if stuck — it reveals without penalty.</div>
+
+<div id="quiz-container"></div>
+</div>
+
+</div><!-- end wrap -->
+
+<script>
+const mcqs=[
+  {q:"MP ka ksheatrafal kitna hai?",opts:["3,08,446 sq km","3,08,211 sq km","3,08,252 sq km","3,08,000 sq km"],ans:2,note:"9.38% of India — 2nd largest state after Rajasthan"},
+  {q:"Present MP ki sahi latitude kya hai?",opts:["17°46'N – 26°30'N","21°6'N – 26°30'N","21°4'N – 26°30'N","20°6'N – 26°30'N"],ans:1,note:"Present MP (post-2000): 21°6'N – 26°30'N | Undivided: 17°46'N",upd:"NOT 17°46' — that was undivided MP (before Chhattisgarh separation)"},
+  {q:"MP ki N–S lambai kitni hai?",opts:["650 km","870 km","605 km","1,127 km"],ans:2,note:"N–S = 605 km | E–W = 870 km — classic trap question!"},
+  {q:"MP ka uttaratam (northernmost) jila?",opts:["Bhind","Morena","Sheopur","Singrauli"],ans:1,note:"Morena = northernmost district of MP | Chambal division"},
+  {q:"MP ka dakshinatam (southernmost) jila?",opts:["Khandwa","Betul","Burhanpur","Harda"],ans:2,note:"Burhanpur = southernmost | Borders Maharashtra | Mumtaz Mahal died here (1631)"},
+  {q:"MP ka pashchimatam (westernmost) jila?",opts:["Jhabua","Dhar","Barwani","Alirajpur"],ans:3,note:"Alirajpur = westernmost | Borders Gujarat & Rajasthan | Highest ST% in MP"},
+  {q:"MP ka poorvatam (easternmost) jila?",opts:["Sidhi","Umaria","Singrauli","Shahdol"],ans:2,note:"Singrauli = easternmost | 50th district (24 May 2008) | Coal Capital"},
+  {q:"Rajya Pashu Barasingha ka scientific naam kya hai?",opts:["Cervus elaphus","Rucervus duvaucelii","Axis axis","Boselaphus tragocamelus"],ans:1,note:"Barasingha = Rucervus duvaucelii | Braderi species at Kanha NP (Mandla)"},
+  {q:"Rajya Pakshi Dodhraj ka mukhy kshetra kahan hai?",opts:["Kanha NP","Pachmarhi","Selana & Sardarpur Sanctuaries","Bandhavgarh"],ans:2,note:"Dodhraj (Shah Bulbul): NW MP — Selana (Ratlam) + Sardarpur (Dhar). Most found in Malwa."},
+  {q:"Rajya Khel Malkhamb kab ghoshit hua?",opts:["1 November 1981","26 January 1972","9 April 2013","15 August 2000"],ans:2,note:"Malkhamb declared State Sport on 9 April 2013. Malkhamb Academy at Ujjain.",upd:"NOT 1981 — declared 9 April 2013. Common trap!"},
+  {q:"Rajya Naatya Mach ka mukhy kshetra kahan hai?",opts:["Bundelkhand","Malwa","Baghelkhand","Chambal"],ans:1,note:"Mach/Maach = Malwa region. Mythological drama. Rai = Bundelkhand (folk DANCE, not Mach)"},
+  {q:"Bundelkhand ka pramukh lok nritya kya hai?",opts:["Karma","Mach","Rai","Tertali"],ans:2,note:"Rai = Bundelkhand ka major folk dance. Performed by Bediya community."},
+  {q:"MP mein kitne jile hain (March 2026)?",opts:["51","52","53","55"],ans:3,note:"55 districts: Agar Malwa (2013), Niwari (2018), Mauganj+Maihar+Pandhurna (2023)",upd:"Updated: 52 → 55 in 2023"},
+  {q:"Singrauli kaunse number ka jila bana tha?",opts:["48th","49th","50th","51st"],ans:2,note:"Singrauli = 50th district of MP (24 May 2008, carved from Sidhi)"},
+  {q:"Agar Malwa kaunse number ka jila bana?",opts:["49th","50th","51st","52nd"],ans:2,note:"Agar Malwa = 51st district (2013, from Shajapur)"},
+  {q:"MP ki Janasankhya rank ST mein kya hai?",opts:["2nd","3rd","1st","4th"],ans:2,note:"MP = 1st rank in ST (Scheduled Tribe) population in India"},
+  {q:"Saksharata mein MP ki rank rajyon mein?",opts:["15th","21st","28th","18th"],ans:1,note:"Literacy rank: 28th overall (all India) | 21st among states only"},
+  {q:"Sex ratio rank MP ka rajyon mein?",opts:["15th","20th","18th","25th"],ans:2,note:"Sex Ratio rank: 20th overall | 18th among states only (Census 2011)"},
+  {q:"Rajya Chinh mein kitne Stupa hain?",opts:["12","18","24","36"],ans:2,note:"24 Stupa figures at the outermost ring of MP State Emblem"},
+  {q:"Amarkantak se kaun si nadiyan nikalti hain?",opts:["Narmada only","Narmada & Chambal","Narmada, Sone & Johila","Narmada & Betwa"],ans:2,note:"3 rivers from Amarkantak (Anuppur): Narmada + Sone + Johila ★★"},
+  {q:"Dhupgarh ki unchai kitni hai?",opts:["1,350 m","1,352 m","1,450 m","1,200 m"],ans:1,note:"Dhupgarh (Dhoopgarh) = 1,352 m — highest peak of MP (Satpura Range, Pachmarhi)",upd:"Updated: 1,350 → 1,352 m"},
+  {q:"Bhopal Gas Tragedy kab hui thi?",opts:["3–4 December 1984","2–3 December 1984","1–2 December 1984","4–5 December 1984"],ans:1,note:"2–3 December 1984. MIC (Methyl Isocyanate) gas from Union Carbide plant. World's worst industrial disaster."},
+  {q:"MP mein Currency Note Press kahan hai?",opts:["Bhopal","Indore","Dewas","Ujjain"],ans:2,note:"Currency Note Press at Dewas — one of only 4 in India (RBI operated)"},
+  {q:"Malajkhand copper mine kab inaugurated hua?",opts:["1971","1975","1982","1991"],ans:2,note:"Malajkhand (Balaghat) copper mine inaugurated by PM Indira Gandhi in 1982 (HCL)"},
+  {q:"Pahla white tiger kahan mila tha?",opts:["Bandhavgarh","Kanha","Rewa","Panna"],ans:2,note:"First white tiger found in Rewa (1951) by Maharaja Martand Singh of Rewa"},
+  {q:"Simhastha Kumbh Ujjain mein kitne saal mein aata hai?",opts:["6","9","12","15"],ans:2,note:"Simhastha Kumbh = every 12 years at Ujjain on Shipra river banks"},
+  {q:"Mahakaleshwar Jyotirlinga ki visheshata kya hai?",opts:["Pashchimatmukhi","Uttaratmukhi","Dakshinamukhi","Poorvatmukhi"],ans:2,note:"Mahakaleshwar = only Dakshinamukhi (south-facing) Jyotirlinga in India"},
+  {q:"Malkhamb Academy kahan sthaapit hai?",opts:["Bhopal","Indore","Gwalior","Ujjain"],ans:3,note:"Malkhamb Academy established in Ujjain"},
+  {q:"Rajya Pakshi sabse adhik kahan paya jata hai?",opts:["Baghelkhand","Bundelkhand","Malwa","Chambal"],ans:2,note:"Dodhraj/Shah Bulbul most found in Malwa region. Main: Selana & Sardarpur sanctuaries."},
+  {q:"MP ki Rajya Gaan ke lekhak kaun hain?",opts:["Maithilisharan Gupta","Subhadra Kumari Chauhan","Mahesh Shri Srivastava","Harivansh Rai Bachchan"],ans:2,note:"\"Sukh ka daata sab ka saathi...\" — Author: Mahesh Shri Srivastava"},
+  {q:"Barasingha ki Braderi species ka mukhy kshetra?",opts:["Bandhavgarh NP","Kanha Kisli NP Mandla","Satpura NP","Panna TR"],ans:1,note:"Braderi (Hard Ground Barasingha) = exclusive to Kanha Kisli NP, Mandla district"},
+  {q:"Rewa Solar Park ki capacity kitni hai?",opts:["500 MW","650 MW","750 MW","1,000 MW"],ans:2,note:"750 MW Ultra Mega Solar Park, Gurh Tehsil, Rewa. Commissioned 2020. Powers Delhi Metro."},
+  {q:"NTPC Vindhyachal kahan hai?",opts:["Rewa","Satna","Singrauli","Shahdol"],ans:2,note:"NTPC Vindhyachal = India's largest thermal power station. Located in Singrauli."},
+  {q:"Tansen Samaroha kahan hota hai?",opts:["Ujjain","Jabalpur","Bhopal","Gwalior"],ans:3,note:"Tansen Samaroha held annually November–December at Gwalior. Tansen born at Behat near Gwalior."},
+  {q:"India ki sabse badi opencast copper mine kahan hai?",opts:["Jharkhand","Rajasthan","Malajkhand Balaghat MP","Karnataka"],ans:2,note:"Malajkhand (Balaghat, MP) = India's largest open-cast copper mine (HCL, inaugurated 1982)"},
+  {q:"MP ka pratham mukhyamantri kaun tha?",opts:["Kailash Nath Katju","Ravishankar Shukla","D.P. Mishra","S.C. Shukla"],ans:1,note:"Ravi Shankar Shukla was 1st CM of MP (1956)"},
+  {q:"Pachmarhi ki discovery kisne ki?",opts:["Captain Robert Napier","Captain James Forsyth","Lord Curzon","Lord Dalhousie"],ans:1,note:"Captain James Forsyth (Bengal Lancers) discovered Pachmarhi in 1857"},
+  {q:"Kark Rekha MP ke kitne jilon se guzarti hai?",opts:["12","13","14","15"],ans:2,note:"14 districts from Ratlam (west) to Shahdol (east) — Tropic of Cancer"},
+  {q:"Chambal nadi ka udgam kahan hai?",opts:["Betul","Amarkantak","Janapav Hill Mhow Indore","Kakra Bardi"],ans:2,note:"Chambal originates from Janapav Hill near Mhow, Indore district"},
+  {q:"MP ka vartaman mukhyamantri (March 2026)?",opts:["Shivraj Singh Chouhan","Kamal Nath","Narendra Singh Tomar","Mohan Yadav"],ans:3,note:"Mohan Yadav (BJP) sworn in as CM on 13 December 2023",upd:"Updated: Shivraj → Mohan Yadav (Dec 2023)"},
+  {q:"MP mein forest area rank India mein?",opts:["2nd","3rd","1st","4th"],ans:2,note:"MP has LARGEST total forest area in India (FSI Report 2023)",upd:"Updated: 3rd → 1st (FSI 2023)"},
+  {q:"Sirpur Lake kahan hai?",opts:["Bhopal","Gwalior","Indore","Ujjain"],ans:2,note:"Sirpur Lake = Ramsar site in Indore. MP has only 2 Ramsar sites: Bhoj Wetland (Bhopal) + Sirpur Lake (Indore)"},
+  {q:"Pachmarhi Biosphere Reserve ko UNESCO ne kab maanya?",opts:["1999","2003","2009","2015"],ans:2,note:"Pachmarhi BR declared 1999 nationally. UNESCO recognition in May 2009."},
+  {q:"Shipra nadi ka udgam kahan hai?",opts:["Amarkantak","Pachmarhi","Kakra Bardi Mountain Indore","Betul"],ans:2,note:"Shipra/Kshipra originates from Kakra Bardi Mountain, Indore. Called \"Ganga of Malwa.\""},
+  {q:"Gwalior Fort ke baare mein Babur ne kya kaha tha?",opts:["Sone ka Panjara","Fortress of Destiny","Pearl among Fortresses in India","Crown of Central India"],ans:2,note:"Babur called Gwalior Fort \"Pearl among the Fortresses in India\""},
+  {q:"MP mein Saksharata dar Census 2011?",opts:["64.11%","69.32%","73.00%","72.15%"],ans:1,note:"Literacy = 69.32% (Census 2011) — 28th nationally, 21st among states"},
+  {q:"Barasingha ko kahan extinction se bachaya gaya?",opts:["Bandhavgarh","Satpura","Kanha Kisli NP Mandla","Panna"],ans:2,note:"Barasingha (Braderi) saved from near-extinction at Kanha. From ~66 animals to 900+ now."},
+  {q:"MP mein ST janasankhya mein sabse adhik prajaati?",opts:["Gond","Bhil","Korku","Sahariya"],ans:1,note:"Bhil = largest tribe in MP (37.7% of ST population). Gond = 2nd. PVTGs: Bhariya, Baiga, Sahariya"},
+  {q:"Narmadapuram division ka purana naam kya tha?",opts:["Sehore Division","Hoshangabad Division","Betul Division","Narmada Division"],ans:1,note:"Renamed from Hoshangabad Division to Narmadapuram Division on 28 August 2008"},
+  {q:"Mandsaur kis cheez ka akela utpadak hai?",opts:["Heera (Diamond)","Taamba (Copper)","Slate pencil","Bauxite"],ans:2,note:"Mandsaur = only slate producer in India. Also known for Opium cultivation and Rock Phosphate."},
+];
+
+const state={answers:{},filter:'all'};
+
+function buildQuiz(){
+  const c=document.getElementById('quiz-container');
+  c.innerHTML='';
+  mcqs.forEach((m,i)=>{
+    const d=document.createElement('div');
+    d.className='mcq-card';
+    d.id='mcq-'+i;
+    const answered=state.answers[i];
+    const isCorrect=answered===m.ans;
+    if(answered!==undefined){
+      d.classList.add(isCorrect?'mcq-answered-correct':'mcq-answered-wrong');
+    }
+    let optsHtml='<div class="opts">';
+    m.opts.forEach((o,j)=>{
+      let cls='opt-btn';
+      let disabled='';
+      if(answered!==undefined){
+        disabled='disabled';
+        if(j===m.ans) cls+=' correct';
+        else if(j===answered && !isCorrect) cls+=' wrong';
+      }
+      optsHtml+=`<button class="${cls}" ${disabled} onclick="answer(${i},${j})">(${String.fromCharCode(97+j)}) ${o}</button>`;
+    });
+    optsHtml+='</div>';
+
+    const revealVis=(answered===undefined)?'reveal-vis':'';
+    const ansBarShow=(answered!==undefined)?'show':'';
+    const updateHtml=m.upd?`<div class="ans-update">★ 2026 Update: ${m.upd}</div>`:'';
+    const badgeHtml=m.upd?`<span class="badge badge-upd">Updated</span>`:'';
+
+    d.innerHTML=`
+      <div class="mcq-header">
+        <span class="mcq-num">Q${i+1}</span>
+        <span class="mcq-q">${m.q}${badgeHtml}</span>
+      </div>
+      ${optsHtml}
+      <button class="reveal-btn ${revealVis}" id="rev-${i}" onclick="reveal(${i})">Show Answer ▾</button>
+      <div class="ans-bar ${ansBarShow}" id="ans-${i}">
+        <div class="ans-correct">✔ Sahi Jawab: (${String.fromCharCode(97+m.ans)}) ${m.opts[m.ans]}</div>
+        <div class="ans-note">${m.note}</div>
+        ${updateHtml}
+      </div>`;
+    c.appendChild(d);
+  });
+  updateScore();
+  applyFilter();
+}
+
+function answer(qi,optIdx){
+  if(state.answers[qi]!==undefined) return;
+  state.answers[qi]=optIdx;
+  const m=mcqs[qi];
+  const isCorrect=(optIdx===m.ans);
+  const card=document.getElementById('mcq-'+qi);
+  card.classList.add(isCorrect?'mcq-answered-correct':'mcq-answered-wrong');
+  const btns=card.querySelectorAll('.opt-btn');
+  btns.forEach((b,j)=>{
+    b.disabled=true;
+    if(j===m.ans) b.classList.add('correct');
+    else if(j===optIdx && !isCorrect) b.classList.add('wrong');
+  });
+  document.getElementById('rev-'+qi).style.display='none';
+  document.getElementById('ans-'+qi).classList.add('show');
+  updateScore();
+  applyFilter();
+}
+
+function reveal(qi){
+  const m=mcqs[qi];
+  const card=document.getElementById('mcq-'+qi);
+  const btns=card.querySelectorAll('.opt-btn');
+  btns.forEach((b,j)=>{
+    if(j===m.ans) b.classList.add('correct');
+  });
+  document.getElementById('rev-'+qi).style.display='none';
+  document.getElementById('ans-'+qi).classList.add('show');
+}
+
+function updateScore(){
+  let correct=0,wrong=0;
+  Object.keys(state.answers).forEach(k=>{
+    if(state.answers[k]===mcqs[k].ans) correct++;
+    else wrong++;
+  });
+  document.getElementById('score-disp').textContent=correct;
+  document.getElementById('wrong-disp').textContent=wrong;
+  document.getElementById('remain-disp').textContent=50-Object.keys(state.answers).length;
+}
+
+function filterQ(type){
+  state.filter=type;
+  ['all','wrong','unanswered'].forEach(t=>{
+    document.getElementById('f-'+t).classList.toggle('on',t===type);
+  });
+  applyFilter();
+}
+
+function applyFilter(){
+  mcqs.forEach((m,i)=>{
+    const card=document.getElementById('mcq-'+i);
+    if(!card) return;
+    let show=true;
+    const answered=state.answers[i];
+    if(state.filter==='wrong') show=(answered!==undefined && answered!==m.ans);
+    else if(state.filter==='unanswered') show=(answered===undefined);
+    card.style.display=show?'':'none';
+  });
+}
+
+function resetQuiz(){
+  state.answers={};
+  state.filter='all';
+  buildQuiz();
+  ['all','wrong','unanswered'].forEach(t=>{
+    document.getElementById('f-'+t).classList.toggle('on',t==='all');
+  });
+}
+
+const tabMap={intro:0,geo:1,extreme:2,pop:3,symbols:4,upnaam:5,capitals:6,admin:7,political:8,days:9,history:10,geo2:11,economy:12,revision:13,updates:14,quiz:15};
+
+function showTab(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  const tabs=document.querySelectorAll('.tab');
+  if(tabMap[id]!==undefined) tabs[tabMap[id]].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+buildQuiz();
+</script>
+</body>
+</html>
