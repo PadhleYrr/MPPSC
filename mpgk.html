@@ -1,0 +1,2213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MP GK Portal 2026 — MPPSC Complete Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1A237E;--saff:#FF6B00;--gold:#F9A825;--emerald:#00695C;
+  --bg:#F4F6FB;--card:#fff;--border:#E2E8F0;--text:#1E293B;--muted:#64748B;
+  --success:#15803D;--danger:#DC2626;--warn:#D97706;
+  --radius:14px;--shadow:0 2px 12px rgba(30,41,59,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* SIDEBAR */
+.sidebar{width:240px;background:var(--navy);min-height:100vh;position:fixed;left:0;top:0;z-index:100;display:flex;flex-direction:column;transition:transform .3s}
+.logo{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.logo-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:#fff;letter-spacing:-.3px}
+.logo-sub{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
+.nav-section{padding:16px 12px 8px;font-size:10px;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:1.2px;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;margin:1px 4px;border-radius:10px;cursor:pointer;color:rgba(255,255,255,.7);font-size:13px;font-weight:500;transition:all .15s}
+.nav-item:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav-item.active{background:var(--saff);color:#fff}
+.nav-item .ni{font-size:16px;width:20px;text-align:center}
+.nav-badge{margin-left:auto;background:var(--gold);color:#000;font-size:10px;font-weight:700;padding:2px 6px;border-radius:20px}
+.nav-bottom{margin-top:auto;padding:16px 12px;border-top:1px solid rgba(255,255,255,.1)}
+.streak-pill{background:rgba(255,255,255,.1);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.streak-fire{font-size:20px}
+.streak-info{flex:1}
+.streak-days{font-size:16px;font-weight:700;color:#FFD54F}
+.streak-lbl{font-size:10px;color:rgba(255,255,255,.5)}
+
+/* MAIN */
+.main{margin-left:240px;min-height:100vh;padding:24px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.page-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text)}
+.page-sub{font-size:13px;color:var(--muted);margin-top:2px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 14px;font-size:13px;color:var(--muted);cursor:pointer}
+
+/* PAGES */
+.page{display:none}.page.active{display:block}
+
+/* CARDS */
+.card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px}
+.card-sm{padding:14px 16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:20px}
+
+/* STAT CARDS */
+.stat-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:18px;position:relative;overflow:hidden}
+.stat-accent{position:absolute;top:0;left:0;right:0;height:3px}
+.stat-val{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;margin:8px 0 2px}
+.stat-lbl{font-size:12px;color:var(--muted);font-weight:500}
+.stat-delta{font-size:11px;font-weight:600;margin-top:6px}
+.delta-up{color:var(--success)}.delta-dn{color:var(--danger)}
+
+/* PROGRESS RINGS */
+.ring-wrap{display:flex;flex-direction:column;align-items:center;gap:6px}
+.ring-lbl{font-size:12px;color:var(--muted);text-align:center;font-weight:500}
+
+/* SECTION HEADER */
+.sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sec-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
+.sec-link{font-size:12px;color:var(--saff);cursor:pointer;font-weight:600}
+
+/* CHAPTER CARDS */
+.ch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.ch-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.ch-card:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,35,126,.1)}
+.ch-card.ch-active{border-color:var(--saff);background:#FFF8F0}
+.ch-progress-bar{height:3px;border-radius:2px;background:#E2E8F0;margin-top:10px;overflow:hidden}
+.ch-progress-fill{height:100%;background:var(--saff);border-radius:2px;transition:width .6s}
+.ch-name{font-size:12px;font-weight:600;color:var(--text)}
+.ch-count{font-size:10px;color:var(--muted);margin-top:2px}
+.ch-pct{font-size:11px;font-weight:700;color:var(--saff);margin-top:6px}
+
+/* MCQ TEST STYLES */
+.test-home{max-width:680px;margin:0 auto}
+.mode-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}
+.mode-card{border:2px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:all .15s;background:var(--card)}
+.mode-card:hover{border-color:var(--navy)}
+.mode-card.sel{border-color:var(--navy);background:#EEF0FF}
+.mode-icon{font-size:22px;margin-bottom:6px}
+.mode-name{font-size:13px;font-weight:700;color:var(--text)}
+.mode-desc{font-size:11px;color:var(--muted);margin-top:2px}
+.btn-primary{background:var(--navy);color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;width:100%}
+.btn-primary:hover{background:#283593}
+.btn-secondary{background:var(--card);color:var(--navy);border:2px solid var(--navy);border-radius:10px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:8px 16px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* Q SCREEN */
+.q-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.q-badge{background:#EEF0FF;color:var(--navy);font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
+.q-upd{background:#FFF3E0;color:#E65100;font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;border:1px solid #FFCC80;margin-left:6px}
+.q-timer-box{background:var(--navy);color:#FFD54F;font-size:13px;font-weight:700;padding:6px 14px;border-radius:20px}
+.q-timer-box.warn{background:var(--danger)}
+.pbar{height:6px;background:#E2E8F0;border-radius:3px;margin-bottom:20px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--navy),var(--saff));border-radius:3px;transition:width .5s}
+.q-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:24px;margin-bottom:14px}
+.q-chapter-tag{font-size:10px;font-weight:700;color:var(--saff);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.q-num{font-size:11px;font-weight:700;background:var(--navy);color:#FFD54F;padding:3px 9px;border-radius:12px;display:inline-block;margin-bottom:10px}
+.q-text{font-size:15px;font-weight:600;color:var(--text);line-height:1.55;margin-bottom:18px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border:2px solid var(--border);border-radius:12px;cursor:pointer;background:var(--card);text-align:left;font-size:13.5px;color:var(--text);line-height:1.4;transition:all .2s;font-family:'DM Sans',sans-serif;width:100%}
+.opt:hover:not(:disabled){border-color:#9FA8DA;background:#F8F9FF}
+.opt-lbl{background:#EEF0FF;color:var(--navy);font-weight:700;font-size:11px;min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all .2s;font-family:'DM Sans',sans-serif}
+.opt:hover:not(:disabled) .opt-lbl{background:var(--navy);color:#fff}
+.opt.right{border-color:#16A34A;background:#F0FDF4}
+.opt.right .opt-lbl{background:#16A34A;color:#fff}
+.opt.wrong{border-color:var(--danger);background:#FEF2F2}
+.opt.wrong .opt-lbl{background:var(--danger);color:#fff}
+.opt:disabled{cursor:default}
+.ans-box{border-radius:10px;padding:14px 16px;display:none;border:1px solid #BBF7D0;background:#F0FDF4;animation:slideIn .3s}
+.ans-box.show{display:block}
+.ans-correct{font-size:13px;font-weight:700;color:#15803D;margin-bottom:4px}
+.ans-expl{font-size:12.5px;color:#374151;line-height:1.5}
+.ans-upd{font-size:11px;color:#D97706;font-weight:700;margin-top:6px;padding:3px 9px;background:#FFFBEB;border-radius:6px;display:inline-block;border:1px solid #FDE68A}
+
+/* CONFIDENCE BUTTONS */
+.conf-wrap{display:flex;gap:8px;margin-top:10px}
+.conf-btn{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid;font-family:'DM Sans',sans-serif;transition:all .15s}
+.conf-sure{border-color:#16A34A;color:#16A34A;background:#F0FDF4}
+.conf-sure.sel{background:#16A34A;color:#fff}
+.conf-unsure{border-color:#D97706;color:#D97706;background:#FFFBEB}
+.conf-unsure.sel{background:#D97706;color:#fff}
+
+/* Q ACTIONS */
+.q-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn-reveal{background:#fff;color:var(--navy);border:2px solid var(--navy);border-radius:9px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-reveal:hover{background:#EEF0FF}
+.btn-next{background:var(--navy);color:#fff;border:none;border-radius:9px;padding:10px 22px;font-size:13px;font-weight:600;cursor:pointer;display:none;font-family:'DM Sans',sans-serif}
+.btn-next.show{display:block}
+.btn-next:hover{background:#283593}
+.btn-skip{background:#fff;color:var(--muted);border:1.5px solid var(--border);border-radius:9px;padding:10px 16px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-review-flag{background:#FEF2F2;color:var(--danger);border:1.5px solid #FCA5A5;border-radius:9px;padding:10px 16px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-left:auto;display:flex;align-items:center;gap:5px;font-weight:600}
+.btn-review-flag:hover{background:#FEE2E2}
+.btn-review-flag.flagged{background:var(--danger);color:#fff;border-color:var(--danger)}
+
+/* RESULTS */
+.result-big{text-align:center;padding:30px 20px}
+.score-circle{width:130px;height:130px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 16px;border:6px solid var(--navy)}
+.score-pct{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:var(--navy)}
+.score-grade{font-size:11px;color:var(--muted);margin-top:2px}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.rg-item{background:var(--bg);border-radius:10px;padding:12px;text-align:center}
+.rg-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:800}
+.rg-lbl{font-size:10px;color:var(--muted);margin-top:2px;font-weight:500}
+.rg-item.g .rg-val{color:var(--success)}.rg-item.r .rg-val{color:var(--danger)}.rg-item.o .rg-val{color:var(--warn)}
+.result-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+
+/* REVIEW LIST */
+.rev-item{background:var(--card);border-radius:10px;padding:14px 16px;margin-bottom:8px;border-left:4px solid #16A34A}
+.rev-item.wrong{border-left-color:var(--danger)}
+.rev-item.skipped{border-left-color:var(--warn)}
+.rev-item.unsure{border-left-color:#7C3AED}
+.rev-q{font-size:13px;font-weight:600;margin-bottom:5px}
+.rev-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:3px}
+.rtag{padding:2px 8px;border-radius:5px;font-size:11px;font-weight:600}
+.t-c{background:#DCFCE7;color:#15803D}.t-w{background:#FEE2E2;color:#DC2626}.t-s{background:#FEF3C7;color:#D97706}.t-u{background:#EDE9FE;color:#7C3AED}
+.rev-expl{font-size:11.5px;color:var(--muted);line-height:1.4}
+
+/* FLASHCARD */
+.flash-wrap{max-width:560px;margin:0 auto}
+.flashcard{background:var(--card);border-radius:18px;border:1px solid var(--border);padding:36px 28px;text-align:center;min-height:220px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:all .3s;box-shadow:0 4px 24px rgba(30,41,59,.08);position:relative}
+.flashcard:hover{box-shadow:0 8px 32px rgba(30,41,59,.12)}
+.flash-hint{font-size:11px;color:var(--muted);margin-bottom:12px;font-weight:500;letter-spacing:.5px}
+.flash-q{font-size:17px;font-weight:600;color:var(--text);line-height:1.5}
+.flash-ans{font-size:15px;font-weight:700;color:var(--success);margin-top:14px;display:none}
+.flash-ans.show{display:block}
+.flash-expl{font-size:12px;color:var(--muted);margin-top:8px;display:none}
+.flash-expl.show{display:block}
+.flash-nav{display:flex;justify-content:center;gap:12px;margin-top:16px}
+.flash-know{background:#DCFCE7;color:#15803D;border:1.5px solid #16A34A;border-radius:9px;padding:9px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif}
+.flash-dontknow{background:#FEE2E2;color:#DC2626;border:1.5px solid var(--danger);border-radius:9px;padding:9px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif}
+.flash-counter{text-align:center;margin-top:12px;font-size:12px;color:var(--muted)}
+
+/* PYQ PAGE */
+.pyq-year-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.pyq-tab{padding:8px 18px;border-radius:20px;border:1.5px solid var(--border);font-size:13px;font-weight:600;cursor:pointer;background:var(--card);color:var(--muted);transition:all .15s}
+.pyq-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.pyq-paper-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:18px 20px;margin-bottom:12px;display:flex;align-items:center;gap:16px}
+.pyq-icon{width:44px;height:44px;border-radius:10px;background:#EEF0FF;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.pyq-info{flex:1}
+.pyq-name{font-size:14px;font-weight:600;color:var(--text)}
+.pyq-meta{font-size:12px;color:var(--muted);margin-top:2px}
+.pyq-actions{display:flex;gap:8px}
+.btn-dl{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:5px}
+.btn-practice{background:#FFF3E0;color:var(--saff);border:1.5px solid var(--saff);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* HEATMAP */
+.heatmap-grid{display:grid;grid-template-columns:repeat(26,1fr);gap:3px;margin:10px 0}
+.hm-cell{aspect-ratio:1;border-radius:3px;background:#E2E8F0}
+.hm-0{background:#E2E8F0}.hm-1{background:#BFD3F7}.hm-2{background:#93B4F4}.hm-3{background:#5C8EEF}.hm-4{background:var(--navy)}
+
+/* WEAK AREAS */
+.weak-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.weak-item:last-child{border:0}
+.weak-bar-wrap{flex:1;height:6px;background:#E2E8F0;border-radius:3px;overflow:hidden}
+.weak-bar{height:100%;border-radius:3px;background:var(--danger);transition:width .8s}
+.weak-bar.med{background:var(--warn)}.weak-bar.good{background:var(--success)}
+.weak-name{font-size:12px;font-weight:600;width:120px;flex-shrink:0}
+.weak-pct{font-size:12px;font-weight:700;width:38px;text-align:right;flex-shrink:0}
+
+/* NOTES PAGE */
+.notes-layout{display:grid;grid-template-columns:200px 1fr;gap:16px}
+.notes-nav{display:flex;flex-direction:column;gap:2px}
+.notes-nav-item{padding:9px 12px;border-radius:9px;cursor:pointer;font-size:12.5px;font-weight:500;color:var(--muted);transition:all .15s;border:1px solid transparent}
+.notes-nav-item:hover{background:var(--card);color:var(--text)}
+.notes-nav-item.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.notes-nav-item.starred::after{content:"★";margin-left:6px;color:var(--gold)}
+.note-content{display:none}.note-content.active{display:block}
+.nsh{background:var(--navy);color:#fff;padding:9px 16px;border-radius:9px;font-size:13px;font-weight:700;margin-bottom:10px}
+.nssh{background:var(--saff);color:#fff;padding:5px 13px;border-radius:6px;font-size:11px;font-weight:700;margin:10px 0 7px}
+.nkv{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:8px}
+.nkv td{padding:6px 10px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.nkv tr:nth-child(odd) td{background:#F8F9FF}
+.nkv td:first-child{font-weight:600;color:var(--navy);width:32%;background:#EEF0FF!important}
+.ntip{padding:9px 13px;border-radius:7px;font-size:12px;margin:8px 0;border-left:4px solid}
+.ntip-w{background:#FFFBEB;color:#92400E;border-color:var(--gold)}
+.ntip-r{background:#FEF2F2;color:#991B1B;border-color:var(--danger)}
+.nbl{background:#FFF7ED;border-radius:8px;padding:10px 14px;margin-bottom:9px}
+.nbi{font-size:12.5px;padding:3px 0 3px 16px;position:relative;border-bottom:1px solid #FED7AA;line-height:1.5}
+.nbi:last-child{border:0}
+.nbi::before{content:"▸";position:absolute;left:2px;color:var(--saff)}
+.highlight-star{cursor:pointer;display:inline-block;margin-left:6px;font-size:12px;color:#CBD5E1;transition:color .15s}
+.highlight-star:hover,.highlight-star.on{color:var(--gold)}
+
+/* REVIEW PORTAL */
+.review-flag-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;border-left:4px solid var(--danger)}
+.rf-q{font-size:13px;font-weight:600;margin-bottom:6px}
+.rf-meta{font-size:11px;color:var(--muted);margin-bottom:8px}
+.rf-status{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+.rf-pending{background:#FEF2F2;color:var(--danger)}
+.rf-resolved{background:#DCFCE7;color:var(--success)}
+.rf-votes{font-size:12px;color:var(--muted);margin-left:auto;font-weight:600}
+.admin-badge{background:var(--danger);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px}
+
+/* TIMED TEST */
+.timer-display{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--navy);text-align:center;margin:8px 0}
+.timer-display.warn{color:var(--danger)}
+
+/* DAILY 10 */
+.daily-badge{background:linear-gradient(135deg,var(--navy),#3949AB);color:#fff;border-radius:14px;padding:20px;margin-bottom:20px;position:relative;overflow:hidden}
+.daily-badge::after{content:"10";position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:100px;font-weight:800;color:rgba(255,255,255,.07)}
+.daily-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff}
+.daily-sub{font-size:12px;color:rgba(255,255,255,.7);margin-top:4px}
+.daily-btn{background:#fff;color:var(--navy);border:none;border-radius:9px;padding:10px 22px;font-size:13px;font-weight:700;cursor:pointer;margin-top:14px;font-family:'DM Sans',sans-serif}
+
+/* FILTER CHIPS */
+.chip-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{padding:5px 12px;border:1.5px solid var(--border);border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;background:var(--card);color:var(--muted);transition:all .15s}
+.chip:hover{border-color:var(--navy);color:var(--navy)}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.chip-all{background:#EEF0FF;color:var(--navy);font-weight:700}
+
+/* ANIMATIONS */
+@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .4s both}
+
+/* MOBILE */
+.hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;padding:4px}
+@media(max-width:860px){
+  .sidebar{transform:translateX(-240px)}.sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}.hamburger{display:block}
+  .grid-4,.grid-3{grid-template-columns:repeat(2,1fr)}
+  .ch-grid{grid-template-columns:repeat(2,1fr)}
+  .notes-layout{grid-template-columns:1fr}
+  .notes-nav{flex-direction:row;flex-wrap:wrap}
+  .mode-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="logo">
+    <div class="logo-title">MP GK Portal</div>
+    <div class="logo-sub">MPPSC 2026 Complete Prep</div>
+  </div>
+  <div class="nav-section">Study</div>
+  <div class="nav-item active" onclick="showPage('dashboard')"><span class="ni">🏠</span>Dashboard</div>
+  <div class="nav-item" onclick="showPage('notes')"><span class="ni">📖</span>Notes<span class="nav-badge">15</span></div>
+  <div class="nav-item" onclick="showPage('flashcards')"><span class="ni">🃏</span>Flashcards</div>
+  <div class="nav-section">Practice</div>
+  <div class="nav-item" onclick="showPage('test')"><span class="ni">✏️</span>MCQ Test<span class="nav-badge">421</span></div>
+  <div class="nav-item" onclick="showPage('daily')"><span class="ni">📅</span>Daily 10</div>
+  <div class="nav-item" onclick="showPage('timed')"><span class="ni">⏱️</span>Timed Mock</div>
+  <div class="nav-section">Resources</div>
+  <div class="nav-item" onclick="showPage('pyq')"><span class="ni">📄</span>PYQ Papers<span class="nav-badge">4</span></div>
+  <div class="nav-item" onclick="showPage('weakareas')"><span class="ni">📊</span>Weak Areas</div>
+  <div class="nav-item" onclick="showPage('progress')"><span class="ni">📈</span>My Progress</div>
+  <div class="nav-item" onclick="showPage('review')">
+    <span class="ni">🚩</span>Review Flags
+    <span class="nav-badge" id="flag-count-badge" style="background:#DC2626;color:#fff">0</span>
+  </div>
+  <div class="nav-bottom">
+    <div class="streak-pill">
+      <div class="streak-fire">🔥</div>
+      <div class="streak-info">
+        <div class="streak-days" id="streak-display">0</div>
+        <div class="streak-lbl">day streak</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div>
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+      <div class="page-title" id="pg-title">Dashboard</div>
+      <div class="page-sub" id="pg-sub">Welcome back — keep your streak alive!</div>
+    </div>
+    <div class="topbar-right">
+      <div class="search-box" onclick="focusSearch()">🔍 Search topics...</div>
+    </div>
+  </div>
+
+  <!-- ═══ DASHBOARD ═══ -->
+  <div class="page active" id="page-dashboard">
+    <div class="grid-4">
+      <div class="stat-card fade-up" style="animation-delay:.05s">
+        <div class="stat-accent" style="background:var(--navy)"></div>
+        <div class="stat-lbl">Questions Attempted</div>
+        <div class="stat-val" id="d-attempted">0</div>
+        <div class="stat-delta delta-up" id="d-attempted-delta">of 421 total</div>
+      </div>
+      <div class="stat-card fade-up" style="animation-delay:.1s">
+        <div class="stat-accent" style="background:var(--success)"></div>
+        <div class="stat-lbl">Overall Accuracy</div>
+        <div class="stat-val" id="d-accuracy">0%</div>
+        <div class="stat-delta" id="d-acc-delta" style="color:var(--muted)">answer correct rate</div>
+      </div>
+      <div class="stat-card fade-up" style="animation-delay:.15s">
+        <div class="stat-accent" style="background:var(--saff)"></div>
+        <div class="stat-lbl">Current Streak</div>
+        <div class="stat-val" id="d-streak">0 🔥</div>
+        <div class="stat-delta" id="d-streak-sub" style="color:var(--muted)">days in a row</div>
+      </div>
+      <div class="stat-card fade-up" style="animation-delay:.2s">
+        <div class="stat-accent" style="background:var(--danger)"></div>
+        <div class="stat-lbl">Flagged for Review</div>
+        <div class="stat-val" id="d-flags">0</div>
+        <div class="stat-delta" style="color:var(--muted)">questions reported</div>
+      </div>
+    </div>
+
+    <div class="daily-badge fade-up" style="animation-delay:.25s">
+      <div class="daily-title">Today's Daily 10 🎯</div>
+      <div class="daily-sub">Practice 10 random questions — builds habit, boosts retention</div>
+      <button class="daily-btn" onclick="startDaily()">Start Today's 10 →</button>
+    </div>
+
+    <div class="sec-hd">
+      <div class="sec-title">Chapter Progress</div>
+      <div class="sec-link" onclick="showPage('test')">Practice All →</div>
+    </div>
+    <div class="ch-grid" id="dash-ch-grid"></div>
+
+    <div class="grid-2">
+      <div class="card fade-up" style="animation-delay:.3s">
+        <div class="sec-hd"><div class="sec-title">Study Heatmap — Last 6 months</div></div>
+        <div class="heatmap-grid" id="heatmap"></div>
+        <div style="display:flex;gap:6px;align-items:center;margin-top:8px;font-size:11px;color:var(--muted)">
+          Less <div class="hm-cell hm-0" style="width:12px;height:12px;border-radius:2px;display:inline-block"></div>
+          <div class="hm-cell hm-1" style="width:12px;height:12px;border-radius:2px;display:inline-block"></div>
+          <div class="hm-cell hm-2" style="width:12px;height:12px;border-radius:2px;display:inline-block"></div>
+          <div class="hm-cell hm-3" style="width:12px;height:12px;border-radius:2px;display:inline-block"></div>
+          <div class="hm-cell hm-4" style="width:12px;height:12px;border-radius:2px;display:inline-block"></div> More
+        </div>
+      </div>
+      <div class="card fade-up" style="animation-delay:.35s">
+        <div class="sec-hd"><div class="sec-title">Weak Areas</div><div class="sec-link" onclick="showPage('weakareas')">See All →</div></div>
+        <div id="dash-weak"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ NOTES ═══ -->
+  <div class="page" id="page-notes">
+    <div class="notes-layout">
+      <div>
+        <div class="notes-nav" id="notes-nav"></div>
+      </div>
+      <div id="notes-content-area"></div>
+    </div>
+  </div>
+
+  <!-- ═══ FLASHCARDS ═══ -->
+  <div class="page" id="page-flashcards">
+    <div class="flash-wrap">
+      <div class="card" style="margin-bottom:16px">
+        <div class="sec-hd"><div class="sec-title">Flashcard Mode</div></div>
+        <div class="chip-row" id="flash-filter"></div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)">
+          <div id="flash-count-info">0 cards selected</div>
+          <button class="btn-primary" style="width:auto;padding:8px 20px" onclick="startFlash()">Start Flashcards →</button>
+        </div>
+      </div>
+      <div id="flash-session" style="display:none">
+        <div class="flash-counter" id="flash-counter">Card 1 of 30</div>
+        <div class="flashcard" id="flashcard" onclick="flipCard()">
+          <div class="flash-hint">TAP TO REVEAL ANSWER</div>
+          <div class="flash-q" id="flash-q"></div>
+          <div class="flash-ans" id="flash-ans"></div>
+          <div class="flash-expl" id="flash-expl"></div>
+        </div>
+        <div class="flash-nav" id="flash-nav" style="display:none">
+          <button class="flash-know" onclick="flashKnow()">✓ I Know This</button>
+          <button class="flash-dontknow" onclick="flashDontKnow()">✗ Study More</button>
+        </div>
+        <div style="text-align:center;margin-top:10px;display:flex;justify-content:center;gap:10px">
+          <div style="font-size:12px;color:var(--success);font-weight:600">✓ Known: <span id="flash-known">0</span></div>
+          <div style="font-size:12px;color:var(--danger);font-weight:600">✗ Learning: <span id="flash-learn">0</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MCQ TEST ═══ -->
+  <div class="page" id="page-test">
+    <div id="test-home-scr">
+      <div class="test-home">
+        <div class="card" style="margin-bottom:16px">
+          <div class="sec-hd"><div class="sec-title">Select Test Mode</div></div>
+          <div class="mode-grid">
+            <div class="mode-card sel" onclick="selMode(this,0)"><div class="mode-icon">📚</div><div class="mode-name">Full Test — All 421</div><div class="mode-desc">Complete syllabus, all chapters</div></div>
+            <div class="mode-card" onclick="selMode(this,100)"><div class="mode-icon">📋</div><div class="mode-name">Long — 100 Questions</div><div class="mode-desc">Random selection · ~60 min</div></div>
+            <div class="mode-card" onclick="selMode(this,50)"><div class="mode-icon">⚡</div><div class="mode-name">Practice — 50 Questions</div><div class="mode-desc">Random selection · ~30 min</div></div>
+            <div class="mode-card" onclick="selMode(this,25)"><div class="mode-icon">🎯</div><div class="mode-name">Quick — 25 Questions</div><div class="mode-desc">Random selection · ~15 min</div></div>
+          </div>
+        </div>
+        <div class="card" id="ch-filter-card">
+          <div class="sec-hd"><div class="sec-title">Filter by Chapter</div><button class="btn-ghost" onclick="selectAllChaps()">Select All</button></div>
+          <div class="chip-row" id="ch-filter-chips"></div>
+        </div>
+        <div style="margin-top:16px">
+          <button class="btn-primary" onclick="startTest(false)">Start Test →</button>
+        </div>
+      </div>
+    </div>
+    <div id="test-q-scr" style="display:none;max-width:720px;margin:0 auto">
+      <div class="q-header">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <div class="q-badge" id="qchap-badge"></div>
+          <div class="q-num" id="q-num-badge">Q1</div>
+          <div class="q-upd" id="q-upd-badge" style="display:none">Updated 2026</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div id="q-info-text" style="font-size:12px;color:var(--muted)">1/421</div>
+        </div>
+      </div>
+      <div class="pbar"><div class="pfill" id="q-pfill" style="width:.2%"></div></div>
+      <div class="q-card">
+        <div class="q-text" id="q-text"></div>
+        <div class="opts" id="q-opts"></div>
+        <div class="conf-wrap" id="conf-wrap" style="display:none">
+          <button class="conf-btn conf-sure" id="conf-sure" onclick="setConf('sure')">✓ Sure</button>
+          <button class="conf-btn conf-unsure" id="conf-unsure" onclick="setConf('unsure')">? Not Sure</button>
+          <span style="font-size:11px;color:var(--muted);margin-left:4px;align-self:center">Rate your confidence</span>
+        </div>
+        <div class="ans-box" id="q-ans-box">
+          <div class="ans-correct" id="q-ans-correct"></div>
+          <div class="ans-expl" id="q-ans-expl"></div>
+          <div class="ans-upd" id="q-ans-upd" style="display:none"></div>
+        </div>
+      </div>
+      <div class="q-actions">
+        <button class="btn-reveal" id="btn-reveal" onclick="revealAns()">🔍 Reveal Answer</button>
+        <button class="btn-next show" id="btn-next" style="display:none" onclick="nextQ()">Next →</button>
+        <button class="btn-skip" onclick="skipQ()" id="btn-skip">Skip</button>
+        <button class="btn-review-flag" id="btn-flag" onclick="flagQuestion()">🚩 Flag for Review</button>
+      </div>
+    </div>
+    <div id="test-result-scr" style="display:none;max-width:680px;margin:0 auto">
+      <div class="card result-big">
+        <div style="font-size:32px;margin-bottom:8px">🏆</div>
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:4px">Test Complete!</div>
+        <div class="score-circle" id="res-circle">
+          <div class="score-pct" id="res-pct">0%</div>
+          <div class="score-grade" id="res-grade">Score</div>
+        </div>
+        <div class="result-grid">
+          <div class="rg-item g"><div class="rg-val" id="rg-c">0</div><div class="rg-lbl">Correct</div></div>
+          <div class="rg-item r"><div class="rg-val" id="rg-w">0</div><div class="rg-lbl">Wrong</div></div>
+          <div class="rg-item o"><div class="rg-val" id="rg-s">0</div><div class="rg-lbl">Skipped</div></div>
+          <div class="rg-item"><div class="rg-val" id="rg-t">0</div><div class="rg-lbl">Total</div></div>
+          <div class="rg-item"><div class="rg-val" id="rg-a">0%</div><div class="rg-lbl">Accuracy</div></div>
+          <div class="rg-item"><div class="rg-val" id="rg-tm">0m</div><div class="rg-lbl">Time</div></div>
+        </div>
+        <div class="result-btns">
+          <button class="btn-primary" style="width:auto;padding:10px 22px" onclick="retakeTest()">Retake</button>
+          <button class="btn-secondary" onclick="showReview()">Review Answers</button>
+          <button class="btn-ghost" onclick="showPage('test')">Home</button>
+        </div>
+      </div>
+      <div id="review-answers-section" style="display:none;margin-top:16px">
+        <div class="sec-hd"><div class="sec-title">Answer Review</div>
+          <div style="display:flex;gap:6px">
+            <button class="btn-ghost" onclick="filterReview('all')" id="rf-all" style="border-color:var(--navy);color:var(--navy)">All</button>
+            <button class="btn-ghost" onclick="filterReview('wrong')" id="rf-wrong">Wrong</button>
+            <button class="btn-ghost" onclick="filterReview('unsure')" id="rf-unsure">Unsure</button>
+          </div>
+        </div>
+        <div id="review-list-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DAILY 10 ═══ -->
+  <div class="page" id="page-daily">
+    <div class="daily-badge">
+      <div class="daily-title">Daily 10 Challenge</div>
+      <div class="daily-sub">10 fresh questions every day — random from all chapters</div>
+    </div>
+    <div id="daily-home">
+      <div class="card" style="max-width:500px">
+        <div style="font-size:14px;font-weight:600;margin-bottom:6px">Today's session</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:16px" id="daily-date-info"></div>
+        <div id="daily-streak-display" style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:16px;text-align:center">
+          <div style="font-size:28px;font-weight:800;color:var(--navy)" id="daily-streak-num">0</div>
+          <div style="font-size:12px;color:var(--muted)">day streak 🔥</div>
+        </div>
+        <button class="btn-primary" onclick="startDaily()">Begin Today's 10 Questions →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TIMED MOCK ═══ -->
+  <div class="page" id="page-timed">
+    <div class="card" style="max-width:580px;margin:0 auto" id="timed-home">
+      <div style="text-align:center;padding:10px 0 20px">
+        <div style="font-size:36px;margin-bottom:10px">⏱️</div>
+        <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800">Timed Mock Test</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:6px">Simulate real exam conditions</div>
+      </div>
+      <div class="grid-2" style="margin-bottom:16px">
+        <div class="mode-card sel" onclick="selTimedMode(this,100,90)" data-q="100" data-t="90">
+          <div class="mode-icon">📝</div>
+          <div class="mode-name">Full Mock</div>
+          <div class="mode-desc">100 Qs · 90 Minutes</div>
+        </div>
+        <div class="mode-card" onclick="selTimedMode(this,50,45)" data-q="50" data-t="45">
+          <div class="mode-icon">⚡</div>
+          <div class="mode-name">Quick Mock</div>
+          <div class="mode-desc">50 Qs · 45 Minutes</div>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="startTimedTest()">Start Timed Mock →</button>
+    </div>
+    <div id="timed-test-wrap" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+        <div class="q-timer-box" id="timed-timer">90:00</div>
+        <div style="font-size:13px;color:var(--muted)" id="timed-info">Q 1/100</div>
+        <button class="btn-ghost" style="color:var(--danger);border-color:#FCA5A5" onclick="endTimedTest()">End Test</button>
+      </div>
+      <div style="max-width:720px;margin:0 auto" id="timed-q-area"></div>
+    </div>
+  </div>
+
+  <!-- ═══ PYQ PAPERS ═══ -->
+  <div class="page" id="page-pyq">
+    <div class="pyq-year-tabs">
+      <div class="pyq-tab active" onclick="showPYQ(this,'all')">All Years</div>
+      <div class="pyq-tab" onclick="showPYQ(this,'2024')">2024</div>
+      <div class="pyq-tab" onclick="showPYQ(this,'2023')">2023</div>
+      <div class="pyq-tab" onclick="showPYQ(this,'2022')">2022</div>
+      <div class="pyq-tab" onclick="showPYQ(this,'2021')">2021</div>
+    </div>
+    <div id="pyq-list"></div>
+  </div>
+
+  <!-- ═══ WEAK AREAS ═══ -->
+  <div class="page" id="page-weakareas">
+    <div class="grid-2">
+      <div class="card">
+        <div class="sec-hd"><div class="sec-title">Chapter-wise Accuracy</div></div>
+        <div id="weak-list-full"></div>
+      </div>
+      <div class="card">
+        <div class="sec-hd"><div class="sec-title">Suggestions</div></div>
+        <div id="weak-suggestions" style="font-size:13px;color:var(--muted);line-height:1.8"></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="sec-hd">
+        <div class="sec-title">Smart Revision Mode</div>
+        <div style="font-size:12px;color:var(--muted)">Only questions you got wrong last time</div>
+      </div>
+      <div id="smart-rev-info" style="font-size:13px;color:var(--muted);margin-bottom:12px">Attempt some tests first to unlock smart revision.</div>
+      <button class="btn-primary" style="width:auto;padding:10px 22px" onclick="startSmartRevision()">Start Smart Revision →</button>
+    </div>
+  </div>
+
+  <!-- ═══ PROGRESS ═══ -->
+  <div class="page" id="page-progress">
+    <div class="grid-4" id="prog-stats"></div>
+    <div class="card" style="margin-bottom:16px">
+      <div class="sec-hd"><div class="sec-title">Study Heatmap</div></div>
+      <div class="heatmap-grid" id="heatmap2"></div>
+    </div>
+    <div class="card">
+      <div class="sec-hd"><div class="sec-title">Chapter-wise Progress Rings</div></div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:14px;flex-wrap:wrap" id="progress-rings"></div>
+    </div>
+  </div>
+
+  <!-- ═══ REVIEW FLAGS ═══ -->
+  <div class="page" id="page-review">
+    <div class="grid-3" style="margin-bottom:20px">
+      <div class="stat-card">
+        <div class="stat-accent" style="background:var(--danger)"></div>
+        <div class="stat-lbl">Total Flagged</div>
+        <div class="stat-val" id="rev-total">0</div>
+        <div class="stat-delta" style="color:var(--muted)">questions reported</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-accent" style="background:var(--warn)"></div>
+        <div class="stat-lbl">Pending Review</div>
+        <div class="stat-val" id="rev-pending">0</div>
+        <div class="stat-delta" style="color:var(--muted)">awaiting admin</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-accent" style="background:var(--success)"></div>
+        <div class="stat-lbl">Resolved</div>
+        <div class="stat-val" id="rev-resolved">0</div>
+        <div class="stat-delta" style="color:var(--muted)">answers fixed</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sec-hd">
+        <div class="sec-title">Flagged Questions</div>
+        <div style="font-size:12px;color:var(--muted)">Community reported — helps improve accuracy</div>
+      </div>
+      <div id="flags-list">
+        <div style="text-align:center;padding:30px;color:var(--muted);font-size:13px">
+          No flagged questions yet. Use the 🚩 button during test to report incorrect questions.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FLAG MODAL -->
+<div id="flag-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;display:none;align-items:center;justify-content:center">
+  <div style="background:var(--card);border-radius:16px;padding:24px;max-width:480px;width:90%;margin:20px">
+    <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;margin-bottom:6px">🚩 Flag Question for Review</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Report incorrect answers or misleading questions</div>
+    <div id="flag-q-preview" style="background:var(--bg);border-radius:8px;padding:12px;font-size:13px;font-weight:600;margin-bottom:12px;color:var(--text)"></div>
+    <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:var(--text)">Reason for flagging:</div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px" id="flag-reasons">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="fr" value="wrong_answer" checked> Wrong correct answer marked</label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="fr" value="outdated"> Outdated information</label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="fr" value="confusing"> Confusing / ambiguous question</label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="fr" value="typo"> Spelling / typo error</label>
+    </div>
+    <textarea id="flag-note" placeholder="Add more details (optional)..." style="width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-size:12px;font-family:'DM Sans',sans-serif;resize:vertical;min-height:70px;margin-bottom:12px;background:var(--bg);color:var(--text)"></textarea>
+    <div style="display:flex;gap:10px">
+      <button class="btn-primary" style="flex:1" onclick="submitFlag()">Submit Report</button>
+      <button class="btn-ghost" onclick="closeFlagModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════
+// DATA — 421 QUESTIONS
+// ═══════════════════════════════════
+const Q=[
+{c:"Ch.1 Parichay",q:'MP ka sthaapana kab hua?',o:['15 August 1947','26 January 1950','1 November 1956','1 November 1960'],a:2,n:'MP formed on 1 November 1956 through State Reorganisation Act.'},
+{c:"Ch.1 Parichay",q:'MP ki rajdhani Bhopal se pehle kiska hissa tha?',o:['Vidisha district','Ujjain district','Sehore district','Raisen district'],a:2,n:'Bhopal was a tehsil of Sehore district before becoming capital in 1956.'},
+{c:"Ch.1 Parichay",q:'MP ka sabse bada shahar kaun sa hai?',o:['Bhopal','Gwalior','Indore','Jabalpur'],a:2,n:'Indore is the largest city of MP by population and commerce.'},
+{c:"Ch.1 Parichay",q:'MP ki rajbhaasha kya hai?',o:['Sanskrit','Urdu','Hindi','Bundeli'],a:2,n:'Hindi is the official language of MP.'},
+{c:"Ch.1 Parichay",q:'MP ka ksheatrafal kitna hai?',o:['3,08,446 sq km','3,08,211 sq km','3,08,252 sq km','3,08,000 sq km'],a:2,n:"3,08,252 sq km — 9.38% of India's total area."},
+{c:"Ch.1 Parichay",q:'Ksheatrafal mein MP ka India mein kaun sa sthan hai?',o:['1st','2nd','3rd','4th'],a:1,n:'2nd largest state in India after Rajasthan.'},
+{c:"Ch.1 Parichay",q:'India ki total area mein MP ka kitna pratishat hai?',o:['7.38%','8.38%','9.38%','10.38%'],a:2,n:"MP covers 9.38% of India's total geographical area."},
+{c:"Ch.1 Parichay",q:'Undivided MP (Chhattisgarh se pehle) ka ksheatrafal kitna tha?',o:['3,08,252 sq km','3,50,000 sq km','4,43,444 sq km','4,00,000 sq km'],a:2,n:'Undivided MP (before 2000) = 4,43,444 sq km — was 1st largest.'},
+{c:"Ch.1 Parichay",q:'MP ke uttar mein kaun sa rajya hai?',o:['Rajasthan','Gujarat','Uttar Pradesh','Chhattisgarh'],a:2,n:'North: Uttar Pradesh.'},
+{c:"Ch.1 Parichay",q:'MP ke dakshin mein kaun sa rajya hai?',o:['Gujarat','Maharashtra','Karnataka','Andhra Pradesh'],a:1,n:'South: Maharashtra.'},
+{c:"Ch.1 Parichay",q:'MP ke paschim mein kaun se rajya hain?',o:['UP & Rajasthan','Maharashtra & Gujarat','Gujarat & Rajasthan','Rajasthan & UP'],a:2,n:'West: Gujarat & Rajasthan (Northwest).'},
+{c:"Ch.1 Parichay",q:'MP ke purv mein kaun sa rajya hai?',o:['Uttar Pradesh','Chhattisgarh','Maharashtra','Rajasthan'],a:1,n:'East: Chhattisgarh (also NE).'},
+{c:"Ch.1 Parichay",q:'MP ke sabse lambi seema kis rajya ke saath hai?',o:['Chhattisgarh','Maharashtra','Rajasthan','Uttar Pradesh'],a:3,n:'Uttar Pradesh — longest shared border with MP.'},
+{c:"Ch.1 Parichay",q:'MP ke sabse chhhoti seema kis rajya ke saath hai?',o:['Rajasthan','Gujarat','Maharashtra','UP'],a:1,n:'Gujarat — shortest shared border with MP.'},
+{c:"Ch.1 Parichay",q:'MP kitne rajyon ki seeaon se ghira hai?',o:['4','5','6','7'],a:1,n:'5 states: UP, Chhattisgarh, Maharashtra, Gujarat, Rajasthan.'},
+{c:"Ch.1 Parichay",q:'MP Bhuaaveshit (Landlocked) rajya hai — iska matlab kya hai?',o:['Koi nadi nahin','Koi samudra tatiya nahin','Koi pahad nahin','Koi jungle nahin'],a:1,n:'MP is completely landlocked — no coastline, no international border.'},
+{c:"Ch.1 Parichay",q:'MP ki N–S (uttar-dakshin) lambai kitni hai?',o:['870 km','605 km','996 km','1127 km'],a:1,n:'N–S extent = 605 km. E–W = 870 km.'},
+{c:"Ch.1 Parichay",q:'MP ki E–W (purv-paschim) lambai kitni hai?',o:['605 km','870 km','996 km','724 km'],a:1,n:'E–W extent = 870 km. N–S = 605 km.'},
+{c:"Ch.1 Parichay",q:'Undivided MP ki N–S lambai kitni thi?',o:['605 km','870 km','1,127 km','996 km'],a:2,n:'Undivided MP N–S = 1,127 km. Present MP = 605 km.'},
+{c:"Ch.1 Parichay",q:'Undivided MP ki E–W lambai kitni thi?',o:['870 km','605 km','996 km','1,127 km'],a:2,n:'Undivided MP E–W = 996 km. Present MP = 870 km.'},
+{c:"Ch.1 Parichay",q:'MP ka pratham rajyapal kaun tha?',o:['Fazal Ali','Ravi Shankar Shukla','B.P. Sitaramaiya','Hridaynath Kunzru'],a:2,n:'B.P. Sitaramaiya was 1st Governor of MP (1956).'},
+{c:"Ch.1 Parichay",q:'MP ka pratham mukhyamantri kaun tha?',o:['Kailash Nath Katju','B.P. Sitaramaiya','D.P. Mishra','Ravi Shankar Shukla'],a:3,n:'Ravi Shankar Shukla was 1st CM of MP (1956).'},
+{c:"Ch.1 Parichay",q:'MP ka uchcha nyayalay kahan hai?',o:['Bhopal','Indore','Gwalior','Jabalpur'],a:3,n:'MP High Court main bench is at Jabalpur.'},
+{c:"Ch.1 Parichay",q:'MP High Court ke khandpeeth (benches) kahan hain?',o:['Ujjain & Rewa','Indore & Gwalior','Sagar & Jabalpur','Bhopal & Indore'],a:1,n:'MP High Court benches at Indore & Gwalior. Main: Jabalpur.'},
+{c:"Ch.1 Parichay",q:'MP kis golaardh mein sthit hai?',o:['Southern + Eastern','Northern + Western','Northern + Eastern','Southern + Western'],a:2,n:'Northern Hemisphere (latitude) + Eastern Hemisphere (longitude).'},
+{c:"Ch.1 Parichay",q:'MP ki rajbhaasha ke alaava aur kaun si bhashaen boli jaati hain?',o:['Gujarati & Marathi','Bundeli, Bagheli, Malvi, Nimadi, Gondi, Urdu','Tamil & Telugu','Punjabi & Bengali'],a:1,n:'Urdu, Bundeli, Bagheli, Malvi, Nimadi, Gondi, Korku are also spoken.'},
+{c:"Ch.1 Parichay",q:"MP ko 'Bharat ka Hridaya' kyun kaha jaata hai?",o:['Sabse zyada population','Geographically India ke centre mein','Sabse bada rajya','Sabse purana rajya'],a:1,n:'MP is geographically at the centre of India, bordered by 5 states.'},
+{c:"Ch.1 Parichay",q:'Kark Rekha (Tropic of Cancer) MP ke kitne jilon se guzarti hai?',o:['10','12','14','16'],a:2,n:'14 districts from Ratlam (west) to Shahdol (east).'},
+{c:"Ch.1 Parichay",q:'MP mein kaun si kark rekha ki paschimi sima ka pehla jila hai?',o:['Ujjain','Sehore','Ratlam','Agar Malwa'],a:2,n:'Ratlam is the westernmost district through which Tropic of Cancer passes.'},
+{c:"Ch.1 Parichay",q:'Kitne madhyavarti (interior) jile kisi doosre rajya se seema nahin bante?',o:['14','16','18','20'],a:2,n:'18 districts share no border with any other state.'},
+{c:"Ch.1 Parichay",q:'Undivided MP ka area rank India mein kaun sa tha?',o:['1st','2nd','3rd','4th'],a:0,n:'Undivided MP (before CG separation) was 1st largest. Present MP is 2nd.',u:'Undivided MP was 1st; Present MP is 2nd largest state.'},
+{c:"Ch.1 Parichay",q:'MP mein kitni pramukh bhashaayen boli jaati hain?',o:['3','5','7+','10+'],a:2,n:'7+ languages: Hindi, Urdu, Bundeli, Bagheli, Malvi, Nimadi, Gondi, Korku.'},
+{c:"Ch.2 Geo Position",q:'Present MP ki latitude kya hai?',o:["17°46'N–26°30'N","21°6'N–26°30'N","21°4'N–26°30'N","20°6'N–26°30'N"],a:1,n:"Present MP latitude: 21°6'N–26°30'N. Undivided was 17°46'N.",u:"Undivided MP was 17°46'N — MCQ trap!"},
+{c:"Ch.2 Geo Position",q:'Vibhajit (undivided) MP ki latitude kya thi?',o:["21°6'N–26°30'N","17°46'N–26°30'N","15°N–26°30'N","18°N–26°30'N"],a:1,n:"Undivided MP latitude: 17°46'N–26°30'N (Chhattisgarh south included)."},
+{c:"Ch.2 Geo Position",q:'Present MP ki longitude kya hai?',o:["74°9'E–84°51'E","74°9'E–82°48'E",'72°E–82°E','74°E–84°E'],a:1,n:"Present MP longitude: 74°9'E–82°48'E."},
+{c:"Ch.2 Geo Position",q:'Vibhajit (undivided) MP ki longitude kya thi?',o:["74°9'E–82°48'E","74°9'E–84°51'E",'72°E–86°E','74°E–82°E'],a:1,n:"Undivided MP longitude: 74°9'E–84°51'E."},
+{c:"Ch.2 Geo Position",q:'Vibhajit (undivided) MP ka ksheatrafal kitna tha?',o:['3,08,252 sq km','4,43,444 sq km','4,00,000 sq km','3,50,000 sq km'],a:1,n:'Undivided MP = 4,43,444 sq km.'},
+{c:"Ch.2 Geo Position",q:'Kark Rekha (Tropic of Cancer) MP ke kitne jilon se guzarti hai?',o:['12','13','14','15'],a:2,n:'14 districts from Ratlam (west) to Shahdol (east).'},
+{c:"Ch.2 Geo Position",q:'Kark Rekha ke pashchimatam jila kaun sa hai?',o:['Ujjain','Sehore','Ratlam','Agar Malwa'],a:2,n:'Ratlam is the westernmost district of the Tropic of Cancer belt in MP.'},
+{c:"Ch.2 Geo Position",q:'Kark Rekha ke poorvatam jila kaun sa hai?',o:['Jabalpur','Umaria','Shahdol','Katni'],a:2,n:'Shahdol is the easternmost district through which Tropic of Cancer passes.'},
+{c:"Ch.2 Geo Position",q:'Kitne madhyavarti (interior) jile kisi rajya ki seema nahin bante?',o:['14','16','18','20'],a:2,n:'18 districts of MP share no border with any other state.'},
+{c:"Ch.2 Geo Position",q:'Area rank ke anusaar undivided MP ka India mein kaun sa sthan tha?',o:['1st','2nd','3rd','4th'],a:0,n:'Undivided MP was 1st largest state. Present MP is 2nd.',u:'Undivided = 1st; Present = 2nd.'},
+{c:"Ch.2 Geo Position",q:'MP kisne golaardh mein sthit hai?',o:['Southern + Eastern','Northern + Western','Northern + Eastern','Southern + Western'],a:2,n:'Northern Hemisphere (latitude) + Eastern Hemisphere (longitude).'},
+{c:"Ch.2 Geo Position",q:'MP ki latitude ki uttar seema kya hai?',o:["21°6'N",'24°N',"26°30'N",'28°N'],a:2,n:"Northern boundary of present MP = 26°30'N latitude."},
+{c:"Ch.2 Geo Position",q:'MP ki latitude ki dakshin seema kya hai?',o:["21°6'N",'18°N',"17°46'N",'23°N'],a:0,n:"Southern boundary of present MP = 21°6'N latitude."},
+{c:"Ch.2 Geo Position",q:'Present MP ki longitude ki paschim seema kya hai?',o:['72°E',"74°9'E",'76°E','78°E'],a:1,n:"Western boundary of present MP longitude = 74°9'E."},
+{c:"Ch.2 Geo Position",q:'Present MP ki longitude ki purv seema kya hai?',o:['80°E',"82°48'E","84°51'E",'86°E'],a:1,n:"Eastern boundary of present MP longitude = 82°48'E."},
+{c:"Ch.3 Extreme Districts",q:'MP ka uttaratam (northernmost) jila kaun sa hai?',o:['Bhind','Morena','Sheopur','Gwalior'],a:1,n:'Morena = northernmost district. Chambal division.'},
+{c:"Ch.3 Extreme Districts",q:'MP ka dakshinatam (southernmost) jila kaun sa hai?',o:['Khandwa','Betul','Burhanpur','Harda'],a:2,n:'Burhanpur = southernmost. Borders Maharashtra. Mumtaz Mahal died here (1631).'},
+{c:"Ch.3 Extreme Districts",q:'MP ka pashchimatam (westernmost) jila kaun sa hai?',o:['Jhabua','Dhar','Barwani','Alirajpur'],a:3,n:'Alirajpur = westernmost. Borders Gujarat & Rajasthan. Highest ST% in MP.'},
+{c:"Ch.3 Extreme Districts",q:'MP ka poorvatam (easternmost) jila kaun sa hai?',o:['Sidhi','Umaria','Singrauli','Shahdol'],a:2,n:'Singrauli = easternmost. 50th district (2008). Coal Capital.'},
+{c:"Ch.3 Extreme Districts",q:'Morena kis sambhag mein hai?',o:['Gwalior','Chambal','Bhopal','Indore'],a:1,n:'Morena is in Chambal sambhag (Morena, Bhind, Sheopur).'},
+{c:"Ch.3 Extreme Districts",q:'Burhanpur mein kaun si nadi behti hai?',o:['Narmada','Chambal','Tapti','Betwa'],a:2,n:'Tapti river flows through Burhanpur — southernmost district.'},
+{c:"Ch.3 Extreme Districts",q:'Mumtaz Mahal ka nidhan kahan hua tha?',o:['Bhopal','Agra','Burhanpur','Surat'],a:2,n:'Mumtaz Mahal (Taj Mahal inspiration) died in Burhanpur in 1631.'},
+{c:"Ch.3 Extreme Districts",q:'Burhanpur kis sambhag mein hai?',o:['Narmadapuram','Jabalpur','Indore','Bhopal'],a:2,n:'Burhanpur is in Indore sambhag.'},
+{c:"Ch.3 Extreme Districts",q:'Alirajpur mein sabse adhik kaun si janjaati hai?',o:['Gond','Baiga','Bhil','Korku'],a:2,n:'Bhil tribe is dominant in Alirajpur. Highest ST% district in MP.'},
+{c:"Ch.3 Extreme Districts",q:'Alirajpur kis sambhag mein hai?',o:['Narmadapuram','Jabalpur','Indore','Bhopal'],a:2,n:'Alirajpur is in Indore sambhag.'},
+{c:"Ch.3 Extreme Districts",q:'Singrauli kaunse number ka jila bana tha?',o:['48th','49th','50th','51st'],a:2,n:'Singrauli = 50th district of MP (24 May 2008, from Sidhi).'},
+{c:"Ch.3 Extreme Districts",q:'Singrauli kahan se bana tha?',o:['Rewa','Shahdol','Sidhi','Umaria'],a:2,n:'Singrauli was carved from Sidhi district on 24 May 2008.'},
+{c:"Ch.3 Extreme Districts",q:'Singrauli kis rajya ki bhi seema se laga hai (MP ke alaava)?',o:['Rajasthan & Gujarat','UP & Chhattisgarh','Maharashtra only','Bihar & UP'],a:1,n:'Singrauli borders both UP and Chhattisgarh.'},
+{c:"Ch.3 Extreme Districts",q:'Asia ka sabse mota coal seam kahan hai?',o:['Sonbhadra UP','Dhanbad Jharkhand','Singrauli MP','Korba CG'],a:2,n:'Singrauli coalfield has the thickest coal seam in Asia.'},
+{c:"Ch.3 Extreme Districts",q:'Dakshinatam jila Burhanpur kis sambhag mein aata hai?',o:['Jabalpur','Narmadapuram','Indore','Sagar'],a:2,n:'Burhanpur is in Indore division.'},
+{c:"Ch.4 Population",q:'Census 2011 mein MP ki kul janasankhya kitni thi?',o:['6.52 Crore','7.26 Crore','8.10 Crore','5.50 Crore'],a:1,n:'7,26,26,809 (7.26 Crore) — Census 2011.'},
+{c:"Ch.4 Population",q:'MP ki janasankhya India mein kaun se sthan par hai?',o:['2nd','3rd','4th','5th'],a:3,n:'5th most populous state (since 2014).'},
+{c:"Ch.4 Population",q:'MP mein ST janasankhya ka India mein rank kaun sa hai?',o:['2nd','3rd','1st','4th'],a:2,n:'MP = 1st rank in ST population in India.'},
+{c:"Ch.4 Population",q:'MP mein ling anupaat (sex ratio) Census 2011 mein kya tha?',o:['921','931','941','951'],a:1,n:'931 females per 1,000 males. Rank: 20th nationally / 18th among states.'},
+{c:"Ch.4 Population",q:'0–6 ayu varg mein MP ka shishu ling anupaat kya tha?',o:['908','918','928','938'],a:1,n:'918 per 1,000 males — Shishu Ling Anupaat.'},
+{c:"Ch.4 Population",q:'MP mein janasankhya ghanatv Census 2011 mein kya tha?',o:['186','206','226','236'],a:3,n:'236 persons per sq km.'},
+{c:"Ch.4 Population",q:'MP mein saksharata dar Census 2011 mein kya thi?',o:['64.11%','69.32%','73.00%','75.00%'],a:1,n:'69.32% — 28th nationally, 21st among states.'},
+{c:"Ch.4 Population",q:'MP mein purush saksharata dar Census 2011 mein kya thi?',o:['73.25%','75.50%','78.73%','80.12%'],a:2,n:'Male literacy = 78.73%.'},
+{c:"Ch.4 Population",q:'MP mein mahila saksharata dar Census 2011 mein kya thi?',o:['54.16%','59.24%','62.37%','65.50%'],a:1,n:'Female literacy = 59.24%.'},
+{c:"Ch.4 Population",q:'Saksharata mein MP ki rank sirf rajyon mein kya hai?',o:['15th','21st','25th','28th'],a:1,n:'Literacy rank: 28th overall / 21st among states.'},
+{c:"Ch.4 Population",q:'Saksharata mein MP ki rank all India mein kya hai?',o:['21st','25th','28th','30th'],a:2,n:'28th overall (all India) in literacy.'},
+{c:"Ch.4 Population",q:'MP mein SC janasankhya ka pratishat kitna hai?',o:['12.6%','15.6%','18.6%','21.6%'],a:1,n:'SC population = 15.6%.'},
+{c:"Ch.4 Population",q:'MP mein ST janasankhya ka pratishat kitna hai?',o:['15.1%','18.1%','21.1%','24.1%'],a:2,n:'ST population = 21.1% (1st rank in India).'},
+{c:"Ch.4 Population",q:'MP mein shahri (urban) janasankhya ka pratishat kitna hai?',o:['22.63%','25.63%','27.63%','30.63%'],a:2,n:'Urban population = 27.63%.'},
+{c:"Ch.4 Population",q:'MP mein gramin (rural) janasankhya ka pratishat kitna hai?',o:['65.37%','70.37%','72.37%','75.37%'],a:2,n:'Rural population = 72.37%.'},
+{c:"Ch.4 Population",q:'MP mein sabse adhik aabaadi wala jila kaun sa hai?',o:['Bhopal','Gwalior','Indore','Jabalpur'],a:2,n:'Indore = most populous district (32.76 lakh, Census 2011).'},
+{c:"Ch.4 Population",q:'MP mein sabse kam aabaadi wala jila kaun sa hai?',o:['Datia','Niwari','Harda','Sheopur'],a:2,n:'Harda = least populous (5.70 lakh, Census 2011).'},
+{c:"Ch.4 Population",q:'MP mein sabse badi janjaati (tribe) kaun si hai?',o:['Gond','Bhil','Korku','Sahariya'],a:1,n:'Bhil = largest tribe (37.7% of ST). Gond = 2nd.'},
+{c:"Ch.4 Population",q:'MP mein teen PVTGs (Primitive Vulnerable Tribal Groups) kaun si hain?',o:['Bhil, Gond, Korku','Bhariya, Baiga, Sahariya','Bhil, Baiga, Halba','Sahariya, Korku, Mawasi'],a:1,n:"MP's 3 PVTGs: Bhariya, Baiga, Sahariya."},
+{c:"Ch.4 Population",q:'MP ki anumaanik 2026 mein janasankhya kitni hai?',o:['7.26 Crore','8.10 Crore','~8.93–8.97 Crore','9.50 Crore'],a:2,n:'~8.93–8.97 Crore (projection — Census 2021 deferred).'},
+{c:"Ch.4 Population",q:'Census 2021 kyon nahin hua?',o:['Budget shortage','COVID-19 pandemic','Political reasons','Technical issues'],a:1,n:'Census 2021 was deferred due to COVID-19 pandemic.'},
+{c:"Ch.4 Population",q:'Ling anupaat rank MP ka sirf rajyon mein kya hai?',o:['15th','18th','20th','25th'],a:1,n:'Sex Ratio rank: 20th overall / 18th among states.'},
+{c:"Ch.4 Population",q:'Purush janasankhya Census 2011 mein kitni thi?',o:['3.50 Crore','3.76 Crore','4.00 Crore','4.26 Crore'],a:1,n:'Male population = 3,76,12,306 (3.76 Crore).'},
+{c:"Ch.4 Population",q:'Mahila janasankhya Census 2011 mein kitni thi?',o:['3.26 Crore','3.50 Crore','3.76 Crore','4.00 Crore'],a:1,n:'Female population = 3,50,14,503 (3.50 Crore).'},
+{c:"Ch.4 Population",q:'MP mein Gond tribe ka ST population mein kaun sa rank hai?',o:['1st','2nd','3rd','4th'],a:1,n:'Gond = 2nd largest tribe in MP. Bhil = 1st.'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Chinh mein sabse bahar kitne Stupa hain?',o:['12','18','24','36'],a:2,n:'24 Stupa figures at the outermost ring of MP emblem (Buddhist heritage).'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Chinh ke kendriya vritt mein kya inscribed hai?',o:['Jai Hind','Satyamev Jayate + MP Shaasan','MP Rajya','Bharat Mata ki Jai'],a:1,n:"'MP Shaasan' + 'Satyamev Jayate' inscribed in the circle."},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Chinh mein Ashoka Stambh ke saath kaun sa vriksha dikhaya gaya hai?',o:['Neem','Peepal','Bargad','Teak'],a:2,n:'Bargad (Banyan) shown with Ashoka Lion in centre of MP emblem.'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Chinh mein kaunsi faslein dikhaayi gayi hain?',o:['Soyabean & Cotton','Wheat (Gehu) & Paddy (Dhan)','Sugarcane & Rice','Bajra & Jowar'],a:1,n:'Wheat and Paddy stalks are shown in MP State Emblem.'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Chinh mein 24 Stupas kiska pratik hain?',o:['Mahabharat ke yodha','Sanchi ka Buddhist heritage','24 rajya','24 jile'],a:1,n:"24 Stupas represent Sanchi's Buddhist heritage."},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Pashu (state animal) kaun sa hai?',o:['Sher','Barasingha','Cheetah','Nilgai'],a:1,n:'Barasingha (Swamp Deer) is the state animal of MP.'},
+{c:"Ch.5 Rajya Prateek",q:'Barasingha ka scientific naam kya hai?',o:['Cervus elaphus','Rucervus duvaucelii','Axis axis','Boselaphus tragocamelus'],a:1,n:'Rucervus duvaucelii (also written Cervus duvaucelii).'},
+{c:"Ch.5 Rajya Prateek",q:'Barasingha ki kaunsi species Kanha mein payi jaati hai?',o:['Rucervus species','Braderi species','Hangul species','Sangai species'],a:1,n:'Braderi species (Hard Ground Barasingha) — found ONLY at Kanha.'},
+{c:"Ch.5 Rajya Prateek",q:'Barasingha ka mukhy kshetra kaun sa national park hai?',o:['Bandhavgarh NP','Satpura NP','Kanha Kisli NP Mandla','Panna TR'],a:2,n:'Kanha Kisli National Park, Mandla — primary habitat.'},
+{c:"Ch.5 Rajya Prateek",q:"Barasingha ke naam mein 'Baara' ka kya matlab hai?",o:['8 antlers','10 antlers','12 antlers','16 antlers'],a:2,n:'Baara = 12. Barasingha = 12-tined deer.'},
+{c:"Ch.5 Rajya Prateek",q:'Barasingha ko kahan extinction se bachaya gaya?',o:['Bandhavgarh','Panna TR','Kanha Kisli NP Mandla','Satpura NP'],a:2,n:'Saved from ~66 animals at Kanha. Now 900+.'},
+{c:"Ch.5 Rajya Prateek",q:'Barasingha ki IUCN status kya hai?',o:['Endangered','Critically Endangered','Vulnerable','Least Concern'],a:2,n:'Barasingha = Vulnerable (IUCN Red List).'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Pakshi (state bird) kaun sa hai?',o:['Mor (Peacock)','Dodhraj / Shah Bulbul','Tota','Koyal'],a:1,n:'Dodhraj / Shah Bulbul (Paradise Flycatcher).'},
+{c:"Ch.5 Rajya Prateek",q:'Dodhraj ka scientific naam kya hai?',o:['Pycnonotus jocosus','Terpsiphone paradisi','Dendrocopos nanus','Motacilla alba'],a:1,n:'Terpsiphone paradisi (also Terfisphon paradisi).'},
+{c:"Ch.5 Rajya Prateek",q:'Dodhraj ka mukhy kshetra kahan hai?',o:['Kanha NP','Pachmarhi','Selana & Sardarpur Sanctuaries','Bandhavgarh'],a:2,n:'NW MP — Selana Sanctuary (Ratlam) + Sardarpur Sanctuary (Dhar).'},
+{c:"Ch.5 Rajya Prateek",q:'Dodhraj sabse adhik kahan paya jata hai?',o:['Baghelkhand','Bundelkhand','Malwa region','Chambal'],a:2,n:'Most found in Malwa region.'},
+{c:"Ch.5 Rajya Prateek",q:'Selana Wildlife Sanctuary kahan hai?',o:['Dhar','Ratlam','Ujjain','Mandsaur'],a:1,n:'Selana Wildlife Sanctuary = Ratlam district.'},
+{c:"Ch.5 Rajya Prateek",q:'Sardarpur Wildlife Sanctuary kahan hai?',o:['Dhar','Ratlam','Indore','Ujjain'],a:0,n:'Sardarpur Wildlife Sanctuary = Dhar district.'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Vriksha (state tree) kaun sa hai?',o:['Neem','Peepal','Bargad (Banyan)','Teak'],a:2,n:'Bargad (Banyan Tree — Ficus benghalensis).'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Vriksha Bargad ka scientific naam kya hai?',o:['Ficus religiosa','Ficus benghalensis','Ficus racemosa','Tectona grandis'],a:1,n:'Bargad = Ficus benghalensis.'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Pushpa (state flower) kaun sa hai?',o:['Kamal','Safed Lily','Marigold','Rose'],a:1,n:'Safed Lily (White Lily — Lilium candidum).'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Pushpa Safed Lily ka scientific naam kya hai?',o:['Lilium tigrinum','Lilium candidum','Nelumbo nucifera','Rosa indica'],a:1,n:'Safed Lily = Lilium candidum.'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Machali (state fish) kaun si hai?',o:['Rohu','Catla','Mahasheer','Hilsa'],a:2,n:"Mahasheer (Tor putitora) — 'King of Freshwater Fish.'"},
+{c:"Ch.5 Rajya Prateek",q:'Mahasheer ka scientific naam kya hai?',o:['Labeo rohita','Tor putitora','Catla catla','Hilsa ilisha'],a:1,n:'Mahasheer = Tor putitora.'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Naatya (state drama) kaun sa hai?',o:['Lavani','Mach / Maach','Raas','Jhumair'],a:1,n:'Mach / Maach — state drama of MP.'},
+{c:"Ch.5 Rajya Prateek",q:'Mach naatya ka mukhy kshetra kahan hai?',o:['Bundelkhand','Malwa region','Baghelkhand','Chambal'],a:1,n:'Mach = Malwa region (Ujjain, Indore, Ratlam area).'},
+{c:"Ch.5 Rajya Prateek",q:'Mach naatya kab perform kiya jaata hai?',o:['Subah','Dopahar','Raat (night)','Shaam'],a:2,n:'Mach performed on raised wooden platform during night-long performances.'},
+{c:"Ch.5 Rajya Prateek",q:'Mach naatya ke prasiddh kalaakaar kaun hain?',o:['Ravi Shankar & Ali Akbar','Ustad Gulab Bai & Banshilal','Tansen & Baiju Bawra','Kishore Kumar & Lata'],a:1,n:'Prominent Mach artists: Ustad Gulab Bai, Banshilal, Siddheshwar Sen, Ramchandra Kumat.'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Khel (state sport) kaun sa hai?',o:['Kabaddi','Cricket','Malkhamb','Kushti'],a:2,n:'Malkhamb (Malakhamb).'},
+{c:"Ch.5 Rajya Prateek",q:'Malkhamb kab rajya khel ghoshit hua?',o:['1 November 1981','26 January 1972','9 April 2013','15 August 2000'],a:2,n:'9 April 2013.',u:'NOT 1981. That was for Pashu/Pakshi/Vriksha/Pushpa.'},
+{c:"Ch.5 Rajya Prateek",q:'Malkhamb Academy kahan hai?',o:['Bhopal','Indore','Gwalior','Ujjain'],a:3,n:'Malkhamb Academy = Ujjain.'},
+{c:"Ch.5 Rajya Prateek",q:"Malkhamb mein 'Malla' ka matlab kya hai?",o:['King','Wrestler','Pole','Dance'],a:1,n:'Malla = wrestler, Khamb = pole.'},
+{c:"Ch.5 Rajya Prateek",q:'Malkhamb ke kitne prakar hain?',o:['2','3','4','5'],a:1,n:'3 types: Pole Malkhamb, Rope Malkhamb, Hanging Malkhamb.'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Fasal (state crop) kaun si hai?',o:['Gehu','Dhan','Soyabean','Cotton'],a:2,n:"Soyabean — India's #1 with 55–60% national production."},
+{c:"Ch.5 Rajya Prateek",q:'MP rajya gaan ke lekhak kaun hain?',o:['Maithilisharan Gupta','Subhadra Kumari Chauhan','Mahesh Shri Srivastava','Harivansh Rai Bachchan'],a:2,n:"'Sukh ka daata sab ka saathi...' — Mahesh Shri Srivastava."},
+{c:"Ch.5 Rajya Prateek",q:'Rajya prateek kab ghoshit kiye gaye?',o:['1 November 1956','1 November 1971','1 November 1981','1 November 1991'],a:2,n:'1 November 1981 = 25th foundation day.'},
+{c:"Ch.5 Rajya Prateek",q:'Bundelkhand ka pramukh lok nritya kaun sa hai?',o:['Karma','Mach','Rai','Tertali'],a:2,n:'Rai = Bundelkhand ka major folk dance (Bediya community).'},
+{c:"Ch.5 Rajya Prateek",q:'Karma lok nritya kahan prachlit hai?',o:['Malwa','Bundelkhand','Eastern MP (Balaghat, Mandla, Dindori)','Chambal'],a:2,n:'Karma = tribal folk dance of eastern MP.'},
+{c:"Ch.5 Rajya Prateek",q:'Tertali dance kaunsi community karte hain?',o:['Bhil','Gond','Kamad tribe','Baiga'],a:2,n:'Tertali = Kamad tribe. Women dance with cymbals on legs.'},
+{c:"Ch.5 Rajya Prateek",q:'Jawara dance kahan hota hai?',o:['Bundelkhand','Baghelkhand','Malwa harvest festival','Chambal'],a:2,n:'Jawara = Malwa harvest dance, women balance pots on head.'},
+{c:"Ch.5 Rajya Prateek",q:'Saila dance kahan hota hai?',o:['Malwa','Bundelkhand & Baghelkhand','Eastern MP','Chambal'],a:1,n:'Saila = tribal dance of Bundelkhand & Baghelkhand, boys dance with sticks.'},
+{c:"Ch.5 Rajya Prateek",q:'Mach Naatya kis cheez par aadharit hota hai?',o:['Aadivasi geet','Pauraanik (mythological) kathayen','News events','History of kings'],a:1,n:'Mach based on mythological stories and cultural themes.'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya khel ghoshna ke saath Malkhamb Academy kahan banayi gayi?',o:['Bhopal','Ujjain','Indore','Gwalior'],a:1,n:'Malkhamb Academy established in Ujjain.'},
+{c:"Ch.5 Rajya Prateek",q:'Malkhamb ki utpatti kab hui?',o:['8th century','10th century','12th century','16th century'],a:2,n:'Malkhamb originated in the 12th century.'},
+{c:"Ch.5 Rajya Prateek",q:'Rajya Pashu ghoshna kis din hui?',o:['1 November 1956','15 August 1981','1 November 1981','26 January 1982'],a:2,n:'State animal, bird, tree, flower declared on 1 November 1981 (25th foundation day).'},
+{c:"Ch.6 Upnaam",q:"MP ko 'Heart of India' kyun kaha jaata hai?",o:['Sabse bada rajya','Sabse purana rajya','Geographically centre mein sthit','Sabse adhik nadi'],a:2,n:'MP is geographically at the centre, bordered by 5 states.'},
+{c:"Ch.6 Upnaam",q:"'Madhya Pradesh' ka literal arth kya hai?",o:['Eastern State','Central Province','Middle Kingdom','Heart Province'],a:1,n:'Madhya = Central/Middle, Pradesh = Province/State.'},
+{c:"Ch.6 Upnaam",q:"MP ko 'Laghu Bharat' kyun kaha jaata hai?",o:['Sabse bada rajya','46 tribal groups — highest in India','Sabse adhik nadiyan','Sabse purani sabhyata'],a:1,n:'46 tribal groups — highest in any Indian state.'},
+{c:"Ch.6 Upnaam",q:'MP mein kitne tribal groups hain?',o:['36','40','46','52'],a:2,n:"46 tribal groups — highest in India. Hence 'Laghu Bharat.'"},
+{c:"Ch.6 Upnaam",q:"MP ko 'Diamond State' kyun kaha jaata hai?",o:['Sabse adhik reserves','Ek hi diamond-producing state','Sabse adhik minerals','UNESCO site'],a:1,n:'MP is the ONLY diamond-producing state. Majhgawan mine, Panna.'},
+{c:"Ch.6 Upnaam",q:'India mein sabse adhik heera reserves kahan hain?',o:['Madhya Pradesh','Andhra Pradesh','Jharkhand','Rajasthan'],a:1,n:'AP has highest diamond RESERVES; MP has only PRODUCTION. ★ Trap!'},
+{c:"Ch.6 Upnaam",q:'MP mein diamond ka kaunsa mine hai?',o:['Golkonda mine','Majhgawan mine Panna','Panna open mine','Vijay mine Panna'],a:1,n:'Majhgawan mine in Panna, operated by NMDC.'},
+{c:"Ch.6 Upnaam",q:"MP ko 'Soya State' kyun kaha jaata hai?",o:['Soyabean sabse purana crop','55–60% national soyabean production','Soyabean ka export','Soyabean research centre'],a:1,n:"MP = 55–60% of India's soyabean production."},
+{c:"Ch.6 Upnaam",q:'2022 tiger census ke anusaar MP mein kitne tigers hain?',o:['625','726','785','850'],a:2,n:'785 tigers (2022) — highest in India. Overtook Karnataka.'},
+{c:"Ch.6 Upnaam",q:'Tiger population mein MP ne Karnataka ko kab peeche chhoda?',o:['2018','2020','2022','2024'],a:2,n:'MP overtook Karnataka in 2022 tiger census.'},
+{c:"Ch.6 Upnaam",q:"MP ko 'Nadiyon ka Maika' kyun kaha jaata hai?",o:['Sabse lambi nadi','MP se 9+ nadiyan nikalti hain','Sabse zyada pani','Sabse clean rivers'],a:1,n:'9+ major rivers originate in MP.'},
+{c:"Ch.6 Upnaam",q:'MP mein leopard population India mein kaun se sthan par hai?',o:['2nd','3rd','1st','4th'],a:2,n:'MP has highest leopard population (WII survey).'},
+{c:"Ch.6 Upnaam",q:"MP ko 'Tiger State' kyun kaha jaata hai?",o:['Sabse adhik National Parks','785 tigers (2022) — India mein highest','Sabse pahle Tiger Reserve','Tiger breeding programme'],a:1,n:'785 tigers — highest in India.'},
+{c:"Ch.6 Upnaam",q:'MP mein kitne Tiger Reserves hain?',o:['5','6','7','8'],a:2,n:'7 Tiger Reserves: Bandhavgarh, Kanha, Pench, Satpura, Sanjay-Dubri, Panna, Nauradehi.'},
+{c:"Ch.6 Upnaam",q:'Amarkantak se kaun si nadiyan nikalti hain?',o:['Narmada only','Narmada & Chambal','Narmada, Sone & Johila','Chambal & Betwa'],a:2,n:'3 rivers from Amarkantak: Narmada + Sone + Johila. ★'},
+{c:"Ch.7 Capitals",q:'Bhopal ko kaun si rajdhani kaha jaata hai?',o:['Vyavsayik Rajdhani','Sanskritic Rajdhani','Rajdhani (Capital)','Dharmic Rajdhani'],a:2,n:'Bhopal = Rajdhani — Capital City of MP.'},
+{c:"Ch.7 Capitals",q:'Bhopal ko aur kya kaha jaata hai?',o:['City of Palaces','Jheelon ka Shahar (City of Lakes)','City of Music','Diamond City'],a:1,n:'Bhopal = Jheelon ka Shahar (City of Lakes). Also Nawabi Shahar.'},
+{c:"Ch.7 Capitals",q:'Bhopal gas tragedy mein kaun si gas leak hui?',o:['Chlorine','Ammonia','MIC (Methyl Isocyanate)','Hydrogen Cyanide'],a:2,n:'MIC (Methyl Isocyanate) from Union Carbide, 2–3 December 1984.'},
+{c:"Ch.7 Capitals",q:'Bhopal gas tragedy kab hui?',o:['3–4 December 1984','2–3 December 1984','1–2 December 1984','4–5 December 1984'],a:1,n:"2–3 December 1984. World's worst industrial disaster."},
+{c:"Ch.7 Capitals",q:'Bhopal gas tragedy kis company ki factory thi?',o:['Dow Chemicals','Union Carbide','DuPont','BASF'],a:1,n:'Union Carbide plant — Bhopal Gas Tragedy.'},
+{c:"Ch.7 Capitals",q:'Bhoj Wetland (Bhopal) ko Ramsar site kab ghoshit kiya gaya?',o:['1987','1993','2002','2008'],a:2,n:'Bhoj Wetland declared Ramsar site in 2002.'},
+{c:"Ch.7 Capitals",q:'Bhopal ka Upper Lake kiska naam hai?',o:['Bhoj Talab','Bada Talab','Nawabi Talab','Sher Shah Sagar'],a:1,n:'Upper Lake = Bada Talab / Bhoj Wetland. Built by Raja Bhoja.'},
+{c:"Ch.7 Capitals",q:'Bhopal ki Begum sultaanat kab tak rahi?',o:['1757–1857','1819–1926','1857–1947','1800–1947'],a:1,n:'Begums ruled Bhopal from 1819 to 1926 — unique in Indian history.'},
+{c:"Ch.7 Capitals",q:'Bhopal Airport ka naam kya hai?',o:['Devi Ahilyabai Holkar Airport','Raja Bhoj Airport','Rajmata Vijayaraje Scindia Airport','Bhimrao Ambedkar Airport'],a:1,n:'Raja Bhoj Airport — named after Paramara King Raja Bhoja.'},
+{c:"Ch.7 Capitals",q:'Indore ko kaunsi rajdhani kaha jaata hai?',o:['Rajdhani','Vyavsayik Rajdhani','Dharmic Rajdhani','Paryatan Rajdhani'],a:1,n:'Indore = Vyavsayik Rajdhani (Commercial Capital).'},
+{c:"Ch.7 Capitals",q:"Indore ko 'Mini Mumbai' kyun kaha jaata hai?",o:['Beach ke paas hai','Industrial, commercial, cosmopolitan character','Film studios','Stock exchange'],a:1,n:'Called Mini Mumbai for its industrial and commercial character.'},
+{c:"Ch.7 Capitals",q:'Swachh Survekshan 2024 mein Indore ne kaunsa sthan prapt kiya?',o:['5th consecutive','6th consecutive','7th consecutive','8th consecutive'],a:3,n:'Indore won Cleanest City 8 consecutive times (2017–2024).'},
+{c:"Ch.7 Capitals",q:'Sirpur Lake (Indore) kya hai?',o:['Tiger Reserve','Ramsar Wetland Site','Biosphere Reserve','Wildlife Sanctuary'],a:1,n:'Sirpur Lake = Ramsar Wetland site in Indore.'},
+{c:"Ch.7 Capitals",q:'Chambal nadi ka udgam kahan hai?',o:['Betul','Amarkantak','Janapav Hill Mhow Indore','Kakra Bardi'],a:2,n:'Chambal originates from Janapav Hill, Mhow, Indore.'},
+{c:"Ch.7 Capitals",q:'Shipra nadi ka udgam kahan hai?',o:['Amarkantak','Pachmarhi','Kakra Bardi Mountain Indore','Betul'],a:2,n:'Shipra originates from Kakra Bardi Mountain, Indore.'},
+{c:"Ch.7 Capitals",q:'Pithampur (near Indore) ko kya kaha jaata hai?',o:['Silicon Valley of MP','Detroit of MP','Hollywood of MP','Manchester of MP'],a:1,n:"Pithampur = 'Detroit of MP' for automobile industry."},
+{c:"Ch.7 Capitals",q:'Indore mein IIT kab sthapit hua?',o:['2004','2007','2009','2012'],a:2,n:'IIT Indore established 2009 at Simrol campus.'},
+{c:"Ch.7 Capitals",q:'Indore mein IIM kab sthapit hua?',o:['1990','1993','1996','2000'],a:2,n:'IIM Indore established 1996.'},
+{c:"Ch.7 Capitals",q:'Indore Airport ka naam kya hai?',o:['Raja Bhoj Airport','Devi Ahilyabai Holkar Airport','Rajmata VS Airport','Bhimrao Ambedkar Airport'],a:1,n:'Devi Ahilyabai Holkar Airport, Indore.'},
+{c:"Ch.7 Capitals",q:"Indore ko 'Sports Capital' kyun kaha jaata hai?",o:['Kabaddi stadium','Holkar Cricket Stadium — major cricket venue','National Games hosted','Olympic training centre'],a:1,n:'Holkar Cricket Stadium — major IPL and international cricket venue.'},
+{c:"Ch.7 Capitals",q:'Gwalior ko kaunsi rajdhani kaha jaata hai?',o:['Vyavsayik Rajdhani','Sanskritic Rajdhani','Dharmic Rajdhani','Urja Rajdhani'],a:1,n:'Gwalior = Sanskritic Rajdhani (Cultural Capital).'},
+{c:"Ch.7 Capitals",q:'Gwalior ke baare mein Babur ne kya kaha?',o:["'Sone ka Panjara'","'Pearl among Fortresses in India'","'Crown of Central India'","'Gateway of Hindustan'"],a:1,n:"Babur called Gwalior Fort 'Pearl among the Fortresses in India.'"},
+{c:"Ch.7 Capitals",q:'Tansen Samaroha kahan hota hai?',o:['Bhopal','Ujjain','Gwalior','Jabalpur'],a:2,n:'Tansen Samaroha — annually November–December at Gwalior.'},
+{c:"Ch.7 Capitals",q:'Tansen kahan ke paas paida hue the?',o:['Gwalior fort mein','Behat near Gwalior','Ujjain mein','Bhopal mein'],a:1,n:'Tansen born at Behat village near Gwalior.'},
+{c:"Ch.7 Capitals",q:'Gwalior Airport ka naam kya hai?',o:['Raja Bhoj Airport','Devi Ahilyabai Airport','Rajmata Vijayaraje Scindia Airport','Bhimrao Ambedkar Airport'],a:2,n:'Rajmata Vijayaraje Scindia Airport — largest runway in MP.'},
+{c:"Ch.7 Capitals",q:'Gwalior kis dynasty ke shaasit tha?',o:['Holkar','Scindia (Maratha)','Bundela','Chandela'],a:1,n:'Gwalior ruled by Scindia (Maratha) dynasty.'},
+{c:"Ch.7 Capitals",q:'Rajmata Vijayaraje Scindia ka kya mahatwa tha?',o:['Congress founding member','BJP founding figure','MP ke pahle CM','India ke pahle governor'],a:1,n:'Rajmata Vijayaraje Scindia was a BJP founding figure.'},
+{c:"Ch.7 Capitals",q:'Jabalpur ko kaunsi rajdhani kaha jaata hai?',o:['Vyavsayik Rajdhani','Sanskritic Rajdhani','Dharmic Rajdhani','Urja Rajdhani'],a:1,n:'Jabalpur = Sanskritic Rajdhani (also Marble City, Legal Capital).'},
+{c:"Ch.7 Capitals",q:'Bhedaghat kahan hai aur kiske liye prasiddh hai?',o:['Ujjain — Kumbh Mela','Jabalpur — Narmada marble gorge','Bhopal — Lakes','Panna — Diamonds'],a:1,n:'Bhedaghat near Jabalpur — Narmada river white marble gorge.'},
+{c:"Ch.7 Capitals",q:'Dhuandhar Falls kahan hai?',o:['Pachmarhi','Bhedaghat Jabalpur','Amarkantak','Kanha NP'],a:1,n:'Dhuandhar Falls (Smoke Cascade) at Bhedaghat, Jabalpur.'},
+{c:"Ch.7 Capitals",q:'Chausath Yogini Temple kahan hai?',o:['Khajuraho','Ujjain','Jabalpur (Bhedaghat)','Sanchi'],a:2,n:'Chausath Yogini Temple at Bhedaghat, Jabalpur (10th century, 81 Yogini sculptures).'},
+{c:"Ch.7 Capitals",q:'MP ka uchcha nyayalay (High Court) kahan hai?',o:['Bhopal','Indore','Gwalior','Jabalpur'],a:3,n:'MP High Court main bench at Jabalpur.'},
+{c:"Ch.7 Capitals",q:'Panna ko kaunsi rajdhani kaha jaata hai?',o:['Urja Rajdhani','Heera Rajdhani','Maneej Rajdhani','Cement Capital'],a:1,n:'Panna = Heera Rajdhani (Diamond Capital).'},
+{c:"Ch.7 Capitals",q:'India mein diamond mining kahan hoti hai?',o:['Andhra Pradesh','Jharkhand','Panna MP','Gujarat'],a:2,n:'Panna (MP) = only active diamond mine in India.'},
+{c:"Ch.7 Capitals",q:'Panna ki diamond mine ka naam kya hai?',o:['Golkonda mine','Majhgawan mine','Panna mine','Vijay mine'],a:1,n:'Majhgawan mine in Panna, operated by NMDC.'},
+{c:"Ch.7 Capitals",q:'Panna Tiger Reserve ki kya visheshata hai?',o:['Sabse bada TR','Tigers reintroduce kiye gaye 2009 ke baad','Sabse purana TR','UNESCO listed'],a:1,n:'Panna TR: tigers went locally extinct by 2009, successfully reintroduced.'},
+{c:"Ch.7 Capitals",q:'Ken-Betwa River Interlinking Project kahan se guzarta hai?',o:['Kanha NP','Satpura NP','Panna Tiger Reserve','Bandhavgarh TR'],a:2,n:'Ken-Betwa Project passes through Panna Tiger Reserve — controversial.'},
+{c:"Ch.7 Capitals",q:'Panna kis sambhag mein hai?',o:['Rewa','Sagar','Jabalpur','Shahdol'],a:1,n:'Panna is in Sagar division.'},
+{c:"Ch.7 Capitals",q:'Singrauli ko kaunsi rajdhani kaha jaata hai?',o:['Heera Rajdhani','Maneej Rajdhani','Urja Rajdhani + Coal Capital','Sangeet Rajdhani'],a:2,n:'Singrauli = Urja Rajdhani + Koyla Rajdhani + Coal Capital.'},
+{c:"Ch.7 Capitals",q:'Singrauli kaunse number ka jila bana?',o:['48th','49th','50th','51st'],a:2,n:'50th district (24 May 2008) carved from Sidhi.'},
+{c:"Ch.7 Capitals",q:'NTPC Vindhyachal kahan hai?',o:['Rewa','Satna','Singrauli','Shahdol'],a:2,n:"NTPC Vindhyachal (India's largest thermal plant, 4,760 MW) in Singrauli."},
+{c:"Ch.7 Capitals",q:'NCL (Northern Coalfields Limited) kahan operate karta hai?',o:['Rewa','Shahdol','Singrauli','Panna'],a:2,n:'NCL operates in Singrauli coalfield.'},
+{c:"Ch.7 Capitals",q:'Singrauli mein Asia ka sabse mota coal seam kahan hai?',o:['Sonbhadra','Singrauli coalfield','Dhanbad','Korba'],a:1,n:'Singrauli coalfield has thickest coal seam in Asia.'},
+{c:"Ch.7 Capitals",q:'Ujjain ko kaunsi rajdhani kaha jaata hai?',o:['Vyavsayik Rajdhani','Dharmic Rajdhani','Sanskritic Rajdhani','Maneej Rajdhani'],a:1,n:'Ujjain = Dharmic Rajdhani (Religious Capital).'},
+{c:"Ch.7 Capitals",q:'Mahakaleshwar Jyotirlinga ki kya visheshata hai?',o:['Sabse purana','Sabse bada','Ek maatra Dakshinamukhi','Sabse uncha'],a:2,n:'Mahakaleshwar = only Dakshinamukhi Jyotirlinga in India.'},
+{c:"Ch.7 Capitals",q:'Simhastha Kumbh kahan aur kitne saal baad hota hai?',o:['Prayagraj — 6 years','Ujjain — 12 years','Nashik — 9 years','Haridwar — 15 years'],a:1,n:'Simhastha Kumbh = Ujjain, every 12 years on Shipra river.'},
+{c:"Ch.7 Capitals",q:'Shipra nadi ke kinare kaun sa Kumbh hota hai?',o:['Pushkar Kumbh','Simhastha Kumbh Ujjain','Nashik Kumbh','Triveni Kumbh'],a:1,n:'Simhastha Kumbh Mela at Ujjain on Shipra (Kshipra) river.'},
+{c:"Ch.7 Capitals",q:'Vikram Samvat ki shuruaat kab aur kisne ki?',o:['57 CE — Raja Bhoja','57 BCE — Vikramaditya','320 CE — Chandragupta','78 CE — Kanishka'],a:1,n:'Vikram Samvat = 57 BCE, started by Vikramaditya at Ujjain.'},
+{c:"Ch.7 Capitals",q:'Kalidasa ka sambandh kahan se tha?',o:['Bhopal','Jabalpur','Ujjain (Vikramaditya ke Navratna)','Gwalior'],a:2,n:"Kalidasa was in Vikramaditya's Navratna court at Ujjain."},
+{c:"Ch.7 Capitals",q:'Ujjain ancient India ka kaun sa reference point tha?',o:['Southern terminus','Prime Meridian','Northern Terminus','Eastern Gate'],a:1,n:'Ujjain was the prime meridian of ancient Indian astronomy.'},
+{c:"Ch.7 Capitals",q:'Malkhamb Academy kahan hai?',o:['Bhopal','Indore','Gwalior','Ujjain'],a:3,n:'Malkhamb Academy is in Ujjain.'},
+{c:"Ch.7 Capitals",q:'Pachmarhi ko kaunsi rajdhani kaha jaata hai?',o:['Vyavsayik Rajdhani','Dharmic Rajdhani','Paryatan + Greeshmakaleen Rajdhani','Urja Rajdhani'],a:2,n:'Pachmarhi = Paryatan Rajdhani + Greeshmakaleen Rajdhani + Satpura ki Rani.'},
+{c:"Ch.7 Capitals",q:'Pachmarhi MP ka kaun si cheez hai?',o:['Sabse bada shahar','Ek maatra Hill Station','Sabse purana temple','Sabse bada dam'],a:1,n:'Pachmarhi = Only Hill Station of MP.'},
+{c:"Ch.7 Capitals",q:'Pachmarhi kis district mein hai?',o:['Hoshangabad','Narmadapuram','Betul','Chhindwara'],a:1,n:'Pachmarhi is in Narmadapuram district (renamed from Hoshangabad, 28 Aug 2008).',u:'NOT Hoshangabad — renamed to Narmadapuram in 2008.'},
+{c:"Ch.7 Capitals",q:'Pachmarhi ki discovery kisne ki?',o:['Captain Robert Napier','Captain James Forsyth','Lord Curzon','Lord Dalhousie'],a:1,n:'Captain James Forsyth (Bengal Lancers) discovered Pachmarhi in 1857.'},
+{c:"Ch.7 Capitals",q:'MP ka sabse uncha shikhar Dhupgarh kahan hai?',o:['Vindhya Range','Kaimur Range','Satpura Range, Pachmarhi','Maikal Hills'],a:2,n:'Dhupgarh (1,352 m) in Satpura Range, Pachmarhi.'},
+{c:"Ch.7 Capitals",q:'Pachmarhi Biosphere Reserve nationally kab ghoshit hua?',o:['1996','1999','2003','2009'],a:1,n:'Declared nationally 1999. UNESCO recognition May 2009.'},
+{c:"Ch.7 Capitals",q:'MP ka sabse uncha waterfall kaun sa hai?',o:['Bee Falls','Dhuandhar Falls','Rajat Prapat (Silver Falls)','Kapil Dhara'],a:2,n:'Rajat Prapat (Silver Falls) at Pachmarhi = highest waterfall of MP (35 m).'},
+{c:"Ch.7 Capitals",q:'Pachmarhi ka naam kaise pada?',o:['Pahad + Marhi','Panch (5) + Marhi (caves)','Pachar + Hi','Pachha + Mari'],a:1,n:'Panch (5) + Marhi (caves) = 5 caves where Pandavas lived.'},
+{c:"Ch.7 Capitals",q:'Pachmarhi ka Biosphere Reserve kaunse National Park ko include karta hai?',o:['Kanha NP','Satpura NP','Bandhavgarh NP','Panna TR'],a:1,n:'Pachmarhi Biosphere includes Satpura National Park.'},
+{c:"Ch.7 Capitals",q:'Balaghat ko kaunsi rajdhani kaha jaata hai?',o:['Urja Rajdhani','Heera Rajdhani','Maneej Rajdhani','Cement Capital'],a:2,n:'Balaghat = Maneej Rajdhani (Manganese Capital).'},
+{c:"Ch.7 Capitals",q:'India ka sabse bada open-cast copper mine kahan hai?',o:['Rajasthan','Jharkhand','Malajkhand Balaghat MP','Karnataka'],a:2,n:"Malajkhand (Balaghat) = India's largest open-cast copper mine."},
+{c:"Ch.7 Capitals",q:'Malajkhand copper mine ka sanchaalan kaun karta hai?',o:['NMDC','HCL (Hindustan Copper Limited)','SAIL','NALCO'],a:1,n:'Malajkhand operated by HCL (Hindustan Copper Limited).'},
+{c:"Ch.7 Capitals",q:'Malajkhand copper mine kab inaugurated hua?',o:['1971','1975','1982','1991'],a:2,n:'Inaugurated by PM Indira Gandhi in 1982.'},
+{c:"Ch.7 Capitals",q:'Balaghat kis National Park ke paas hai?',o:['Bandhavgarh NP','Kanha NP','Satpura NP','Panna TR'],a:1,n:'Balaghat is adjacent to Kanha National Park.'},
+{c:"Ch.7 Capitals",q:'Maihar ko kaunsi rajdhani kaha jaata hai?',o:['Urja Rajdhani','Heera Rajdhani','Maneej Rajdhani','Sangeet Rajdhani'],a:3,n:'Maihar = Sangeet Rajdhani (Music Capital).'},
+{c:"Ch.7 Capitals",q:'Maihar Gharana ke sansthapak kaun the?',o:['Ravi Shankar','Ustad Bismillah Khan','Ustad Alauddin Khan','Ali Akbar Khan'],a:2,n:'Ustad Alauddin Khan (1862–1972) founded Maihar Gharana.'},
+{c:"Ch.7 Capitals",q:'Ustad Alauddin Khan ke prasiddh shishya kaun the?',o:['Bismillah Khan & Zakir Hussain','Ravi Shankar & Ali Akbar Khan','Hariprasad Chaurasia & Shiv Kumar','Amjad Ali & Zakir'],a:1,n:'Guru of Ravi Shankar & Ali Akbar Khan.'},
+{c:"Ch.7 Capitals",q:'Sharda Mata Temple kahan hai?',o:['Amarkantak','Maihar (Trikut Hill)','Omkareshwar','Chitrakoot'],a:1,n:'Sharda Mata Temple at Maihar on Trikut Hill — 1,063 steps.'},
+{c:"Ch.7 Capitals",q:'Maihar 2023 mein kaun se jile se bana?',o:['Rewa','Chhindwara','Satna','Sidhi'],a:2,n:'Maihar carved from Satna district in 2023.'},
+{c:"Ch.7 Capitals",q:'Rewa ko kya kaha jaata hai?',o:['Heera Rajdhani','Safed Sher ki Dharti','Urja Rajdhani','Maneej Rajdhani'],a:1,n:'Rewa = Safed Sher ki Dharti (Land of White Tigers).'},
+{c:"Ch.7 Capitals",q:'Pahla white tiger kab aur kahan mila tha?',o:['Bandhavgarh 1948','Kanha 1955','Rewa 1951','Panna 1960'],a:2,n:'First white tiger found in Rewa in 1951 by Maharaja Martand Singh.'},
+{c:"Ch.7 Capitals",q:'Rewa Solar Park ki capacity kitni hai?',o:['500 MW','650 MW','750 MW','1,000 MW'],a:2,n:'750 MW Solar Park, Gurh Tehsil, Rewa.'},
+{c:"Ch.7 Capitals",q:'Rewa Solar Park se kaun sa project bijli leta hai?',o:['Delhi Airport','Delhi Metro','Delhi Jal Board','Delhi Government'],a:1,n:'Rewa Solar Park powers Delhi Metro (since 2020).'},
+{c:"Ch.7 Capitals",q:'Khajuraho ko UNESCO World Heritage kab mila?',o:['1982','1986','1989','2003'],a:1,n:'Khajuraho UNESCO World Heritage = 1986.'},
+{c:"Ch.7 Capitals",q:'Khajuraho kis dynasty ne banwaya tha?',o:['Paramara','Holkar','Chandela','Bundela'],a:2,n:'Khajuraho built by Chandela dynasty.'},
+{c:"Ch.7 Capitals",q:'Khajuraho kis district mein hai?',o:['Panna','Sagar','Chhatarpur','Damoh'],a:2,n:'Khajuraho is in Chhatarpur district, Sagar division.'},
+{c:"Ch.7 Capitals",q:'Sanchi Stupa ko UNESCO World Heritage kab mila?',o:['1986','1989','1993','2003'],a:1,n:'Sanchi Buddhist Monuments UNESCO = 1989.'},
+{c:"Ch.7 Capitals",q:'Sanchi kis district mein hai?',o:['Bhopal','Vidisha','Raisen','Sehore'],a:2,n:'Sanchi is in Raisen district, Bhopal division.'},
+{c:"Ch.7 Capitals",q:'Bhimbetka rock shelters ko UNESCO kab mila?',o:['1999','2001','2003','2005'],a:2,n:'Bhimbetka UNESCO = 2003. 10,000+ year old rock paintings.'},
+{c:"Ch.7 Capitals",q:'Bhimbetka kis district mein hai?',o:['Bhopal','Vidisha','Raisen','Sehore'],a:2,n:'Bhimbetka is in Raisen district, Bhopal division.'},
+{c:"Ch.7 Capitals",q:'India mein Currency Note Press kitni jagah hain?',o:['2','3','4','5'],a:2,n:'4 Currency Note Printing Presses in India (RBI). MP = Dewas.'},
+{c:"Ch.7 Capitals",q:'Dewas mein kaun sa pramukh karyalay hai?',o:['IIT campus','Currency Note Press','NIT campus','NMDC office'],a:1,n:'Currency Note Press at Dewas — 1 of only 4 in India.'},
+{c:"Ch.7 Capitals",q:'Satna ko kya kaha jaata hai?',o:['Urja Rajdhani','Heera Rajdhani','Cement Capital of MP','Sangeet Rajdhani'],a:2,n:'Satna = Cement Capital of MP (largest cement cluster).'},
+{c:"Ch.7 Capitals",q:'Mandsaur kaunsi anek visheshata ke liye jana jaata hai?',o:['Tea & Coffee','Opium city + Only slate producer in India','Diamond & Copper','Jute & Cotton'],a:1,n:'Mandsaur = Opium City + Only slate pencil producer in India.'},
+{c:"Ch.7 Capitals",q:'Khandwa kis musician ke janmasthan ke liye prasiddh hai?',o:['Ravi Shankar','Kishore Kumar','Lata Mangeshkar','Tansen'],a:1,n:'Khandwa = birthplace of Kishore Kumar.'},
+{c:"Ch.8 Prashasan",q:'MP mein 2026 mein kitne jile hain?',o:['51','52','53','55'],a:3,n:'55 districts (3 new in 2023).',u:'Updated: 52 → 55.'},
+{c:"Ch.8 Prashasan",q:'2023 mein kaun se 3 naye jile bane?',o:['Agar Malwa, Niwari, Mauganj','Mauganj, Maihar, Pandhurna','Maihar, Niwari, Pandhurna','Singrauli, Agar Malwa, Maihar'],a:1,n:'Mauganj (from Rewa), Maihar (from Satna), Pandhurna (from Chhindwara).'},
+{c:"Ch.8 Prashasan",q:'51va jila kaunsa bana?',o:['Niwari','Singrauli','Agar Malwa','Mauganj'],a:2,n:'Agar Malwa = 51st district (2013, from Shajapur).'},
+{c:"Ch.8 Prashasan",q:'52va jila kaunsa bana?',o:['Agar Malwa','Niwari','Mauganj','Pandhurna'],a:1,n:'Niwari = 52nd district (24 May 2018, from Tikamgarh).'},
+{c:"Ch.8 Prashasan",q:'Niwari jila kahan se bana tha?',o:['Shajapur','Satna','Tikamgarh','Sagar'],a:2,n:'Niwari carved from Tikamgarh on 24 May 2018.'},
+{c:"Ch.8 Prashasan",q:'Maihar jila kahan se bana tha?',o:['Rewa','Satna','Chhindwara','Sidhi'],a:1,n:'Maihar carved from Satna in 2023.'},
+{c:"Ch.8 Prashasan",q:'Mauganj jila kahan se bana tha?',o:['Satna','Chhindwara','Rewa','Jabalpur'],a:2,n:'Mauganj carved from Rewa in 2023.'},
+{c:"Ch.8 Prashasan",q:'Pandhurna jila kahan se bana tha?',o:['Chhindwara','Betul','Mandla','Narsinghpur'],a:0,n:'Pandhurna carved from Chhindwara in 2023.'},
+{c:"Ch.8 Prashasan",q:'MP mein kitne sambhag (divisions) hain?',o:['8','9','10','12'],a:2,n:'10 administrative divisions in MP.'},
+{c:"Ch.8 Prashasan",q:'MP mein kitni tehsilen hain (2026)?',o:['313','371','428','450'],a:2,n:'428 tehsils.',u:'Updated: 371 → 428.'},
+{c:"Ch.8 Prashasan",q:'MP mein kitne Vikas Khanda hain?',o:['290','313','330','350'],a:1,n:'313 Janpad Panchayats / Vikas Khanda.'},
+{c:"Ch.8 Prashasan",q:'MP mein kitne Aadivasi Vikas Khanda hain?',o:['79','89','99','109'],a:1,n:'89 Aadivasi Vikas Khanda.'},
+{c:"Ch.8 Prashasan",q:'MP mein gram panchayaton ki sankhya (2026)?',o:['22,816','~23,043','25,000','21,000'],a:1,n:'~23,043 gram panchayats.',u:'Updated: 22,816 → ~23,043.'},
+{c:"Ch.8 Prashasan",q:'MP mein Nagar Nigam ki sankhya?',o:['14','16','18','20'],a:2,n:'18 Nagar Nigam.',u:'Updated: 16 → 18.'},
+{c:"Ch.8 Prashasan",q:'MP mein Nagar Palika ki sankhya?',o:['89','98','100','110'],a:2,n:'100 Nagar Palikas.',u:'Updated: 98 → 100.'},
+{c:"Ch.8 Prashasan",q:'MP mein Nagar Panchayat ki sankhya?',o:['264','272','280','300'],a:0,n:'264 Nagar Panchayats.',u:'Updated: 272 → 264.'},
+{c:"Ch.8 Prashasan",q:'MP mein kul ULB (Urban Local Bodies) kitni hain?',o:['380','382','390','400'],a:1,n:'382 ULBs = 18+100+264.',u:'Updated: 476 → 382.'},
+{c:"Ch.8 Prashasan",q:'Ksheatrafal mein MP ka sabse bada jila?',o:['Mandla','Rewa','Chhindwara','Sagar'],a:2,n:'Chhindwara = largest district (11,815 sq km).'},
+{c:"Ch.8 Prashasan",q:'Ksheatrafal mein MP ka sabse chhota jila?',o:['Datia','Niwari','Bhopal','Sheopur'],a:1,n:'Niwari = smallest district (1,170 sq km).'},
+{c:"Ch.8 Prashasan",q:'Bhopal sambhag mein kitne jile hain?',o:['4','5','6','7'],a:1,n:'Bhopal sambhag = 5 districts: Bhopal, Vidisha, Raisen, Rajgarh, Sehore.'},
+{c:"Ch.8 Prashasan",q:'Chambal sambhag mein kitne jile hain?',o:['2','3','4','5'],a:1,n:'Chambal sambhag = 3 districts: Morena, Bhind, Sheopur.'},
+{c:"Ch.8 Prashasan",q:'Gwalior sambhag mein kitne jile hain?',o:['4','5','6','7'],a:1,n:'Gwalior sambhag = 5: Gwalior, Guna, Shivpuri, Datia, Ashoknagar.'},
+{c:"Ch.8 Prashasan",q:'Indore sambhag mein kitne jile hain?',o:['6','7','8','9'],a:2,n:'Indore sambhag = 8 districts.'},
+{c:"Ch.8 Prashasan",q:'Jabalpur sambhag mein kitne jile hain (2026)?',o:['7','8','9','10'],a:2,n:'Jabalpur sambhag = 9 (including Pandhurna added 2023).'},
+{c:"Ch.8 Prashasan",q:'Narmadapuram sambhag mein kitne jile hain?',o:['2','3','4','5'],a:1,n:'Narmadapuram sambhag = 3: Narmadapuram, Betul, Harda.'},
+{c:"Ch.8 Prashasan",q:'Rewa sambhag mein 2026 mein kitne jile hain?',o:['4','5','6','7'],a:1,n:'Rewa sambhag = 5 (including Mauganj added 2023).'},
+{c:"Ch.8 Prashasan",q:'Sagar sambhag mein kitne jile hain?',o:['5','6','7','8'],a:1,n:'Sagar sambhag = 6: Sagar, Panna, Damoh, Chhatarpur, Tikamgarh, Niwari.'},
+{c:"Ch.8 Prashasan",q:'Shahdol sambhag mein kitne jile hain?',o:['2','3','4','5'],a:1,n:'Shahdol sambhag = 3: Shahdol, Anuppur, Umaria.'},
+{c:"Ch.8 Prashasan",q:'Ujjain sambhag mein kitne jile hain?',o:['5','6','7','8'],a:2,n:'Ujjain sambhag = 7: Ujjain, Shajapur, Dewas, Agar-Malwa, Ratlam, Mandsaur, Neemuch.'},
+{c:"Ch.8 Prashasan",q:'Narmadapuram Division ka purana naam kya tha?',o:['Sehore Division','Hoshangabad Division','Betul Division','Narmada Division'],a:1,n:'Renamed from Hoshangabad to Narmadapuram Division on 28 August 2008.'},
+{c:"Ch.8 Prashasan",q:'MP ki sthaapana ke waqt (1 Nov 1956) kitne jile the?',o:['40','43','45','50'],a:1,n:'43 districts at formation.'},
+{c:"Ch.8 Prashasan",q:'26 January 1972 ko MP mein kitne naye jile bane?',o:['1','2','3','4'],a:1,n:'2 new districts: Bhopal & Rajnandgaon.'},
+{c:"Ch.8 Prashasan",q:'Singrauli kab MP ka 50va jila bana?',o:['1 November 2000','24 May 2008','24 May 2018','2023'],a:1,n:'Singrauli = 50th district on 24 May 2008.'},
+{c:"Ch.8 Prashasan",q:'Agar Malwa kab 51va jila bana?',o:['2010','2011','2013','2015'],a:2,n:'Agar Malwa = 51st district in 2013 (from Shajapur).'},
+{c:"Ch.8 Prashasan",q:'Niwari kab 52va jila bana?',o:['2015','2016','2017','2018'],a:3,n:'Niwari = 52nd district on 24 May 2018.'},
+{c:"Ch.8 Prashasan",q:'Sabse chhote sambhag (kam jile) mein kaun se hain?',o:['Chambal, Narmadapuram, Shahdol — 3 districts each','Bhopal, Gwalior — 5 districts','Jabalpur, Indore — 8 districts','Ujjain, Rewa — 7 districts'],a:0,n:'Chambal, Narmadapuram, and Shahdol each have only 3 districts.'},
+{c:"Ch.8 Prashasan",q:'Sabse bade sambhag (adhik jile) mein kaun sa hai?',o:['Bhopal (5)','Gwalior (5)','Jabalpur (9)','Indore (8)'],a:2,n:'Jabalpur sambhag has 9 districts — most in any division.'},
+{c:"Ch.8 Prashasan",q:'Chachaura & Nagda districts ke baare mein kya sach hai?',o:['Pehle se bane hain','18 March 2020 ko approve par abhi officially nahin bane','Cancelled permanently','2023 mein bane'],a:1,n:'Chachaura & Nagda approved 18 March 2020, not yet officially formed as of March 2026.'},
+{c:"Ch.8 Prashasan",q:'MP mein Jila Panchayat ki sankhya kitni hai?',o:['50','52','55','60'],a:2,n:'55 Jila Panchayats (same as number of districts).'},
+{c:"Ch.8 Prashasan",q:'Indore sambhag mein kaun sa naya jila nahin tha (2023)?',o:['Alirajpur','Barwani','Pandhurna','Burhanpur'],a:2,n:'Pandhurna added to Jabalpur sambhag, not Indore.'},
+{c:"Ch.9 Rajneetik",q:'MP mein Lok Sabha ki kitni seeten hain?',o:['26','28','29','30'],a:2,n:'29 Lok Sabha seats in MP.'},
+{c:"Ch.9 Rajneetik",q:'MP mein Rajya Sabha ki kitni seeten hain?',o:['9','10','11','12'],a:2,n:'11 Rajya Sabha seats.'},
+{c:"Ch.9 Rajneetik",q:'MP mein Vidhan Sabha ki kitni seeten hain?',o:['200','220','230','240'],a:2,n:'230 VS seats (reduced from 320 after CG separation).'},
+{c:"Ch.9 Rajneetik",q:'MP VS mein SC ke liye kitni seeten arakshit hain?',o:['25','30','35','40'],a:2,n:'35 SC reserved seats.'},
+{c:"Ch.9 Rajneetik",q:'MP VS mein ST ke liye kitni seeten arakshit hain?',o:['37','42','47','52'],a:2,n:'47 ST reserved seats.'},
+{c:"Ch.9 Rajneetik",q:'MP ke vartaman CM (March 2026) kaun hain?',o:['Shivraj Singh Chouhan','Kamal Nath','Mohan Yadav','Narendra Singh Tomar'],a:2,n:'Mohan Yadav (BJP) — sworn in 13 December 2023.',u:'Shivraj → Mohan Yadav.'},
+{c:"Ch.9 Rajneetik",q:'Mohan Yadav kab MP ke CM bane?',o:['1 November 2023','13 December 2023','26 January 2024','15 March 2024'],a:1,n:'Sworn in 13 December 2023.'},
+{c:"Ch.9 Rajneetik",q:'MP ke vartaman Governor (2026) kaun hain?',o:['Lalji Tandon','Anandiben Patel','Mangu Bhai Patel','Ram Naresh Yadav'],a:2,n:'Mangu Bhai Patel — current Governor.'},
+{c:"Ch.9 Rajneetik",q:'MP mein Lok Sabha 2024 mein BJP ne kitni seeten jeeti?',o:['25/29','27/29','28/29','29/29'],a:3,n:'BJP won all 29/29 seats.'},
+{c:"Ch.9 Rajneetik",q:'Vidhan Sabha 2023 mein BJP ko kitni seeten mili?',o:['152','163','175','185'],a:1,n:'BJP: 163, INC: 66, Others: 1 (total 230).'},
+{c:"Ch.9 Rajneetik",q:'Vidhan Sabha 2023 mein INC ko kitni seeten mili?',o:['50','60','66','75'],a:2,n:'INC = 66 seats in 2023 VS.'},
+{c:"Ch.9 Rajneetik",q:'Shivraj Singh Chouhan ne MP mein kitni baar CM ka pad sambhala?',o:['2 terms','3 terms','4 terms','5 terms'],a:2,n:'Shivraj = 4 terms CM (2005–2023) — longest-serving.'},
+{c:"Ch.9 Rajneetik",q:'MP VS ki seeten CG alag hone ke baad kitni reh gayi?',o:['250','230','220','200'],a:1,n:'After CG separation (Nov 2000): 320 → 230 seats.'},
+{c:"Ch.9 Rajneetik",q:'MP ke Deputy CMs (2026) kaun hain?',o:['Kailash Vijayvargiya & Prahlad Patel','Rajendra Shukla & Jagdish Devda','Narendra Singh Tomar & VD Sharma','Shivraj & Uma Bharti'],a:1,n:'Rajendra Shukla & Jagdish Devda.'},
+{c:"Ch.9 Rajneetik",q:'MP ka pratham CM kaun tha?',o:['Kailash Nath Katju','B.P. Sitaramaiya','D.P. Mishra','Ravi Shankar Shukla'],a:3,n:'Ravi Shankar Shukla — 1st CM.'},
+{c:"Ch.9 Rajneetik",q:'MP ka pratham Rajyapal kaun tha?',o:['Fazal Ali','Ravi Shankar Shukla','B.P. Sitaramaiya','Hridaynath Kunzru'],a:2,n:'B.P. Sitaramaiya — 1st Governor.'},
+{c:"Ch.9 Rajneetik",q:'Chhattisgarh alag hone ke baad MP VS mein kitni seeten kum hui?',o:['50','70','90','100 (320 se 230)'],a:3,n:'320 – 230 = 90 seats reduced.'},
+{c:"Ch.9 Rajneetik",q:'Lok Sabha 2024 mein INC ne MP mein kitni seeten jeeti?',o:['0','2','5','8'],a:0,n:'INC won 0 seats in MP 2024 Lok Sabha (BJP swept all 29).'},
+{c:"Ch.9 Rajneetik",q:'MP mein Parliament ki kul kitni seeten hain (LS+RS)?',o:['38','40','42','44'],a:1,n:'29 LS + 11 RS = 40 total Parliament seats.'},
+{c:"Ch.9 Rajneetik",q:'Kab se MP 5va sabse zyada aabaadi wala rajya bana?',o:['2011','2014','2016','2018'],a:1,n:'Since 2014 (after 2011 Census analysis), MP = 5th most populous.'},
+{c:"Ch.10 Divas & Varsh",q:'MP Diwas kab manaya jaata hai?',o:['15 August','26 January','1 November','2 October'],a:2,n:'MP Diwas = 1 November (every year).'},
+{c:"Ch.10 Divas & Varsh",q:'Beti Bachao Diwas kab hai?',o:['8 March','5 October','25 December','11 May'],a:1,n:'Beti Bachao Diwas = 5 October.'},
+{c:"Ch.10 Divas & Varsh",q:'Sushasan Diwas kab manaya jaata hai?',o:['2 October','25 September','25 December','26 January'],a:2,n:'Sushasan Diwas = 25 December.'},
+{c:"Ch.10 Divas & Varsh",q:'Lokasewa Diwas kab hai?',o:['11 May','18 June','25 September','2 November'],a:2,n:'Lokasewa Diwas = 25 September.'},
+{c:"Ch.10 Divas & Varsh",q:'Panchayati Raj Diwas kab manaya jaata hai?',o:['2 October','25 January','26 January','25 September'],a:1,n:'Panchayati Raj Diwas = 25 January.'},
+{c:"Ch.10 Divas & Varsh",q:'Janasankhya Niyantran Diwas kab hai?',o:['11 May','18 June','5 October','2 November'],a:0,n:'Janasankhya Niyantran Diwas = 11 May.'},
+{c:"Ch.10 Divas & Varsh",q:'Mahila Sashaktikaran Diwas kab hai?',o:['8 March','11 May','18 June','25 September'],a:2,n:'Mahila Sashaktikaran Diwas = 18 June.'},
+{c:"Ch.10 Divas & Varsh",q:'Nagariya Nikaay Diwas kab hai?',o:['1 November','2 November','3 November','5 November'],a:1,n:'Nagariya Nikaay Diwas = 2 November.'},
+{c:"Ch.10 Divas & Varsh",q:'Mahua Diwas kab ghoshit hua?',o:['11 July 2009','11 July 2010','11 July 2011','11 July 2012'],a:2,n:'Mahua Diwas = 11 July 2011.'},
+{c:"Ch.10 Divas & Varsh",q:'Kartavya Parv kab se kab tak hota hai?',o:['1–2 October','2–8 October','25 Sep – 2 Oct','26 Sep – 2 Oct'],a:2,n:'Kartavya Parv = 25 September to 2 October.'},
+{c:"Ch.10 Divas & Varsh",q:'Vikas Diwas kab hai?',o:['6 March 2013','6 April 2013','6 May 2013','6 June 2013'],a:1,n:'Vikas Diwas = 6 April 2013.'},
+{c:"Ch.10 Divas & Varsh",q:'Mahua Varsh kaunsa saal tha?',o:['2010','2011','2012','2013'],a:1,n:'Mahua Varsh = 2011.'},
+{c:"Ch.10 Divas & Varsh",q:'Tikaakaran Varsh kaunsa saal tha?',o:['2011','2012','2013','2014'],a:1,n:'Tikaakaran Varsh = 2012.'},
+{c:"Ch.10 Divas & Varsh",q:'Soochana Praudyogiki Varsh kaunsa saal tha?',o:['2012','2013','2014','2015'],a:1,n:'Soochana Praudyogiki (IT) Varsh = 2013.'},
+{c:"Ch.10 Divas & Varsh",q:'Paryatan Varsh kaunsa saal tha?',o:['2013','2014','2015','2016'],a:2,n:'Paryatan Varsh = 2015.'},
+{c:"Ch.10 Divas & Varsh",q:'Gareeb Kalyan Varsh kaunsa saal tha?',o:['2014','2015','2016','2017'],a:2,n:'Gareeb Kalyan Varsh = 2016.'},
+{c:"Ch.10 Divas & Varsh",q:'MP ki sthaapana kab hui thi (for MP Diwas)?',o:['1 November 1952','1 November 1956','1 November 1960','1 November 1965'],a:1,n:'MP formed on 1 November 1956.'},
+{c:"Ch.10 Divas & Varsh",q:'Kaunsa Diwas 25 December ko manaya jaata hai?',o:['Panchayati Raj Diwas','Sushasan Diwas','Lokasewa Diwas','Beti Bachao Diwas'],a:1,n:'Sushasan Diwas = 25 December.'},
+{c:"Ch.11 Gathan",q:'1947 mein Central Provinces ka Category A mein kaunsa rajya bana?',o:['Vindhya Pradesh','Madhya Bharat','Madhya Pradesh','Bhopal State'],a:2,n:'Central Provinces + Baghelkhand + Chhattisgarh → MP (Category A). Capital: Nagpur.'},
+{c:"Ch.11 Gathan",q:'Madhya Bharat (Category B) ki rajdhaniyaan kaun si theen?',o:['Bhopal & Rewa','Nagpur & Gwalior','Indore & Gwalior','Jabalpur & Rewa'],a:2,n:'Madhya Bharat had dual capitals: Indore & Gwalior.'},
+{c:"Ch.11 Gathan",q:'Vindhya Pradesh (Category C) ki rajdhani kaun si thi?',o:['Bhopal','Rewa','Indore','Gwalior'],a:1,n:'Vindhya Pradesh = capital at Rewa.'},
+{c:"Ch.11 Gathan",q:'State Reorganisation Commission ke adhyaksh kaun the?',o:['K.M. Panikkar','Hridaynath Kunzru','Fazal Ali','B.P. Sitaramaiya'],a:2,n:'Fazal Ali = Chairman, SRC.'},
+{c:"Ch.11 Gathan",q:'SRC ke teen members kaun se the?',o:['Fazal Ali, Hridaynath Kunzru, K.M. Panikkar','B.P. Sitaramaiya, Fazal Ali, Kunzru','Panikkar, Nehru, Sitaramaiya','Only Fazal Ali'],a:0,n:'Fazal Ali (Chair), Hridaynath Kunzru, K.M. Panikkar.'},
+{c:"Ch.11 Gathan",q:'1 Nov 1956 ko MP se kaun se jile Bombay State mein gaye?',o:['Nagpur, Akola, Amravati aadi 8 jile','Pune, Nashik, Aurangabad','Sholapur, Kolhapur','Nanded, Osmanabad'],a:0,n:'8 districts: Buldhana, Akola, Amravati, Yavatmal, Wardha, Nagpur, Bhandara, Chanda → Bombay.'},
+{c:"Ch.11 Gathan",q:'1 Nov 1956 ko Rajasthan ke kaunse jile ki tehsil MP mein aayi?',o:['Kota — Baran tehsil','Kota — Sironje tehsil','Bundi tehsil','Jhalawar tehsil'],a:1,n:"Kota's Sironje Tehsil → Vidisha district, MP."},
+{c:"Ch.11 Gathan",q:'Mandsaur ka Bhanpura area kahan se MP mein aaya?',o:['Bombay State','Part-C state','Rajasthan','UP'],a:1,n:'Bhanpura area of Mandsaur (except Sunel Tapla) from Part-C state.'},
+{c:"Ch.11 Gathan",q:'1 Nov 1956 ko naye MP mein kitne jile the?',o:['40','43','45','50'],a:1,n:'43 districts at formation.'},
+{c:"Ch.11 Gathan",q:'26 January 1972 ko kaun se naye jile bane?',o:['1 — Bhopal','2 — Bhopal & Rajnandgaon','3 — Bhopal, Rajnandgaon & Singrauli','2 — Gwalior & Jabalpur'],a:1,n:'Bhopal & Rajnandgaon. Total = 45.'},
+{c:"Ch.11 Gathan",q:'Chhattisgarh kab alag hua?',o:['15 August 1999','1 November 2000','2 June 2000','1 November 2001'],a:1,n:'Chhattisgarh = 26th state on 1 November 2000.'},
+{c:"Ch.11 Gathan",q:'Chhattisgarh kaun sa rajya bana?',o:['25th','26th','27th','28th'],a:1,n:'Chhattisgarh = 26th state of India.'},
+{c:"Ch.11 Gathan",q:'CG alag hone ke baad MP VS ki seeten kitni reh gayi?',o:['250','230','220','200'],a:1,n:'320 → 230 after CG separation.'},
+{c:"Ch.11 Gathan",q:'Singrauli kab MP ka 50va jila bana?',o:['1 November 2000','24 May 2008','24 May 2018','2023'],a:1,n:'Singrauli = 50th on 24 May 2008.'},
+{c:"Ch.11 Gathan",q:'Agar Malwa kab MP ka 51va jila bana?',o:['2010','2011','2013','2015'],a:2,n:'Agar Malwa = 51st in 2013.'},
+{c:"Ch.11 Gathan",q:'Niwari kab 52va jila bana?',o:['2015','2016','2017','24 May 2018'],a:3,n:'Niwari = 52nd on 24 May 2018.'},
+{c:"Ch.11 Gathan",q:'2023 mein kaun se teen naye jile bane?',o:['Agar Malwa, Niwari, Mauganj','Mauganj, Maihar, Pandhurna','Maihar, Niwari, Pandhurna','Singrauli, Agar Malwa, Maihar'],a:1,n:'Mauganj, Maihar, Pandhurna.'},
+{c:"Ch.11 Gathan",q:'Chachaura & Nagda districts kab approve hue?',o:['2018','2019','18 March 2020','2022'],a:2,n:'Approved 18 March 2020 but not yet officially formed.'},
+{c:"Ch.11 Gathan",q:'8 September 1992 ko MP mein kitne naye jile propose kiye gaye?',o:['8','12','16','20'],a:2,n:'16 new districts proposed on 8 Sep 1992.'},
+{c:"Ch.11 Gathan",q:'Naye MP ki pahli rajdhani kya thi?',o:['Nagpur','Indore','Bhopal','Gwalior'],a:2,n:'Bhopal became capital of new MP from 1 November 1956.'},
+{c:"Ch.12 Geography",q:'MP ka sabse uncha shikhar (peak) kaun sa hai?',o:['Pachmarhi Peak','Dhupgarh (1,352 m)','Amarkantak','Maikal Top'],a:1,n:'Dhupgarh = 1,352 m, Satpura Range, Pachmarhi.',u:'1,352 m — not 1,350 m.'},
+{c:"Ch.12 Geography",q:'Dhupgarh kis parwat shrenee mein hai?',o:['Vindhya Range','Kaimur Range','Satpura Range','Maikal Hills'],a:2,n:'Dhupgarh is in Satpura Range.'},
+{c:"Ch.12 Geography",q:'Dhupgarh kahan ka sabse uncha bindu hai?',o:['Vindhya Range','Satpura Range','Maikal Hills','Kaimur Range'],a:1,n:'Dhupgarh = highest point of Satpura Range.'},
+{c:"Ch.12 Geography",q:'MP mein kitne Tiger Reserves hain?',o:['5','6','7','8'],a:2,n:'7 TR: Bandhavgarh, Kanha, Pench, Satpura, Sanjay-Dubri, Panna, Nauradehi.'},
+{c:"Ch.12 Geography",q:'MP mein kitne National Parks hain?',o:['9','10','11','12'],a:2,n:'11 National Parks in MP.'},
+{c:"Ch.12 Geography",q:'MP mein kitne Biosphere Reserves hain?',o:['2','3','4','5'],a:1,n:'3: Pachmarhi, Amarkantak, Panna.'},
+{c:"Ch.12 Geography",q:'Pachmarhi Biosphere nationally kab ghoshit hua?',o:['1996','1999','2003','2009'],a:1,n:'1999 nationally. UNESCO May 2009.'},
+{c:"Ch.12 Geography",q:'MP mein Ramsar sites kitni hain?',o:['1','2','3','4'],a:1,n:'2 Ramsar sites: Bhoj Wetland (Bhopal) & Sirpur Lake (Indore).'},
+{c:"Ch.12 Geography",q:'Bhoj Wetland kahan hai?',o:['Indore','Gwalior','Bhopal','Ujjain'],a:2,n:'Bhoj Wetland (Upper Lake) = Bhopal. Ramsar site 2002.'},
+{c:"Ch.12 Geography",q:'Sirpur Lake kahan hai?',o:['Bhopal','Gwalior','Indore','Ujjain'],a:2,n:'Sirpur Lake = Indore. Ramsar site.'},
+{c:"Ch.12 Geography",q:'MP mein forest cover approximately kitna hai?',o:['20.7%','25.7%','30.7%','35.7%'],a:2,n:'~30.7% forest cover. 1st rank in India (FSI 2023).'},
+{c:"Ch.12 Geography",q:'Forest area mein MP ka India mein rank kaun sa hai?',o:['2nd','3rd','1st','4th'],a:2,n:'1st rank (FSI 2023).',u:'Updated: 3rd → 1st.'},
+{c:"Ch.12 Geography",q:'Kanha National Park kis jile mein hai?',o:['Balaghat','Mandla','Seoni','Dindori'],a:1,n:'Kanha Kisli NP is in Mandla district.'},
+{c:"Ch.12 Geography",q:'Bandhavgarh National Park kis jile mein hai?',o:['Shahdol','Satna','Umaria','Rewa'],a:2,n:'Bandhavgarh is in Umaria district.'},
+{c:"Ch.12 Geography",q:'Satpura National Park kis jile mein hai?',o:['Narmadapuram','Betul','Harda','Chhindwara'],a:0,n:'Satpura NP is in Narmadapuram (Hoshangabad) district.'},
+{c:"Ch.12 Geography",q:'Van Vihar National Park kahan hai?',o:['Indore','Gwalior','Bhopal','Jabalpur'],a:2,n:'Van Vihar NP is in Bhopal.'},
+{c:"Ch.12 Geography",q:'Kuno National Park kahan hai?',o:['Sheopur','Morena','Bhind','Gwalior'],a:0,n:'Kuno NP (Cheetah project) is in Sheopur district.'},
+{c:"Ch.12 Geography",q:'MP mein heeron ka kitna pratishat national production hai?',o:['70%','80%','90%','100%'],a:2,n:"~90% of India's diamond production from Panna."},
+{c:"Ch.12 Geography",q:'Narmada nadi ka udgam kahan hai?',o:['Pachmarhi','Pench','Amarkantak (Anuppur)','Betul'],a:2,n:'Narmada originates from Amarkantak, Anuppur.'},
+{c:"Ch.12 Geography",q:'Narmada nadi ki kul lambai kitni hai?',o:['1,077 km','1,200 km','1,312 km','1,500 km'],a:2,n:'Total: 1,312 km. In MP: 1,077 km.'},
+{c:"Ch.12 Geography",q:'Narmada nadi MP mein kitni lambai mein behti hai?',o:['877 km','977 km','1,077 km','1,177 km'],a:2,n:'Narmada flows 1,077 km within MP.'},
+{c:"Ch.12 Geography",q:'Narmada nadi kis samudra mein girti hai?',o:['Bay of Bengal','Arabian Sea','Indian Ocean','Lakshadweep Sea'],a:1,n:'Narmada flows WEST into Arabian Sea.'},
+{c:"Ch.12 Geography",q:'Chambal nadi ka udgam kahan hai?',o:['Betul','Amarkantak','Janapav Hill Mhow Indore','Kakra Bardi'],a:2,n:'Chambal from Janapav Hill, Mhow, Indore.'},
+{c:"Ch.12 Geography",q:'Chambal nadi kaunsi nadi ki sahayak hai?',o:['Narmada','Tapti','Yamuna','Ganga'],a:2,n:'Chambal = tributary of Yamuna.'},
+{c:"Ch.12 Geography",q:'Chambal nadi MP mein kitni lambai ki hai?',o:['120 km','220 km','320 km','420 km'],a:2,n:'Chambal flows 320 km within MP.'},
+{c:"Ch.12 Geography",q:'Betwa nadi ka udgam kahan hai?',o:['Pachmarhi','Kumra village Raisen','Amarkantak','Betul'],a:1,n:'Betwa from Kumra, Raisen. Total 590 km.'},
+{c:"Ch.12 Geography",q:'Betwa nadi kahan Yamuna mein milti hai?',o:['Allahabad','Hamirpur UP','Kanpur','Mathura'],a:1,n:'Betwa meets Yamuna at Hamirpur, UP.'},
+{c:"Ch.12 Geography",q:'Ken nadi ka udgam kahan hai?',o:['Ahirgawan Jabalpur','Pachmarhi','Amarkantak','Betul'],a:0,n:'Ken from Ahirgawan, Jabalpur. 427 km.'},
+{c:"Ch.12 Geography",q:'Tapti nadi ka udgam kahan hai?',o:['Pachmarhi','Betul (Multai)','Amarkantak','Janapav Hill'],a:1,n:'Tapti from Multai, Betul. 724 km. Flows WEST.'},
+{c:"Ch.12 Geography",q:'Shipra nadi ka udgam kahan hai?',o:['Amarkantak','Pachmarhi','Kakra Bardi Mountain Indore','Betul'],a:2,n:'Shipra from Kakra Bardi Mountain, Indore.'},
+{c:"Ch.12 Geography",q:'Shipra nadi kaunsi nadi ki sahayak hai?',o:['Narmada','Betwa','Chambal','Tapti'],a:2,n:'Shipra is a tributary of Chambal.'},
+{c:"Ch.12 Geography",q:'Shipra nadi ko kya kaha jaata hai?',o:['Lifeline of MP','Ganga of Malwa','Mother river','Sacred river of Ujjain'],a:1,n:"Shipra = 'Ganga of Malwa.'"},
+{c:"Ch.12 Geography",q:'Amarkantak se kaun si nadiyan nikalti hain?',o:['Narmada only','Narmada & Sone','Narmada, Sone & Johila','Chambal & Narmada'],a:2,n:'3 rivers from Amarkantak: Narmada + Sone + Johila. ★★'},
+{c:"Ch.12 Geography",q:'Sone nadi kaunse basin mein hai?',o:['Narmada basin','Yamuna basin','Ganga basin','Godavari basin'],a:2,n:'Sone = Ganga basin. Goes NE to Bihar then joins Ganga.'},
+{c:"Ch.12 Geography",q:'Mahi nadi ki kaunsi visheshata hai?',o:['Sabse lambi','2 baar Kark Rekha cross karti hai','Sabse saaf','Sabse gahri'],a:1,n:'Mahi crosses Tropic of Cancer TWICE.'},
+{c:"Ch.12 Geography",q:'Mahi nadi ka udgam kahan hai?',o:['Dhar/Jhabua district','Betul','Amarkantak','Pachmarhi'],a:0,n:'Mahi originates from Dhar/Jhabua.'},
+{c:"Ch.12 Geography",q:'Wainganga nadi kaunse basin mein hai?',o:['Narmada basin','Yamuna basin','Ganga basin','Godavari basin'],a:3,n:'Wainganga = Godavari basin. Goes into Maharashtra.'},
+{c:"Ch.12 Geography",q:'Wainganga nadi ka udgam kahan hai?',o:['Balaghat','Mandla','Seoni','Dindori'],a:2,n:'Wainganga originates in Seoni.'},
+{c:"Ch.12 Geography",q:'Kaali Mitti (Black Soil) MP mein kahan payi jaati hai?',o:['Bundelkhand','Baghelkhand','Malwa Plateau & Narmada Valley','Eastern MP'],a:2,n:'Kaali Mitti = Malwa Plateau & Narmada Valley.'},
+{c:"Ch.12 Geography",q:'Laal Mitti (Red Soil) kahan payi jaati hai?',o:['Malwa','Chambal','Baghelkhand & Bundelkhand','Narmada Valley'],a:2,n:'Red soil = Baghelkhand & Bundelkhand.'},
+{c:"Ch.12 Geography",q:'Alluvial soil MP mein kahan hai?',o:['Malwa','Chambal & Narmada floodplains','Eastern MP','Northern MP'],a:1,n:'Alluvial soil in Chambal & Narmada floodplains.'},
+{c:"Ch.12 Geography",q:'Laterite soil kahan payi jaati hai?',o:['Malwa','Gwalior-Chambal','Eastern MP — Balaghat, Mandla','Narmada Valley'],a:2,n:'Laterite soil in eastern MP.'},
+{c:"Ch.12 Geography",q:'MP mein UNESCO sites kitni hain?',o:['2','3','4','5'],a:1,n:'3 UNESCO: Khajuraho 1986, Sanchi 1989, Bhimbetka 2003.'},
+{c:"Ch.12 Geography",q:'Khajuraho ko UNESCO kab mila?',o:['1982','1986','1989','2003'],a:1,n:'Khajuraho UNESCO = 1986.'},
+{c:"Ch.12 Geography",q:'Sanchi ko UNESCO kab mila?',o:['1986','1989','1993','2003'],a:1,n:'Sanchi UNESCO = 1989.'},
+{c:"Ch.12 Geography",q:'Bhimbetka ko UNESCO kab mila?',o:['1999','2001','2003','2005'],a:2,n:'Bhimbetka UNESCO = 2003.'},
+{c:"Ch.12 Geography",q:'Bhimbetka ki rock paintings kitni purani hain?',o:['5,000+ years','8,000+ years','10,000+ years','15,000+ years'],a:2,n:'Bhimbetka paintings = 10,000+ years old.'},
+{c:"Ch.12 Geography",q:'Vindhya Range kahan sthit hai?',o:['Northern MP','Central MP (N-S divide)','Southern MP','Eastern MP'],a:1,n:'Vindhya Range runs through central MP.'},
+{c:"Ch.12 Geography",q:'MP ke pramukh khanijon mein slate ka utpaadan kahan hota hai?',o:['Panna','Balaghat','Mandsaur','Singrauli'],a:2,n:'Mandsaur = only slate producer in India.'},
+{c:"Ch.12 Geography",q:'Narmada nadi ki kitni sahayak (tributary) nadiyan hain?',o:['21','31','41','51'],a:2,n:'Narmada has 41 tributaries.'},
+{c:"Ch.13 Economy",q:'India mein soyabean ka #1 utpadak rajya kaun sa hai?',o:['Maharashtra','Rajasthan','Madhya Pradesh','Karnataka'],a:2,n:"MP = 55–60% of India's soyabean. State crop."},
+{c:"Ch.13 Economy",q:'MP ka rajya fasal kaun si hai?',o:['Wheat','Rice','Soyabean','Cotton'],a:2,n:'Soyabean = state crop of MP.'},
+{c:"Ch.13 Economy",q:'MP ki bijli utpaadan kshamata (Mar 2024) kitni hai?',o:['17,108 MW','22,108 MW','27,108 MW','32,108 MW'],a:2,n:'27,108.55 MW.'},
+{c:"Ch.13 Economy",q:'MP mein kitne pratishat grihasthon mein bijli hai?',o:['87%','92%','95%','97%'],a:3,n:'97% households.'},
+{c:"Ch.13 Economy",q:'NTPC Vindhyachal India ka sabse bada thermal plant hai — kahan?',o:['Rewa','Satna','Singrauli','Shahdol'],a:2,n:'NTPC Vindhyachal (4,760 MW) in Singrauli.'},
+{c:"Ch.13 Economy",q:'Rewa Solar Park kahan hai?',o:['Gurh Tehsil, Rewa','Satna','Shahdol','Sidhi'],a:0,n:'750 MW Ultra Mega Solar Park at Gurh Tehsil, Rewa.'},
+{c:"Ch.13 Economy",q:'Rewa Solar Park kab commissioned hua?',o:['2018','2019','2020','2021'],a:2,n:'Rewa Solar Park commissioned 2020.'},
+{c:"Ch.13 Economy",q:'Rewa Solar Park se kaun sa project bijli leta hai?',o:['Delhi Airport','Delhi Metro','Delhi Jal Board','Delhi Secretariat'],a:1,n:'Powers Delhi Metro.'},
+{c:"Ch.13 Economy",q:'IIT Indore kab sthapit hua?',o:['2004','2007','2009','2012'],a:2,n:'IIT Indore = 2009, Simrol campus.'},
+{c:"Ch.13 Economy",q:'IIM Indore kab sthapit hua?',o:['1990','1993','1996','2000'],a:2,n:'IIM Indore = 1996.'},
+{c:"Ch.13 Economy",q:'AIIMS Bhopal kab sthapit hua?',o:['2010','2012','2014','2016'],a:1,n:'AIIMS Bhopal = 2012.'},
+{c:"Ch.13 Economy",q:'Swachh Survekshan 2024 mein Indore kaun si jagah raha?',o:['5th consecutive','6th consecutive','7th consecutive','8th consecutive'],a:3,n:'Indore = Cleanest City 8 consecutive times.'},
+{c:"Ch.13 Economy",q:'India mein Currency Note Press kitne hain aur MP mein kahan?',o:['2 — Bhopal','3 — Indore','4 — Dewas','5 — Ujjain'],a:2,n:'4 presses in India. MP = Dewas.'},
+{c:"Ch.13 Economy",q:'Malajkhand copper mine kab inaugurated hua?',o:['1971','1975','1982','1991'],a:2,n:'Inaugurated by Indira Gandhi in 1982.'},
+{c:"Ch.13 Economy",q:'Malajkhand copper mine ka sanchaalan kaun karta hai?',o:['NMDC','HCL','SAIL','NALCO'],a:1,n:'HCL (Hindustan Copper Limited).'},
+{c:"Ch.13 Economy",q:'India ka sabse bada open-cast copper mine kahan hai?',o:['Rajasthan','Jharkhand','Malajkhand Balaghat MP','Karnataka'],a:2,n:'Malajkhand, Balaghat.'},
+{c:"Ch.13 Economy",q:'Forest area mein MP ka India mein rank kya hai?',o:['2nd','3rd','1st','4th'],a:2,n:'1st rank (FSI 2023).',u:'Updated: 3rd → 1st.'},
+{c:"Ch.13 Economy",q:'Fiscal Health Index 2025 mein MP ka rank kya hai?',o:['5th','7th','9th','11th'],a:2,n:'Rank 9th (score 42.2).'},
+{c:"Ch.13 Economy",q:'NCL (Northern Coalfields Ltd) kahan operate karta hai?',o:['Rewa','Shahdol','Singrauli','Panna'],a:2,n:'NCL in Singrauli coalfield.'},
+{c:"Ch.13 Economy",q:'MP ke kaunse shahar Smart Cities Mission mein hain?',o:['5 cities','6 cities','7 cities','8 cities'],a:2,n:'7 Smart Cities: Bhopal, Indore, Gwalior, Jabalpur, Satna, Ujjain, Sagar.'},
+{c:"Ch.13 Economy",q:'Bhopal Airport ka naam kya hai?',o:['Devi Ahilyabai Holkar','Raja Bhoj Airport','Rajmata VS Airport','Bhimrao Ambedkar'],a:1,n:'Raja Bhoj Airport, Bhopal.'},
+{c:"Ch.13 Economy",q:'Gwalior Airport ka naam kya hai?',o:['Raja Bhoj Airport','Devi Ahilyabai Airport','Rajmata Vijayaraje Scindia Airport','Bhimrao Ambedkar'],a:2,n:'Rajmata Vijayaraje Scindia Airport — largest runway in MP.'},
+{c:"Ch.13 Economy",q:'Khajuraho Airport kis cheez ke liye important hai?',o:['International cargo','Tourism connectivity for UNESCO site','Military operations','Defence training'],a:1,n:'Khajuraho Airport = tourism connectivity for UNESCO World Heritage site.'},
+{c:"Ch.13 Economy",q:'Mandsaur kis mineral ke liye prasiddh hai?',o:['Diamonds','Copper','Slate pencil (only in India)','Bauxite'],a:2,n:'Mandsaur = only slate pencil producer in India.'},
+{c:"Ch.13 Economy",q:'Panna district kisliye prasiddh hai?',o:['Coal mining','Copper mining','Diamond mining (only in India)','Manganese mining'],a:2,n:'Panna = only diamond mining in India (Majhgawan mine, NMDC).'},
+{c:"Ch.15 Kya Badla",q:'Old textbook mein 51 jile the — ab (2026) mein kitne?',o:['52','53','54','55'],a:3,n:'55 districts (2013→51, 2018→52, 2023→55).',u:'51 → 55.'},
+{c:"Ch.15 Kya Badla",q:'Old textbook mein 16 Nagar Nigam the — ab kitne?',o:['17','18','19','20'],a:1,n:'18 Nagar Nigam.',u:'16 → 18.'},
+{c:"Ch.15 Kya Badla",q:'Old textbook mein 371 Tehsilen thin — ab kitni?',o:['390','410','428','450'],a:2,n:'428 tehsils.',u:'371 → 428.'},
+{c:"Ch.15 Kya Badla",q:'Old textbook mein 22,816 GP thin — ab kitni?',o:['22,816','~23,043','24,000','25,000'],a:1,n:'~23,043 GP.',u:'22,816 → ~23,043.'},
+{c:"Ch.15 Kya Badla",q:'Forest area rank purane notes mein 3rd tha — ab kya hai?',o:['2nd','1st','3rd','4th'],a:1,n:'1st (FSI 2023).',u:'3rd → 1st.'},
+{c:"Ch.15 Kya Badla",q:'Rajya Khel ghoshna: purane notes 1981 kehte hain — sahi date?',o:['1 Nov 1981','26 Jan 1972','9 April 2013','15 Aug 2000'],a:2,n:'Malkhamb = 9 April 2013.',u:'NOT 1981.'},
+{c:"Ch.15 Kya Badla",q:'Highest peak: purane notes 1,350 m kehte hain — sahi unchai?',o:['1,350 m','1,352 m','1,400 m','1,320 m'],a:1,n:'1,352 m (Dhupgarh).',u:'1,350 → 1,352 m.'},
+{c:"Ch.15 Kya Badla",q:'MP ki population rank purane notes mein 2nd thi — ab kya hai?',o:['2nd','3rd','4th','5th'],a:3,n:'5th most populous.',u:'2nd → 5th.'},
+{c:"Ch.15 Kya Badla",q:'Old data mein Nagar Panchayat 272 thi — ab kitni?',o:['264','272','280','290'],a:0,n:'264.',u:'272 → 264.'},
+{c:"Ch.15 Kya Badla",q:'Old data mein Kul Nagar 476 tha — ab ULB ki sankhya?',o:['380','382','400','420'],a:1,n:'382 ULBs (18+100+264).',u:'476 → 382.'},
+{c:"Ch.15 Kya Badla",q:'Old data mein 98 Nagar Palika thin — ab kitni?',o:['99','100','102','105'],a:1,n:'100 Nagar Palika.',u:'98 → 100.'},
+{c:"Ch.15 Kya Badla",q:'Old data mein CM Shivraj Singh Chouhan the — ab kaun?',o:['Kamal Nath','Narendra Singh Tomar','Mohan Yadav','VD Sharma'],a:2,n:'Mohan Yadav (BJP, Dec 2023).',u:'Shivraj → Mohan Yadav.'},
+{c:"Ch.15 Kya Badla",q:'Old data mein VS 320 seeten thin — ab kitni?',o:['250','230','220','200'],a:1,n:'230 (CG separation 2000).',u:'320 → 230.'},
+{c:"Ch.15 Kya Badla",q:'313 Vikas Khanda — 2026 mein kya status hai?',o:['Changed to 350','Changed to 280','CONFIRMED UNCHANGED at 313','Changed to 428'],a:2,n:'313 Vikas Khanda — CONFIRMED unchanged.'},
+{c:"Ch.15 Kya Badla",q:'29 Lok Sabha + 11 Rajya Sabha — 2026 mein kya status hai?',o:['Changed','CONFIRMED SAME — 40 total','Increased','Decreased'],a:1,n:'29+11=40 Parliament seats — CONFIRMED SAME.'}
+];
+// ═══════════════════════════════════
+// PYQ DATA
+// ═══════════════════════════════════
+const PYQ_PAPERS = [
+  {year:"2024",name:"MPPSC Prelim 2024 — Paper I (General Studies)",date:"17 March 2024",qs:15,tags:["GS","MP GK","Current Affairs"],mcqs:[
+    {q:"2024 Prelim: MP mein 2023 mein kitne naye jile bane?",o:["2","3","4","5"],a:1,n:"3 naye jile: Mauganj, Maihar, Pandhurna. Total = 55."},
+    {q:"2024 Prelim: Barasingha ka scientific naam kya hai?",o:["Cervus elaphus","Rucervus duvaucelii","Axis axis","Boselaphus tragocamelus"],a:1,n:"Rucervus duvaucelii — Braderi species at Kanha Kisli NP."},
+    {q:"2024 Prelim: MP ka ksheatrafal India ka kitna pratishat hai?",o:["7.38%","8.38%","9.38%","10.38%"],a:2,n:"MP = 9.38% of India's total area."},
+    {q:"2024 Prelim: Rewa Solar Park ki capacity kitni hai?",o:["500 MW","650 MW","750 MW","1000 MW"],a:2,n:"750 MW — commissioned 2020, powers Delhi Metro."},
+    {q:"2024 Prelim: Mahakaleshwar Jyotirlinga ki visheshata kya hai?",o:["Pashchimatmukhi","Uttaratmukhi","Dakshinamukhi","Poorvatmukhi"],a:2,n:"Only Dakshinamukhi Jyotirlinga in India."},
+    {q:"2024 Prelim: Pachmarhi kis district mein sthit hai?",o:["Hoshangabad","Narmadapuram","Betul","Chhindwara"],a:1,n:"Narmadapuram district (renamed from Hoshangabad, 28 Aug 2008)."},
+    {q:"2024 Prelim: MP mein forest area ki India mein rank kya hai?",o:["2nd","3rd","1st","4th"],a:2,n:"1st rank — FSI 2023 Report."},
+    {q:"2024 Prelim: Kark Rekha MP ke kitne jilon se guzarti hai?",o:["10","12","14","16"],a:2,n:"14 districts from Ratlam to Shahdol."},
+    {q:"2024 Prelim: Narmada nadi ka udgam sthal kahan hai?",o:["Pachmarhi","Pench","Amarkantak","Betul"],a:2,n:"Amarkantak, Anuppur district."},
+    {q:"2024 Prelim: Rajya Khel Malkhamb kab ghoshit hua?",o:["1981","1995","9 April 2013","2015"],a:2,n:"Declared 9 April 2013. NOT 1981."},
+    {q:"2024 Prelim: Census 2011 mein MP ki ling anupaat kya thi?",o:["921","931","941","951"],a:1,n:"931 females per 1000 males."},
+    {q:"2024 Prelim: MP mein Ramsar sites kitni hain?",o:["1","2","3","4"],a:1,n:"2 Ramsar sites: Bhoj Wetland (Bhopal) + Sirpur Lake (Indore)."},
+    {q:"2024 Prelim: MP mein kitne Tiger Reserves hain?",o:["5","6","7","8"],a:2,n:"7 Tiger Reserves."},
+    {q:"2024 Prelim: NTPC Vindhyachal kahan sthit hai?",o:["Rewa","Satna","Singrauli","Shahdol"],a:2,n:"NTPC Vindhyachal in Singrauli — India's largest thermal plant."},
+    {q:"2024 Prelim: MP ka pratham mukhyamantri kaun tha?",o:["Kailash Nath Katju","D.P. Mishra","Ravi Shankar Shukla","S.C. Shukla"],a:2,n:"Ravi Shankar Shukla — 1st CM (1956)."}
+  ]},
+  {year:"2023",name:"MPPSC Prelim 2023 — Paper I (General Studies)",date:"21 May 2023",qs:15,tags:["GS","MP GK","History"],mcqs:[
+    {q:"2023 Prelim: Simhastha Kumbh Ujjain mein kitne saal mein hota hai?",o:["6","9","12","15"],a:2,n:"Every 12 years at Ujjain on Shipra river."},
+    {q:"2023 Prelim: MP ka uttaratam jila kaun sa hai?",o:["Bhind","Morena","Sheopur","Gwalior"],a:1,n:"Morena = northernmost district."},
+    {q:"2023 Prelim: Bhopal gas tragedy kab hui thi?",o:["2-3 Dec 1983","2-3 Dec 1984","2-3 Dec 1985","3-4 Dec 1984"],a:1,n:"2–3 December 1984. MIC gas. Union Carbide."},
+    {q:"2023 Prelim: Khajuraho ko UNESCO World Heritage kab mila?",o:["1980","1983","1986","1989"],a:2,n:"Khajuraho UNESCO = 1986."},
+    {q:"2023 Prelim: Amarkantak se kaun si nadiyan nikalti hain?",o:["Narmada only","Narmada & Chambal","Narmada, Sone & Johila","Narmada & Betwa"],a:2,n:"3 rivers: Narmada + Sone + Johila from Amarkantak."},
+    {q:"2023 Prelim: MP ki saksharata dar Census 2011 mein kya thi?",o:["64.11%","69.32%","73.00%","75.21%"],a:1,n:"Literacy = 69.32%."},
+    {q:"2023 Prelim: India mein pehla white tiger kahan mila tha?",o:["Bandhavgarh","Kanha","Rewa","Panna"],a:2,n:"Rewa (1951), Maharaja Martand Singh."},
+    {q:"2023 Prelim: Bhimbetka rock shelters ko UNESCO kab mila?",o:["1999","2001","2003","2005"],a:2,n:"Bhimbetka UNESCO = 2003."},
+    {q:"2023 Prelim: Malajkhand copper mine kahan hai?",o:["Mandla","Balaghat","Seoni","Chhindwara"],a:1,n:"Malajkhand = Balaghat district. India's largest open-cast copper mine."},
+    {q:"2023 Prelim: MP mein ST janasankhya ka national rank kya hai?",o:["2nd","3rd","1st","4th"],a:2,n:"1st rank — 21.1% of MP population."},
+    {q:"2023 Prelim: Bundelkhand ka pramukh lok nritya kya hai?",o:["Karma","Mach","Rai","Tertali"],a:2,n:"Rai = Bundelkhand folk dance (Bediya community)."},
+    {q:"2023 Prelim: MP mein Currency Note Press kahan hai?",o:["Bhopal","Indore","Dewas","Ujjain"],a:2,n:"Dewas — 1 of only 4 in India."},
+    {q:"2023 Prelim: Chambal nadi ka udgam kahan hai?",o:["Betul","Amarkantak","Janapav Hill Mhow Indore","Kakra Bardi"],a:2,n:"Janapav Hill, Mhow, Indore district."},
+    {q:"2023 Prelim: Rajya Naatya Mach ka mukhy kshetra kahan hai?",o:["Bundelkhand","Malwa","Baghelkhand","Chambal"],a:1,n:"Mach = Malwa region. NOT Bundelkhand."},
+    {q:"2023 Prelim: 2022 tiger census ke anusaar MP mein kitne tigers hain?",o:["625","726","785","850"],a:2,n:"785 tigers (2022) — highest in India."}
+  ]},
+  {year:"2022",name:"MPPSC Prelim 2022 — Paper I (General Studies)",date:"25 April 2022",qs:15,tags:["GS","MP GK","Geography"],mcqs:[
+    {q:"2022 Prelim: MP ka sthaapana kab hua?",o:["15 Aug 1947","26 Jan 1950","1 Nov 1956","1 Nov 1960"],a:2,n:"1 November 1956."},
+    {q:"2022 Prelim: Dhupgarh ki unchai kitni hai?",o:["1350 m","1352 m","1450 m","1200 m"],a:1,n:"1,352 m — highest peak of MP (Satpura Range, Pachmarhi)."},
+    {q:"2022 Prelim: MP ka dakshinatam jila kaun sa hai?",o:["Khandwa","Betul","Burhanpur","Harda"],a:2,n:"Burhanpur = southernmost district."},
+    {q:"2022 Prelim: MP ke pratham rajyapal kaun the?",o:["Fazal Ali","Ravi Shankar Shukla","B.P. Sitaramaiya","Hridaynath Kunzru"],a:2,n:"B.P. Sitaramaiya — 1st Governor (1956)."},
+    {q:"2022 Prelim: Sanchi Stupa ko UNESCO kab mila?",o:["1986","1989","1993","2003"],a:1,n:"Sanchi UNESCO = 1989."},
+    {q:"2022 Prelim: MP mein Narmada nadi ki lambai kitni hai?",o:["877 km","977 km","1077 km","1177 km"],a:2,n:"Narmada flows 1,077 km within MP (total length 1,312 km)."},
+    {q:"2022 Prelim: Rajya Chinh mein kitne stupa hain?",o:["12","18","24","36"],a:2,n:"24 Stupa figures at the outermost ring."},
+    {q:"2022 Prelim: Panna mein kaunsa khanij nikala jaata hai?",o:["Coal","Manganese","Diamond","Copper"],a:2,n:"Diamond — Majhgawan mine, operated by NMDC."},
+    {q:"2022 Prelim: MP ki janasankhya rank kya hai?",o:["3rd","4th","5th","6th"],a:2,n:"5th most populous state (since 2014)."},
+    {q:"2022 Prelim: Vikram Samvat ki shuruaat kisne ki?",o:["Raja Bhoja","Ashoka","Vikramaditya","Chandragupta"],a:2,n:"Vikramaditya started Vikram Samvat in 57 BCE at Ujjain."},
+    {q:"2022 Prelim: Rajya Pashu Barasingha ki Braderi species kahan payi jaati hai?",o:["Bandhavgarh","Kanha Kisli NP Mandla","Satpura NP","Panna TR"],a:1,n:"Braderi = exclusive to Kanha Kisli NP, Mandla."},
+    {q:"2022 Prelim: MP mein kul ULB ki sankhya kitni hai?",o:["380","382","390","400"],a:1,n:"382 ULBs = 18 Nagar Nigam + 100 Nagar Palika + 264 Nagar Panchayat."},
+    {q:"2022 Prelim: Gwalior Fort ke baare mein Babur ne kya kaha?",o:["Sone ka Panjara","Pearl among Fortresses in India","Crown of Central India","Gateway of Hindustan"],a:1,n:"'Pearl among the Fortresses in India' — Babur."},
+    {q:"2022 Prelim: MP mein sabse bada jila (area) kaun sa hai?",o:["Mandla","Rewa","Chhindwara","Sagar"],a:2,n:"Chhindwara = largest district (11,815 sq km)."},
+    {q:"2022 Prelim: Mahi nadi ki visheshata kya hai?",o:["Sabse lambi nadi","2 baar Kark Rekha cross karti hai","Sabse saaf nadi","Arabian Sea mein nahin girti"],a:1,n:"Mahi crosses Tropic of Cancer TWICE. Originates from Dhar/Jhabua."}
+  ]},
+  {year:"2021",name:"MPPSC Prelim 2021 — Paper I (General Studies)",date:"25 July 2021",qs:15,tags:["GS","MP GK","Economy"],mcqs:[
+    {q:"2021 Prelim: MP mein soyabean ka national production mein kitna hissa hai?",o:["30-40%","40-50%","55-60%","70-80%"],a:2,n:"MP = 55–60% of India's soyabean production. India's #1 producer."},
+    {q:"2021 Prelim: Tansen Samaroha kahan hota hai?",o:["Ujjain","Jabalpur","Bhopal","Gwalior"],a:3,n:"Tansen Samaroha = November–December, Gwalior."},
+    {q:"2021 Prelim: Kuno National Park kahan hai?",o:["Sheopur","Morena","Bhind","Gwalior"],a:0,n:"Kuno NP (Cheetah project) in Sheopur district."},
+    {q:"2021 Prelim: Maihar Gharana ke sansthapak kaun the?",o:["Ravi Shankar","Bismillah Khan","Ustad Alauddin Khan","Ali Akbar Khan"],a:2,n:"Ustad Alauddin Khan (1862–1972) founded Maihar Gharana."},
+    {q:"2021 Prelim: MP mein IIM kahan sthit hai?",o:["Bhopal","Gwalior","Indore","Jabalpur"],a:2,n:"IIM Indore established 1996."},
+    {q:"2021 Prelim: Singrauli kaunse number ka jila bana tha?",o:["48th","49th","50th","51st"],a:2,n:"Singrauli = 50th district (24 May 2008, from Sidhi)."},
+    {q:"2021 Prelim: Pachmarhi ki discovery kisne ki?",o:["Captain Robert Napier","Captain James Forsyth","Lord Curzon","Lord Dalhousie"],a:1,n:"Captain James Forsyth (Bengal Lancers), 1857."},
+    {q:"2021 Prelim: MP ka poorvatam (easternmost) jila kaun sa hai?",o:["Sidhi","Umaria","Singrauli","Shahdol"],a:2,n:"Singrauli = easternmost district of MP."},
+    {q:"2021 Prelim: Dodhraj ka scientific naam kya hai?",o:["Pycnonotus jocosus","Terpsiphone paradisi","Dendrocopos nanus","Motacilla alba"],a:1,n:"Terpsiphone paradisi — State Bird of MP."},
+    {q:"2021 Prelim: Rajat Prapat (Silver Falls) kahan hai?",o:["Kanha NP","Pachmarhi MP","Bhedaghat Jabalpur","Amarkantak"],a:1,n:"Rajat Prapat at Pachmarhi = highest waterfall of MP (35 m)."},
+    {q:"2021 Prelim: MP mein AIIMS kahan sthit hai?",o:["Indore","Gwalior","Jabalpur","Bhopal"],a:3,n:"AIIMS Bhopal established 2012."},
+    {q:"2021 Prelim: Balaghat kis cheez ke liye prasiddh hai?",o:["Diamond mining","India's largest open-cast copper mine","Only slate producer","Tiger reintroduction"],a:1,n:"Malajkhand (Balaghat) = India's largest open-cast copper mine (HCL, 1982)."},
+    {q:"2021 Prelim: MP ki rajya gaan ke lekhak kaun hain?",o:["Maithilisharan Gupta","Subhadra Kumari Chauhan","Mahesh Shri Srivastava","Harivansh Rai Bachchan"],a:2,n:"'Sukh ka daata sab ka saathi...' — Mahesh Shri Srivastava."},
+    {q:"2021 Prelim: Shipra nadi ko kya kaha jaata hai?",o:["Lifeline of MP","Ganga of Malwa","Mother river","Sacred river"],a:1,n:"Shipra = 'Ganga of Malwa.' Originates from Kakra Bardi, Indore."},
+    {q:"2021 Prelim: MP mein IIT kahan sthit hai?",o:["Bhopal","Gwalior","Indore","Jabalpur"],a:2,n:"IIT Indore established 2009 at Simrol campus."}
+  ]}
+];
+
+// ═══════════════════════════════════
+// NOTES DATA
+// ═══════════════════════════════════
+const NOTES = [
+  {id:"c1",name:"1. Parichay",content:`<div class="nsh">Chapter 1 · Parichay — Introduction & Basic Facts</div>
+<table class="nkv"><tbody>
+<tr><td>Sthaapana</td><td>1 November 1956</td></tr>
+<tr><td>Upnaam</td><td>Bharat ka Hridaya | Nadiyon ka Maika | Laghu Bharat | Soya Rajya | Tiger State | Leopard State | Diamond State</td></tr>
+<tr><td>Rajdhani / Largest City</td><td>Bhopal | Indore (largest)</td></tr>
+<tr><td>Area</td><td>3,08,252 sq km — 9.38% of India — 2nd Largest | Undivided: 4,43,444 sq km</td></tr>
+<tr><td>Seemayen</td><td>N: UP | NE+E: CG | S: Maharashtra | W: Gujarat | NW: Rajasthan | Longest: UP | Shortest: Gujarat</td></tr>
+<tr><td>N–S / E–W</td><td>N–S: 605 km | E–W: 870 km | Undivided N–S: 1,127 km | E–W: 996 km</td></tr>
+<tr><td>Bhooaaveshit</td><td>5 States — Completely Landlocked</td></tr>
+<tr><td>Kark Rekha</td><td>14 districts: Ratlam → Shahdol (west to east)</td></tr>
+<tr><td>Pratham CM / Rajyapal</td><td>Ravi Shankar Shukla (CM) | B.P. Sitaramaiya (Governor)</td></tr>
+<tr><td>High Court</td><td>Jabalpur (Main) | Benches: Indore & Gwalior</td></tr>
+</tbody></table>`},
+  {id:"c2",name:"2. Geo Position",content:`<div class="nsh">Chapter 2 · Bhaugolik Sthiti</div>
+<div class="ntip ntip-w">★ Undivided MP lat: 17°46'N. Present MP lat: 21°6'N. Undivided = 1st largest; Present = 2nd.</div>
+<table class="nkv"><thead><tr><th style="background:var(--navy);color:#fff;padding:6px">Vishay</th><th style="background:var(--navy);color:#fff;padding:6px">Undivided (Before 2000)</th><th style="background:var(--navy);color:#fff;padding:6px">Present (After 2000)</th></tr></thead>
+<tbody>
+<tr><td>Area</td><td>4,43,444 sq km</td><td><b>3,08,252 sq km</b></td></tr>
+<tr><td>Latitude (N)</td><td>17°46' — 26°30'</td><td><b>21°6' — 26°30'</b></td></tr>
+<tr><td>Longitude (E)</td><td>74°9' — 84°51'</td><td><b>74°9' — 82°48'</b></td></tr>
+<tr><td>N–S / E–W</td><td>1,127 km / 996 km</td><td>605 km / 870 km</td></tr>
+<tr><td>Area Rank</td><td>1st Largest</td><td>2nd Largest</td></tr>
+</tbody></table>`},
+  {id:"c3",name:"3. Extreme Districts",content:`<div class="nsh">Chapter 3 · Seemaant Jile</div>
+<table class="nkv"><tbody>
+<tr><td>⬆ Uttaratam (N)</td><td><b>Morena</b> — UP & Rajasthan | Chambal division</td></tr>
+<tr><td>⬇ Dakshinatam (S)</td><td><b>Burhanpur</b> — Maharashtra | Tapti river | Mumtaz Mahal 1631</td></tr>
+<tr><td>⬅ Pashchimatam (W)</td><td><b>Alirajpur</b> — Gujarat & Rajasthan | Bhil dominant | Highest ST%</td></tr>
+<tr><td>➡ Poorvatam (E)</td><td><b>Singrauli</b> — UP & CG | 50th district (2008) | NTPC Vindhyachal | Asia thickest coal</td></tr>
+</tbody></table>`},
+  {id:"c4",name:"4. Population",content:`<div class="nsh">Chapter 4 · Janasankhya</div>
+<table class="nkv"><tbody>
+<tr><td>Ksheatrafal Rank</td><td>2nd (after Rajasthan)</td></tr>
+<tr><td>Janasankhya Rank</td><td>5th (since 2014)</td></tr>
+<tr><td>ST Rank</td><td><b>1st — Highest ST population in India ★</b></td></tr>
+<tr><td>Saksharata Rank</td><td>28th overall | 21st among States</td></tr>
+<tr><td>Ling Anupaat Rank</td><td>20th overall | 18th among States</td></tr>
+<tr><td>Census 2011</td><td>7.26 Crore | Sex Ratio: 931 | Density: 236 | Literacy: 69.32%</td></tr>
+<tr><td>Male/Female Literacy</td><td>78.73% / 59.24%</td></tr>
+<tr><td>SC/ST</td><td>SC: 15.6% | ST: 21.1% | Bhil=largest | Gond=2nd | PVTGs: Bhariya, Baiga, Sahariya</td></tr>
+<tr><td>Max/Min Population Jila</td><td>Max: Indore (32.76L) | Min: Harda (5.70L)</td></tr>
+</tbody></table>`},
+  {id:"c5",name:"5. Rajya Prateek",content:`<div class="nsh">Chapter 5 · Rajya ke Prateek</div>
+<div class="ntip ntip-w">★ KEY: Pashu/Pakshi/Vriksha/Pushpa declared 1 Nov 1981. Malkhamb: 9 April 2013 (NOT 1981!)</div>
+<table class="nkv"><tbody>
+<tr><td>Rajya Chinh</td><td>24 Stupas → Circle → MP Shaasan+Satyamev Jayate → Wheat+Paddy → Ashoka Lion+Bargad</td></tr>
+<tr><td>Pashu</td><td>Barasingha (Rucervus duvaucelii) | Braderi species | Kanha Kisli NP Mandla | 66→900+ saved</td></tr>
+<tr><td>Pakshi</td><td>Dodhraj/Shah Bulbul (Terpsiphone paradisi) | Selana(Ratlam)+Sardarpur(Dhar) | Most in Malwa</td></tr>
+<tr><td>Vriksha</td><td>Bargad/Banyan (Ficus benghalensis)</td></tr>
+<tr><td>Pushpa</td><td>Safed Lily (Lilium candidum)</td></tr>
+<tr><td>Machali</td><td>Mahasheer (Tor putitora)</td></tr>
+<tr><td>Naatya</td><td>Mach/Maach — Malwa — mythological — night performances | Artists: Gulab Bai, Banshilal</td></tr>
+<tr><td>Khel</td><td>Malkhamb — 9 April 2013 ★ — Academy: Ujjain | Malla+Khamb | 3 types | 12th century</td></tr>
+<tr><td>Fasal/Gaan</td><td>Soyabean (55-60%) | "Sukh ka daata..." — Mahesh Shri Srivastava</td></tr>
+<tr><td>Lok Nritya</td><td>Rai=Bundelkhand | Karma=eastern tribal | Saila=Bundelkhand-Baghelkhand | Tertali=Kamad | Jawara=Malwa</td></tr>
+</tbody></table>`},
+  {id:"c6",name:"6. Upnaam",content:`<div class="nsh">Chapter 6 · Upnaam</div>
+<table class="nkv"><tbody>
+<tr><td>Heart of India</td><td>Geographically central | 5 state borders | "Madhya" = Central</td></tr>
+<tr><td>Central India</td><td>Literal: Madhya = Central, Pradesh = Province</td></tr>
+<tr><td>Laghu Bharat</td><td>46 tribal groups — highest in India | PVTGs: Bhariya, Baiga, Sahariya</td></tr>
+<tr><td>Diamond State ★</td><td>Only producer — Majhgawan mine, Panna (NMDC) | AP has highest RESERVES; MP = only PRODUCTION</td></tr>
+<tr><td>Soya State</td><td>55–60% national soyabean | State Crop | Malwa black soil</td></tr>
+<tr><td>Tiger State</td><td>785 tigers (2022) — #1 India | Overtook Karnataka | 7 Tiger Reserves</td></tr>
+<tr><td>Leopard State</td><td>Highest leopard population (WII survey)</td></tr>
+<tr><td>Nadiyon ka Maika</td><td>9+ rivers originate: Narmada+Chambal+Betwa+Ken+Tapti+Shipra+Sone+Johila+Mahi+Wainganga</td></tr>
+</tbody></table>`},
+  {id:"c7",name:"7. Capitals",content:`<div class="nsh">Chapter 7 · Vishesh Rajdhaniyaan</div>
+<table class="nkv"><tbody>
+<tr><td>Bhopal</td><td>Rajdhani | Jheelon ka Shahar | Bhoj Wetland=Ramsar(2002) | Gas Tragedy: 2-3 Dec 1984(MIC,Union Carbide) | Begums 1819-1926 | Raja Bhoj Airport</td></tr>
+<tr><td>Indore</td><td>Vyavsayik Rajdhani | Mini Mumbai | Cleanest 8x | Sirpur Lake=Ramsar | Chambal: Janapav Hill Mhow | Shipra: Kakra Bardi | Pithampur=Detroit | IIM(1996)+IIT(2009)</td></tr>
+<tr><td>Gwalior</td><td>Sanskritic Rajdhani | Tansen Gharana | Samaroha Nov-Dec | Fort="Pearl among fortresses"(Babur) | Rajmata VS Airport=largest runway</td></tr>
+<tr><td>Jabalpur</td><td>Sanskritic Rajdhani | MP HC(main) | Marble City | Bhedaghat | Dhuandhar Falls | Chausath Yogini(81 yoginis)</td></tr>
+<tr><td>Panna</td><td>Heera Rajdhani | Only diamond mine(Majhgawan,NMDC) | Tiger reintroduced after 2009 | Ken-Betwa Project | Sagar division</td></tr>
+<tr><td>Singrauli</td><td>Urja+Coal Rajdhani | 50th district(2008) | NTPC Vindhyachal(4760MW)=India largest thermal | NCL | Asia thickest coal seam</td></tr>
+<tr><td>Ujjain</td><td>Dharmic Rajdhani | Mahakaleshwar=only Dakshinamukhi Jyotirlinga ★ | Simhastha Kumbh every 12yr | Vikram Samvat(57 BCE) | Kalidasa | Malkhamb Academy</td></tr>
+<tr><td>Pachmarhi</td><td>Paryatan+Satpura ki Rani | Only Hill Station | Narmadapuram dist★ | Dhupgarh 1352m | UNESCO Biosphere 2009 | Rajat Prapat=highest waterfall(35m) | Forsyth 1857</td></tr>
+<tr><td>Balaghat</td><td>Maneej Rajdhani | Malajkhand=India largest open-cast copper mine(HCL,1982)</td></tr>
+<tr><td>Maihar</td><td>Sangeet Rajdhani | Alauddin Khan(Maihar Gharana) | Guru of Ravi Shankar | Sharda Mata(1063 steps) | New district 2023</td></tr>
+<tr><td>Rewa</td><td>Safed Sher ki Dharti | White Tiger 1951(Maharaja Martand Singh) | 750MW Solar→Delhi Metro</td></tr>
+<tr><td>Others</td><td>Dewas=Currency Note Press | Satna=Cement Capital | Mandsaur=Only slate producer India★ | Khandwa=Kishore Kumar birthplace</td></tr>
+</tbody></table>`},
+  {id:"c8",name:"8. Prashasan",content:`<div class="nsh">Chapter 8 · Prashasan (2026)</div>
+<table class="nkv"><tbody>
+<tr><td>Districts</td><td><b>55★</b> | 51st=Agar Malwa(2013) | 52nd=Niwari(2018) | 53rd=Mauganj | 54th=Pandhurna | 55th=Maihar (all 2023)</td></tr>
+<tr><td>Sambhag/Tehsil</td><td>Sambhag:10 | Tehsil:428★ | VK:313 | Aadivasi VK:89</td></tr>
+<tr><td>Gram/Nagar</td><td>GP:~23,043★ | Nagar Nigam:18★ | Palika:100★ | Panchayat:264★ | ULB:382★</td></tr>
+<tr><td>Max/Min Jila (Area)</td><td>Largest: Chhindwara(11,815 sq km) | Smallest: Niwari(1,170 sq km)</td></tr>
+</tbody></table>
+<div class="nssh">10 Sambhag</div>
+<table class="nkv"><tbody>
+<tr><td>Bhopal(5)</td><td>Bhopal, Vidisha, Raisen, Rajgarh, Sehore</td></tr>
+<tr><td>Chambal(3)</td><td>Morena, Bhind, Sheopur</td></tr>
+<tr><td>Gwalior(5)</td><td>Gwalior, Guna, Shivpuri, Datia, Ashoknagar</td></tr>
+<tr><td>Indore(8)</td><td>Indore, Dhar, Jhabua, Alirajpur, Barwani, Burhanpur, Khandwa, Khargone</td></tr>
+<tr><td>Jabalpur(9)</td><td>Jabalpur, Balaghat, Chhindwara, Katni, Mandla, Narsinghpur, Seoni, Dindori, Pandhurna</td></tr>
+<tr><td>Narmadapuram(3)</td><td>Narmadapuram, Betul, Harda [renamed from Hoshangabad: 28 Aug 2008]</td></tr>
+<tr><td>Rewa(5)</td><td>Rewa, Sidhi, Singrauli, Satna, Mauganj</td></tr>
+<tr><td>Sagar(6)</td><td>Sagar, Panna, Damoh, Chhatarpur, Tikamgarh, Niwari</td></tr>
+<tr><td>Shahdol(3)</td><td>Shahdol, Anuppur, Umaria</td></tr>
+<tr><td>Ujjain(7)</td><td>Ujjain, Shajapur, Dewas, Agar-Malwa, Ratlam, Mandsaur, Neemuch</td></tr>
+</tbody></table>`},
+  {id:"c9",name:"9. Rajneetik",content:`<div class="nsh">Chapter 9 · Rajneetik</div>
+<table class="nkv"><tbody>
+<tr><td>LS/RS/VS</td><td>Lok Sabha:29 | Rajya Sabha:11 | Vidhan Sabha:230 (from 320 after CG 2000)</td></tr>
+<tr><td>SC/ST Reserved(VS)</td><td>SC:35 | ST:47</td></tr>
+<tr><td>CM/Governor(2026)</td><td>CM: Mohan Yadav (BJP, 13 Dec 2023)★ | Gov: Mangu Bhai Patel | Dy CMs: Rajendra Shukla & Jagdish Devda</td></tr>
+<tr><td>LS 2024</td><td>BJP: 29/29 | INC: 0</td></tr>
+<tr><td>VS 2023</td><td>BJP: 163 | INC: 66 | Others: 1</td></tr>
+<tr><td>Previous/First</td><td>Previous: Shivraj Singh Chouhan (4 terms 2005-2023) | 1st CM: Ravi Shankar Shukla | 1st Gov: B.P. Sitaramaiya</td></tr>
+</tbody></table>`},
+  {id:"c10",name:"10. Divas & Varsh",content:`<div class="nsh">Chapter 10 · Vishesh Divas & Varsh</div>
+<table class="nkv"><tbody>
+<tr><td>MP Diwas</td><td>1 November</td></tr><tr><td>Beti Bachao Diwas</td><td>5 October</td></tr>
+<tr><td>Nagariya Nikaay Diwas</td><td>2 November</td></tr><tr><td>Sushasan Diwas</td><td>25 December</td></tr>
+<tr><td>Lokasewa Diwas</td><td>25 September</td></tr><tr><td>Kartavya Parv</td><td>25 Sep – 2 Oct</td></tr>
+<tr><td>Panchayati Raj Diwas</td><td>25 January</td></tr><tr><td>Vikas Diwas</td><td>6 April 2013</td></tr>
+<tr><td>Janasankhya Niyantran</td><td>11 May</td></tr><tr><td>Mahila Sashaktikaran</td><td>18 June</td></tr>
+<tr><td>Mahua Diwas</td><td>11 July 2011</td></tr>
+<tr><td>Vishesh Varsh</td><td>Mahua:2011 | Tikaakaran:2012 | IT:2013 | Paryatan:2015 | Gareeb Kalyan:2016</td></tr>
+</tbody></table>`},
+  {id:"c11",name:"11. Gathan",content:`<div class="nsh">Chapter 11 · Gathan Itihaas</div>
+<div class="nbl">
+<div class="nbi"><b>1947:</b> Central Provinces+Baghelkhand+CG → MP(Cat.A,Nagpur) | Western → Madhya Bharat(Cat.B,Indore+Gwalior) | Northern → Vindhya Pradesh(Cat.C,Rewa)</div>
+<div class="nbi"><b>SRC:</b> Fazal Ali(Chair), Hridaynath Kunzru, K.M. Panikkar</div>
+<div class="nbi"><b>1 Nov 1956:</b> 8 districts → Bombay | Bhopal+Vindhya Pradesh+Madhya Bharat merged → 43 districts | Capital: Bhopal</div>
+<div class="nbi"><b>★ 1 Nov 2000:</b> CG = 26th state | VS 320→230</div>
+<div class="nbi"><b>Districts:</b> 50th=Singrauli(2008) | 51st=Agar Malwa(2013) | 52nd=Niwari(2018) | 53rd-55th=Mauganj,Pandhurna,Maihar(2023)</div>
+</div>`},
+  {id:"c12",name:"12. Geography",content:`<div class="nsh">Chapter 12 · Bhaugolik</div>
+<table class="nkv"><tbody>
+<tr><td>Highest Peak</td><td>Dhupgarh 1,352m★ (Satpura, Pachmarhi, Narmadapuram)</td></tr>
+<tr><td>Forest</td><td>~30.7% — 1st rank India (FSI 2023)★</td></tr>
+<tr><td>Tiger Reserves(7)</td><td>Bandhavgarh, Kanha, Pench, Satpura, Sanjay-Dubri, Panna, Nauradehi</td></tr>
+<tr><td>NP(11)/Biosphere(3)</td><td>NP: Kanha(Mandla), Bandhavgarh(Umaria), Van Vihar(Bhopal), Kuno(Sheopur)... | Biosphere: Pachmarhi, Amarkantak, Panna</td></tr>
+<tr><td>Ramsar(2)/UNESCO(3)</td><td>Bhoj Wetland(Bhopal) + Sirpur Lake(Indore) | Khajuraho 1986, Sanchi 1989, Bhimbetka 2003</td></tr>
+<tr><td>Minerals</td><td>Diamond(Panna,90%) | Copper(Malajkhand,Balaghat) | Coal(Singrauli,thickest Asia) | Slate(Mandsaur,only India)</td></tr>
+<tr><td>Narmada</td><td>Amarkantak(Anuppur) | 1312km | 1077km in MP | WEST→Arabian Sea | 41 tributaries</td></tr>
+<tr><td>★★ Amarkantak</td><td>3 rivers from same point: Narmada + Sone + Johila</td></tr>
+<tr><td>Chambal/Shipra</td><td>Chambal: Janapav Hill Mhow Indore | Shipra: Kakra Bardi Indore = "Ganga of Malwa"</td></tr>
+<tr><td>Mahi★</td><td>Dhar/Jhabua | Crosses Tropic of Cancer TWICE</td></tr>
+</tbody></table>`},
+  {id:"c13",name:"13. Economy",content:`<div class="nsh">Chapter 13 · Arthvyavastha</div>
+<table class="nkv"><tbody>
+<tr><td>Fasal/Crops</td><td>Soyabean (55-60% national, India#1) | Wheat, Rice, Cotton, Sugarcane</td></tr>
+<tr><td>Diamond/Copper</td><td>Panna: only producer, Majhgawan(NMDC), 90% | Malajkhand,Balaghat(HCL) India largest open-cast, 1982</td></tr>
+<tr><td>Power</td><td>27,108MW(Mar 2024) | 97% households | Rewa Solar 750MW(2020,Delhi Metro) | NTPC Vindhyachal=India largest thermal(Singrauli)</td></tr>
+<tr><td>Smart Cities(7)</td><td>Bhopal, Indore, Gwalior, Jabalpur, Satna, Ujjain, Sagar</td></tr>
+<tr><td>Education</td><td>IIT Indore(2009) | IIM Indore(1996) | AIIMS Bhopal(2012)</td></tr>
+<tr><td>Airports</td><td>Bhopal(Raja Bhoj) | Indore(Devi Ahilyabai) | Gwalior(Rajmata VS,largest runway) | Jabalpur | Khajuraho</td></tr>
+<tr><td>Currency Press/Slate</td><td>Dewas = Currency Note Press (1 of 4 India) | Mandsaur = Only slate producer India</td></tr>
+</tbody></table>`},
+  {id:"c14",name:"14. Quick Revision",content:`<div class="nsh">Chapter 14 · Tatkal Smaran</div>
+<div class="nbl">
+<div class="nbi">Sthaapana: 1 Nov 1956 | Rajdhani: Bhopal | Largest: Indore</div>
+<div class="nbi">Area: 3,08,252 sq km — 2nd — 9.38% | Undivided: 4,43,444 (1st)</div>
+<div class="nbi">Jile:55★ | Sambhag:10 | Tehsil:428★ | VK:313 | Aadivasi VK:89</div>
+<div class="nbi">GP:~23,043★ | Nagar Nigam:18★ | Palika:100★ | Panchayat:264★ | ULB:382★</div>
+<div class="nbi">Extreme: N=Morena | S=Burhanpur | W=Alirajpur | E=Singrauli</div>
+<div class="nbi">Present Lat:21°6'N–26°30'N | Long:74°9'E–82°48'E</div>
+<div class="nbi">Pop 2026:~8.97Cr | 5th | ST:1st | Literacy:28th/21st | Sex Ratio:931(20th/18th)</div>
+<div class="nbi">2024 LS:BJP 29/29 | 2023 VS:BJP163,INC66 | CM:Mohan Yadav(Dec2023) | Gov:Mangu Bhai Patel</div>
+<div class="nbi">Pashu:Barasingha(Rucervus,Braderi,Kanha Mandla) | Pakshi:Dodhraj(Terpsiphone,Selana+Sardarpur,Malwa)</div>
+<div class="nbi">Khel:Malkhamb(9 April 2013★,Academy Ujjain) | Naatya:Mach(Malwa) | Rai=Bundelkhand</div>
+<div class="nbi">★★ 3 rivers from Amarkantak: Narmada + Sone + Johila</div>
+<div class="nbi">Dhupgarh:1352m★ | Tiger:7 | NP:11 | Biosphere:3 | Ramsar:2 | UNESCO:3</div>
+<div class="nbi">Bhopal Gas:2-3 Dec 1984 | MIC | Union Carbide | World worst industrial disaster</div>
+<div class="nbi">Mahakaleshwar=only Dakshinamukhi Jyotirlinga★ | Simhastha Kumbh every 12 years</div>
+<div class="nbi">White Tiger:Rewa 1951 | Currency Note Press:Dewas | Slate only:Mandsaur</div>
+<div class="nbi">Forest:1st India(FSI2023)★ | CG separated:1 Nov 2000 | VS:320→230</div>
+</div>`},
+  {id:"c15",name:"15. Kya Badla?",content:`<div class="nsh">Chapter 15 · Kya Badla? — Old vs Updated 2026</div>
+<div class="ntip ntip-r">⚠ Exam Alert: Most common MCQ traps in MPPSC!</div>
+<table class="nkv"><tbody>
+<tr><td>Old: 51 Jile</td><td>→ Now: 55 Jile (2013→51, 2018→52, 2023→55)</td></tr>
+<tr><td>Old: 16 Nagar Nigam</td><td>→ Now: 18 Nagar Nigam</td></tr>
+<tr><td>Old: 371 Tehsilen</td><td>→ Now: 428 Tehsilen</td></tr>
+<tr><td>Old: 98 Nagar Palika</td><td>→ Now: 100 Nagar Palika</td></tr>
+<tr><td>Old: 272 Nagar Panchayat</td><td>→ Now: 264 Nagar Panchayat</td></tr>
+<tr><td>Old: 22,816 GP</td><td>→ Now: ~23,043</td></tr>
+<tr><td>Old: CM Shivraj</td><td>→ Now: CM Mohan Yadav (13 Dec 2023)</td></tr>
+<tr><td>Old: Forest rank 3rd</td><td>→ Now: 1st (FSI 2023)</td></tr>
+<tr><td>Old: Rajya Khel 1981</td><td>→ Now: Malkhamb declared 9 April 2013</td></tr>
+<tr><td>Old: Peak 1,350 m</td><td>→ Now: 1,352 m (Dhupgarh)</td></tr>
+</tbody></table>`}
+];
+
+// ═══════════════════════════════════
+// STATE
+// ═══════════════════════════════════
+let appState = {
+  pool:[], cur:0, ans:[], revArr:[], conf:[], flagged:{},
+  mode:0, startTime:0,
+  timedQ:0, timedMins:0, timedPool:[], timedAns:[], timedConf:[], timedCur:0, timedInt:null,
+  dailyPool:[], dailyAns:[], dailyCur:0,
+  flashPool:[], flashCur:0, flashKnown:0, flashLearn:0, flashFlipped:false,
+  flags:[],
+  history:[],
+  streak:0, lastDate:'',
+  chapFilter: null,
+  selectedPYQYear:'all',
+  starredNotes: new Set(),
+  reviewFilter:'all'
+};
+
+// load from localStorage
+function loadState(){
+  try{
+    const s = JSON.parse(localStorage.getItem('mpgk_state')||'{}');
+    if(s.flags) appState.flags=s.flags;
+    if(s.history) appState.history=s.history;
+    if(s.streak) appState.streak=s.streak;
+    if(s.lastDate) appState.lastDate=s.lastDate;
+    if(s.starredNotes) appState.starredNotes=new Set(s.starredNotes);
+    checkStreak();
+  }catch(e){}
+}
+function saveState(){
+  try{
+    localStorage.setItem('mpgk_state', JSON.stringify({
+      flags: appState.flags,
+      history: appState.history,
+      streak: appState.streak,
+      lastDate: appState.lastDate,
+      starredNotes: [...appState.starredNotes]
+    }));
+  }catch(e){}
+}
+function checkStreak(){
+  const today = new Date().toDateString();
+  const yesterday = new Date(Date.now()-86400000).toDateString();
+  if(appState.lastDate===today){
+    // already counted
+  } else if(appState.lastDate===yesterday){
+    // keep streak (will increment on practice)
+  } else if(appState.lastDate && appState.lastDate!==yesterday){
+    appState.streak=0;
+  }
+  document.getElementById('streak-display').textContent=appState.streak;
+  document.getElementById('d-streak').textContent=appState.streak+' 🔥';
+  document.getElementById('daily-streak-num').textContent=appState.streak;
+}
+function incrementStreak(){
+  const today = new Date().toDateString();
+  if(appState.lastDate!==today){
+    const yesterday=new Date(Date.now()-86400000).toDateString();
+    if(appState.lastDate===yesterday) appState.streak++;
+    else if(!appState.lastDate) appState.streak=1;
+    else appState.streak=1;
+    appState.lastDate=today;
+    saveState();
+    checkStreak();
+  }
+}
+
+// ═══════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════
+const PAGE_META={
+  dashboard:{title:'Dashboard',sub:'Your study overview'},
+  notes:{title:'Study Notes',sub:'15 chapters — complete reference'},
+  flashcards:{title:'Flashcards',sub:'Rapid-fire revision mode'},
+  test:{title:'MCQ Test',sub:'421 questions — all 14 chapters'},
+  daily:{title:'Daily 10',sub:'10 questions every day'},
+  timed:{title:'Timed Mock Test',sub:'Exam simulation with countdown'},
+  pyq:{title:'PYQ Papers',sub:'Last 4 years — MPPSC 2021–2024'},
+  weakareas:{title:'Weak Areas',sub:'Chapter-wise performance analysis'},
+  progress:{title:'My Progress',sub:'Study heatmap & chapter rings'},
+  review:{title:'Review Flags',sub:'Community-reported questions'}
+};
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+id+"'")) n.classList.add('active');
+  });
+  const meta=PAGE_META[id]||{title:id,sub:''};
+  document.getElementById('pg-title').textContent=meta.title;
+  document.getElementById('pg-sub').textContent=meta.sub;
+  if(id==='dashboard') renderDashboard();
+  if(id==='notes') renderNotes();
+  if(id==='flashcards') renderFlashFilter();
+  if(id==='pyq') renderPYQ();
+  if(id==='weakareas') renderWeakAreas();
+  if(id==='progress') renderProgress();
+  if(id==='review') renderReviewPage();
+  if(id==='test'){
+    document.getElementById('test-home-scr').style.display='block';
+    document.getElementById('test-q-scr').style.display='none';
+    document.getElementById('test-result-scr').style.display='none';
+    renderChipFilters();
+  }
+  document.getElementById('sidebar').classList.remove('open');
+}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
+
+// ═══════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════
+const chapList=[...new Set(Q.map(q=>q.c))];
+const chapColors=['#1A237E','#00695C','#B71C1C','#1565C0','#4A148C','#E65100','#1B5E20','#37474F','#880E4F','#004D40','#3E2723','#1A237E','#33691E','#01579B'];
+
+function renderDashboard(){
+  // stats
+  const hist=appState.history;
+  const total=hist.length;
+  const correct=hist.filter(h=>h.c).length;
+  const acc=total>0?Math.round(correct/total*100):0;
+  document.getElementById('d-attempted').textContent=total;
+  document.getElementById('d-attempted-delta').textContent='of '+Q.length+' total';
+  document.getElementById('d-accuracy').textContent=acc+'%';
+  document.getElementById('d-flags').textContent=appState.flags.length;
+  document.getElementById('flag-count-badge').textContent=appState.flags.filter(f=>f.status==='pending').length;
+  updateFlagCountBadge();
+
+  // chapter cards
+  const grid=document.getElementById('dash-ch-grid');
+  grid.innerHTML='';
+  chapList.forEach((ch,i)=>{
+    const chQ=Q.filter(q=>q.c===ch);
+    const done=hist.filter(h=>h.ch===ch);
+    const doneCorrect=done.filter(h=>h.c).length;
+    const pct=done.length>0?Math.round(doneCorrect/done.length*100):0;
+    const attempted=Math.min(done.length,chQ.length);
+    const progPct=Math.round(attempted/chQ.length*100);
+    const d=document.createElement('div');
+    d.className='ch-card';
+    d.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div class="ch-name">${ch}</div>
+      <div style="font-size:10px;font-weight:700;color:${chapColors[i%chapColors.length]}">${pct>0?pct+'%':''}</div>
+    </div>
+    <div class="ch-count">${chQ.length} questions | ${attempted} attempted</div>
+    <div class="ch-progress-bar"><div class="ch-progress-fill" style="width:${progPct}%;background:${chapColors[i%chapColors.length]}"></div></div>`;
+    d.onclick=()=>{showPage('test');setTimeout(()=>{
+      document.querySelectorAll('#ch-filter-chips .chip').forEach(c=>{
+        c.classList.toggle('on',c.textContent===ch);
+      });
+    },100)};
+    grid.appendChild(d);
+  });
+
+  // heatmap
+  renderHeatmap('heatmap');
+
+  // weak areas preview
+  const wa=document.getElementById('dash-weak');
+  wa.innerHTML='';
+  const weakData=getWeakData().slice(0,5);
+  if(weakData.length===0){wa.innerHTML='<div style="font-size:13px;color:var(--muted);text-align:center;padding:20px">Complete some tests to see weak areas</div>';return;}
+  weakData.forEach(w=>{
+    const cls=w.acc<40?'':'';
+    const barColor=w.acc<40?'var(--danger)':w.acc<70?'var(--warn)':'var(--success)';
+    wa.innerHTML+=`<div class="weak-item">
+      <div class="weak-name" style="font-size:11px">${w.ch}</div>
+      <div class="weak-bar-wrap"><div class="weak-bar" style="width:${w.acc}%;background:${barColor}"></div></div>
+      <div class="weak-pct" style="color:${barColor}">${w.acc}%</div>
+    </div>`;
+  });
+}
+
+function renderHeatmap(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.innerHTML='';
+  for(let i=0;i<182;i++){
+    const d=document.createElement('div');
+    d.className='hm-cell';
+    const dayAgo=182-i;
+    const date=new Date(Date.now()-dayAgo*86400000).toDateString();
+    const count=appState.history.filter(h=>h.date===date).length;
+    const lvl=count===0?0:count<3?1:count<6?2:count<10?3:4;
+    d.className=`hm-cell hm-${lvl}`;
+    d.title=date+': '+count+' questions';
+    el.appendChild(d);
+  }
+}
+
+function getWeakData(){
+  return chapList.map(ch=>{
+    const done=appState.history.filter(h=>h.ch===ch);
+    const correct=done.filter(h=>h.c).length;
+    const acc=done.length>0?Math.round(correct/done.length*100):0;
+    return{ch:ch.replace('Ch.','').trim().substring(0,18),acc,done:done.length};
+  }).filter(w=>w.done>0).sort((a,b)=>a.acc-b.acc);
+}
+
+// ═══════════════════════════════════
+// NOTES
+// ═══════════════════════════════════
+function renderNotes(){
+  const nav=document.getElementById('notes-nav');
+  const area=document.getElementById('notes-content-area');
+  nav.innerHTML='';
+  area.innerHTML='';
+  NOTES.forEach((n,i)=>{
+    const starred=appState.starredNotes.has(n.id);
+    const item=document.createElement('div');
+    item.className='notes-nav-item'+(i===0?' active':'')+(starred?' starred':'');
+    item.id='nnav-'+n.id;
+    item.textContent=n.name;
+    item.onclick=()=>{
+      document.querySelectorAll('.notes-nav-item').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.note-content').forEach(x=>x.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById('nc-'+n.id).classList.add('active');
+    };
+    nav.appendChild(item);
+
+    const cont=document.createElement('div');
+    cont.className='note-content card'+(i===0?' active':'');
+    cont.id='nc-'+n.id;
+    cont.innerHTML=n.content+
+      `<div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn-ghost" onclick="practiceChapter('${n.id}')">Practice Questions →</button>
+        <button onclick="toggleStar('${n.id}',this)" style="background:none;border:none;cursor:pointer;font-size:18px;color:${starred?'var(--gold)':'#CBD5E1'}">${starred?'★':'☆'} ${starred?'Starred':'Star this'}</button>
+      </div>`;
+    area.appendChild(cont);
+  });
+}
+function toggleStar(id,btn){
+  if(appState.starredNotes.has(id)){
+    appState.starredNotes.delete(id);
+    btn.innerHTML='☆ Star this';btn.style.color='#CBD5E1';
+    document.getElementById('nnav-'+id).classList.remove('starred');
+  } else {
+    appState.starredNotes.add(id);
+    btn.innerHTML='★ Starred';btn.style.color='var(--gold)';
+    document.getElementById('nnav-'+id).classList.add('starred');
+  }
+  saveState();
+}
+function practiceChapter(id){
+  const chMap={c1:'Ch.1 Parichay',c2:'Ch.2 Geo Position',c3:'Ch.3 Extreme Districts',c4:'Ch.4 Population',c5:'Ch.5 Rajya Prateek',c6:'Ch.6 Upnaam',c7:'Ch.7 Capitals',c8:'Ch.8 Prashasan',c9:'Ch.9 Rajneetik',c10:'Ch.10 Divas & Varsh',c11:'Ch.11 Gathan',c12:'Ch.12 Geography',c13:'Ch.13 Economy',c15:'Ch.15 Kya Badla'};
+  const ch=chMap[id];
+  showPage('test');
+  setTimeout(()=>{
+    if(ch){
+      document.querySelectorAll('#ch-filter-chips .chip').forEach(c=>c.classList.toggle('on',c.textContent===ch));
+    }
+  },150);
+}
+
+// ═══════════════════════════════════
+// FLASHCARDS
+// ═══════════════════════════════════
+function renderFlashFilter(){
+  const wrap=document.getElementById('flash-filter');
+  wrap.innerHTML=`<div class="chip chip-all on" onclick="flashChipAll(this)">All</div>`;
+  chapList.forEach(ch=>{
+    const c=document.createElement('div');
+    c.className='chip on';c.textContent=ch;
+    c.onclick=function(){this.classList.toggle('on');syncFlashAll()};
+    wrap.appendChild(c);
+  });
+  updateFlashCount();
+}
+function flashChipAll(btn){
+  const on=!btn.classList.contains('on');
+  btn.classList.toggle('on',on);
+  document.querySelectorAll('#flash-filter .chip:not(.chip-all)').forEach(c=>c.classList.toggle('on',on));
+  updateFlashCount();
+}
+function syncFlashAll(){
+  const all=[...document.querySelectorAll('#flash-filter .chip:not(.chip-all)')].every(c=>c.classList.contains('on'));
+  document.querySelector('#flash-filter .chip-all').classList.toggle('on',all);
+  updateFlashCount();
+}
+function updateFlashCount(){
+  const selChaps=[...document.querySelectorAll('#flash-filter .chip:not(.chip-all).on')].map(c=>c.textContent);
+  const count=Q.filter(q=>selChaps.includes(q.c)).length;
+  document.getElementById('flash-count-info').textContent=count+' cards selected';
+}
+function startFlash(){
+  const selChaps=[...document.querySelectorAll('#flash-filter .chip:not(.chip-all).on')].map(c=>c.textContent);
+  let src=Q.filter(q=>selChaps.includes(q.c));
+  for(let i=src.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[src[i],src[j]]=[src[j],src[i]];}
+  appState.flashPool=src;appState.flashCur=0;appState.flashKnown=0;appState.flashLearn=0;appState.flashFlipped=false;
+  document.getElementById('flash-session').style.display='block';
+  renderFlashCard();
+}
+function renderFlashCard(){
+  const m=appState.flashPool[appState.flashCur];
+  if(!m){document.getElementById('flash-session').style.display='none';return;}
+  const card=document.getElementById('flashcard');
+  card.querySelector('.flash-hint').style.display='block';
+  document.getElementById('flash-q').textContent=m.q;
+  document.getElementById('flash-ans').textContent='✔ '+m.o[m.a];
+  document.getElementById('flash-ans').classList.remove('show');
+  document.getElementById('flash-expl').textContent=m.n;
+  document.getElementById('flash-expl').classList.remove('show');
+  document.getElementById('flash-nav').style.display='none';
+  appState.flashFlipped=false;
+  document.getElementById('flash-counter').textContent='Card '+(appState.flashCur+1)+' of '+appState.flashPool.length;
+  document.getElementById('flash-known').textContent=appState.flashKnown;
+  document.getElementById('flash-learn').textContent=appState.flashLearn;
+}
+function flipCard(){
+  if(appState.flashFlipped)return;
+  appState.flashFlipped=true;
+  document.getElementById('flash-ans').classList.add('show');
+  document.getElementById('flash-expl').classList.add('show');
+  document.getElementById('flashcard').querySelector('.flash-hint').style.display='none';
+  document.getElementById('flash-nav').style.display='flex';
+}
+function flashKnow(){appState.flashKnown++;appState.flashCur++;renderFlashCard();}
+function flashDontKnow(){appState.flashLearn++;appState.flashCur++;renderFlashCard();}
+
+// ═══════════════════════════════════
+// MCQ TEST ENGINE
+// ═══════════════════════════════════
+let testMode=0;
+function selMode(el,n){
+  document.querySelectorAll('.mode-card').forEach(m=>m.classList.remove('sel'));
+  el.classList.add('sel');testMode=n;
+}
+function renderChipFilters(){
+  const wrap=document.getElementById('ch-filter-chips');
+  if(wrap.children.length>0)return;
+  chapList.forEach(ch=>{
+    const c=document.createElement('div');
+    c.className='chip on';c.textContent=ch;
+    c.onclick=function(){this.classList.toggle('on')};
+    wrap.appendChild(c);
+  });
+}
+function selectAllChaps(){
+  document.querySelectorAll('#ch-filter-chips .chip').forEach(c=>c.classList.add('on'));
+}
+function startTest(isPYQ,pyqPool){
+  const selChaps=[...document.querySelectorAll('#ch-filter-chips .chip.on')].map(c=>c.textContent);
+  let src=isPYQ?pyqPool:Q.filter(q=>selChaps.includes(q.c));
+  if(!isPYQ){for(let i=src.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[src[i],src[j]]=[src[j],src[i]];}}
+  appState.pool=testMode===0?src:src.slice(0,Math.min(testMode,src.length));
+  if(!appState.pool.length){alert('No questions for selected chapters!');return;}
+  appState.ans=new Array(appState.pool.length).fill(null);
+  appState.revArr=new Array(appState.pool.length).fill(false);
+  appState.conf=new Array(appState.pool.length).fill(null);
+  appState.cur=0;appState.startTime=Date.now();
+  document.getElementById('test-home-scr').style.display='none';
+  document.getElementById('test-q-scr').style.display='block';
+  document.getElementById('test-result-scr').style.display='none';
+  renderQ();
+  incrementStreak();
+}
+const LABS=['A','B','C','D'];
+function renderQ(){
+  if(appState.cur>=appState.pool.length){showResults();return;}
+  const m=appState.pool[appState.cur];
+  document.getElementById('qchap-badge').textContent=m.c||'PYQ';
+  document.getElementById('q-num-badge').textContent='Q'+(appState.cur+1);
+  document.getElementById('q-info-text').textContent=(appState.cur+1)+'/'+appState.pool.length;
+  document.getElementById('q-pfill').style.width=((appState.cur+1)/appState.pool.length*100)+'%';
+  document.getElementById('q-upd-badge').style.display=m.u?'inline-block':'none';
+  document.getElementById('q-text').textContent=m.q;
+  const oc=document.getElementById('q-opts');oc.innerHTML='';
+  m.o.forEach((opt,i)=>{
+    const b=document.createElement('button');b.className='opt';
+    b.innerHTML=`<span class="opt-lbl">${LABS[i]}</span><span>${opt}</span>`;
+    const a=appState.ans[appState.cur],rv=appState.revArr[appState.cur];
+    if(a!==null||rv){
+      b.disabled=true;
+      if(i===m.a)b.classList.add('right');
+      else if(a===i)b.classList.add('wrong');
+    } else {b.onclick=()=>doAns(i);}
+    oc.appendChild(b);
+  });
+  const a=appState.ans[appState.cur],rv=appState.revArr[appState.cur];
+  const ab=document.getElementById('q-ans-box');
+  if(a!==null||rv){
+    ab.classList.add('show');
+    document.getElementById('q-ans-correct').textContent='✔ Sahi Jawab: '+LABS[m.a]+') '+m.o[m.a];
+    document.getElementById('q-ans-expl').textContent=m.n;
+    const au=document.getElementById('q-ans-upd');
+    if(m.u){au.textContent='★ 2026 Update: '+m.u;au.style.display='inline-block';}else au.style.display='none';
+    document.getElementById('btn-reveal').style.display='none';
+    document.getElementById('btn-next').style.display='block';
+    document.getElementById('btn-skip').style.display='none';
+    document.getElementById('conf-wrap').style.display='flex';
+    const cv=appState.conf[appState.cur];
+    document.getElementById('conf-sure').classList.toggle('sel',cv==='sure');
+    document.getElementById('conf-unsure').classList.toggle('sel',cv==='unsure');
+  } else {
+    ab.classList.remove('show');
+    document.getElementById('btn-reveal').style.display='';
+    document.getElementById('btn-next').style.display='none';
+    document.getElementById('btn-skip').style.display='';
+    document.getElementById('conf-wrap').style.display='none';
+  }
+  // flag button
+  const flagBtn=document.getElementById('btn-flag');
+  const qi=appState.cur;
+  const alreadyFlagged=appState.flags.some(f=>f.q===m.q);
+  flagBtn.classList.toggle('flagged',alreadyFlagged);
+  flagBtn.innerHTML=alreadyFlagged?'🚩 Flagged':'🚩 Flag for Review';
+}
+function doAns(i){
+  if(appState.ans[appState.cur]!==null)return;
+  appState.ans[appState.cur]=i;
+  const m=appState.pool[appState.cur];
+  const correct=i===m.a;
+  appState.history.push({q:m.q,ch:m.c||'PYQ',c:correct,date:new Date().toDateString()});
+  if(appState.history.length>2000)appState.history=appState.history.slice(-2000);
+  saveState();
+  document.querySelectorAll('.opt').forEach((b,j)=>{
+    b.disabled=true;
+    if(j===m.a)b.classList.add('right');
+    else if(j===i&&!correct)b.classList.add('wrong');
+  });
+  const ab=document.getElementById('q-ans-box');ab.classList.add('show');
+  document.getElementById('q-ans-correct').textContent='✔ Sahi Jawab: '+LABS[m.a]+') '+m.o[m.a];
+  document.getElementById('q-ans-expl').textContent=m.n;
+  const au=document.getElementById('q-ans-upd');
+  if(m.u){au.textContent='★ 2026 Update: '+m.u;au.style.display='inline-block';}else au.style.display='none';
+  document.getElementById('btn-reveal').style.display='none';
+  document.getElementById('btn-next').style.display='block';
+  document.getElementById('btn-skip').style.display='none';
+  document.getElementById('conf-wrap').style.display='flex';
+}
+function revealAns(){appState.revArr[appState.cur]=true;renderQ();}
+function nextQ(){appState.cur++;renderQ();}
+function skipQ(){appState.ans[appState.cur]=-1;appState.cur++;renderQ();}
+function setConf(v){
+  appState.conf[appState.cur]=v;
+  document.getElementById('conf-sure').classList.toggle('sel',v==='sure');
+  document.getElementById('conf-unsure').classList.toggle('sel',v==='unsure');
+}
+function showResults(){
+  document.getElementById('test-q-scr').style.display='none';
+  document.getElementById('test-result-scr').style.display='block';
+  const elapsed=Math.floor((Date.now()-appState.startTime)/1000);
+  let c=0,w=0,s=0;
+  appState.ans.forEach((a,i)=>{
+    if(a===appState.pool[i].a)c++;
+    else if(a===null||appState.revArr[i]||a===-1)s++;
+    else w++;
+  });
+  const tot=appState.pool.length,pct=Math.round(c/tot*100);
+  document.getElementById('res-pct').textContent=pct+'%';
+  const grade=pct>=80?'Excellent! 🎉':pct>=65?'Good work 👍':pct>=50?'Keep practicing 📚':'Need more revision 💪';
+  document.getElementById('res-grade').textContent=grade;
+  const cir=document.getElementById('res-circle');
+  cir.style.borderColor=pct>=70?'var(--success)':pct>=40?'var(--warn)':'var(--danger)';
+  document.getElementById('rg-c').textContent=c;document.getElementById('rg-w').textContent=w;
+  document.getElementById('rg-s').textContent=s;document.getElementById('rg-t').textContent=tot;
+  document.getElementById('rg-a').textContent=(c+w>0?Math.round(c/(c+w)*100):0)+'%';
+  document.getElementById('rg-tm').textContent=Math.floor(elapsed/60)+'m '+elapsed%60+'s';
+  // update dashboard stats
+  document.getElementById('d-accuracy').textContent=pct+'%';
+  renderDashboard();
+}
+function retakeTest(){
+  document.getElementById('test-home-scr').style.display='block';
+  document.getElementById('test-q-scr').style.display='none';
+  document.getElementById('test-result-scr').style.display='none';
+  document.getElementById('review-answers-section').style.display='none';
+}
+function showReview(){
+  const sec=document.getElementById('review-answers-section');
+  sec.style.display='block';
+  renderReviewList('all');
+  sec.scrollIntoView({behavior:'smooth'});
+}
+function filterReview(type){
+  appState.reviewFilter=type;
+  ['all','wrong','unsure'].forEach(t=>document.getElementById('rf-'+t).style.borderColor=t===type?'var(--navy)':'var(--border)');
+  renderReviewList(type);
+}
+function renderReviewList(filter){
+  const list=document.getElementById('review-list-container');list.innerHTML='';
+  appState.pool.forEach((m,i)=>{
+    const a=appState.ans[i],rv=appState.revArr[i],cn=appState.conf[i];
+    let st='correct';
+    if(a===m.a)st='correct';
+    else if(a===null||a===-1||rv)st='skipped';
+    else st='wrong';
+    if(cn==='unsure')st='unsure';
+    if(filter==='wrong'&&st!=='wrong')return;
+    if(filter==='unsure'&&cn!=='unsure')return;
+    const ya=a!==null&&a>=0?LABS[a]+') '+m.o[a]:'—';
+    const d=document.createElement('div');
+    d.className='rev-item '+st;
+    const stLabel=st==='correct'?'<span class="rtag t-c">Correct</span>':st==='wrong'?`<span class="rtag t-w">Wrong</span>`:st==='unsure'?'<span class="rtag t-u">Unsure</span>':'<span class="rtag t-s">Skipped</span>';
+    d.innerHTML=`<div class="rev-q">Q${i+1}: ${m.q}</div>
+    <div class="rev-tags">${stLabel}<span class="rtag t-c">Correct: ${LABS[m.a]}) ${m.o[m.a]}</span>${st==='wrong'?`<span class="rtag t-w">Your answer: ${ya}</span>`:''}</div>
+    <div class="rev-expl">${m.n}${m.u?` | <b style="color:var(--warn)">★ ${m.u}</b>`:''}</div>`;
+    list.appendChild(d);
+  });
+}
+
+// ═══════════════════════════════════
+// DAILY 10
+// ═══════════════════════════════════
+document.getElementById('daily-date-info').textContent='Today: '+new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});
+function startDaily(){
+  const shuffled=[...Q].sort(()=>Math.random()-.5).slice(0,10);
+  testMode=10;
+  appState.pool=shuffled;
+  appState.ans=new Array(10).fill(null);
+  appState.revArr=new Array(10).fill(false);
+  appState.conf=new Array(10).fill(null);
+  appState.cur=0;appState.startTime=Date.now();
+  showPage('test');
+  document.getElementById('test-home-scr').style.display='none';
+  document.getElementById('test-q-scr').style.display='block';
+  document.getElementById('test-result-scr').style.display='none';
+  renderQ();
+  incrementStreak();
+}
+
+// ═══════════════════════════════════
+// TIMED TEST
+// ═══════════════════════════════════
+let timedMode={q:100,t:90};
+function selTimedMode(el,q,t){
+  document.querySelectorAll('.mode-card').forEach(m=>m.classList.remove('sel'));
+  el.classList.add('sel');timedMode={q,t};
+}
+function startTimedTest(){
+  const src=[...Q].sort(()=>Math.random()-.5).slice(0,timedMode.q);
+  appState.timedPool=src;appState.timedAns=new Array(src.length).fill(null);
+  appState.timedConf=new Array(src.length).fill(null);
+  appState.timedCur=0;
+  document.getElementById('timed-home').style.display='none';
+  document.getElementById('timed-test-wrap').style.display='block';
+  let secs=timedMode.t*60;
+  function tick(){
+    const m=Math.floor(secs/60),s=secs%60;
+    const el=document.getElementById('timed-timer');
+    el.textContent=m+':'+(s<10?'0':'')+s;
+    el.classList.toggle('warn',secs<300);
+    if(secs<=0){endTimedTest();return;}
+    secs--;
+  }
+  tick();appState.timedInt=setInterval(tick,1000);
+  renderTimedQ();
+  incrementStreak();
+}
+function renderTimedQ(){
+  if(appState.timedCur>=appState.timedPool.length){endTimedTest();return;}
+  const m=appState.timedPool[appState.timedCur];
+  document.getElementById('timed-info').textContent='Q '+(appState.timedCur+1)+'/'+appState.timedPool.length;
+  const area=document.getElementById('timed-q-area');
+  area.innerHTML=`
+    <div class="pbar"><div class="pfill" style="width:${(appState.timedCur+1)/appState.timedPool.length*100}%"></div></div>
+    <div class="q-card">
+      <div class="q-chapter-tag">${m.c}</div>
+      <div class="q-num">Q${appState.timedCur+1}</div>
+      <div class="q-text">${m.q}</div>
+      <div class="opts" id="timed-opts"></div>
+      <div class="ans-box" id="timed-ans-box">
+        <div class="ans-correct" id="timed-ans-correct"></div>
+        <div class="ans-expl" id="timed-ans-expl"></div>
+      </div>
+    </div>
+    <div class="q-actions">
+      <button class="btn-reveal" id="timed-reveal" onclick="timedReveal()">🔍 Reveal</button>
+      <button class="btn-next" id="timed-next" onclick="timedNext()" style="display:none">Next →</button>
+      <button class="btn-skip" onclick="timedSkip()">Skip</button>
+    </div>`;
+  m.o.forEach((opt,i)=>{
+    const b=document.createElement('button');b.className='opt';
+    b.innerHTML=`<span class="opt-lbl">${LABS[i]}</span><span>${opt}</span>`;
+    b.onclick=()=>timedAns(i);
+    document.getElementById('timed-opts').appendChild(b);
+  });
+}
+function timedAns(i){
+  const m=appState.timedPool[appState.timedCur];
+  appState.timedAns[appState.timedCur]=i;
+  const correct=i===m.a;
+  appState.history.push({q:m.q,ch:m.c,c:correct,date:new Date().toDateString()});
+  document.querySelectorAll('#timed-opts .opt').forEach((b,j)=>{b.disabled=true;if(j===m.a)b.classList.add('right');else if(j===i&&!correct)b.classList.add('wrong');});
+  const ab=document.getElementById('timed-ans-box');ab.classList.add('show');
+  document.getElementById('timed-ans-correct').textContent='✔ '+LABS[m.a]+') '+m.o[m.a];
+  document.getElementById('timed-ans-expl').textContent=m.n;
+  document.getElementById('timed-reveal').style.display='none';
+  document.getElementById('timed-next').style.display='block';
+}
+function timedReveal(){const m=appState.timedPool[appState.timedCur];const ab=document.getElementById('timed-ans-box');ab.classList.add('show');document.getElementById('timed-ans-correct').textContent='✔ '+LABS[m.a]+') '+m.o[m.a];document.getElementById('timed-ans-expl').textContent=m.n;document.getElementById('timed-reveal').style.display='none';document.getElementById('timed-next').style.display='block';}
+function timedNext(){appState.timedCur++;renderTimedQ();}
+function timedSkip(){appState.timedAns[appState.timedCur]=-1;appState.timedCur++;renderTimedQ();}
+function endTimedTest(){
+  clearInterval(appState.timedInt);
+  saveState();
+  const c=appState.timedAns.filter((a,i)=>a===appState.timedPool[i].a).length;
+  const tot=appState.timedPool.length;
+  const pct=Math.round(c/tot*100);
+  document.getElementById('timed-test-wrap').innerHTML=`
+    <div class="card result-big" style="max-width:500px;margin:0 auto">
+      <div style="font-size:28px;margin-bottom:8px">⏱️ Time's Up!</div>
+      <div class="score-circle" style="border-color:${pct>=70?'var(--success)':pct>=40?'var(--warn)':'var(--danger)'}">
+        <div class="score-pct">${pct}%</div><div class="score-grade">Score</div>
+      </div>
+      <div class="result-grid">
+        <div class="rg-item g"><div class="rg-val">${c}</div><div class="rg-lbl">Correct</div></div>
+        <div class="rg-item r"><div class="rg-val">${tot-c}</div><div class="rg-lbl">Others</div></div>
+        <div class="rg-item"><div class="rg-val">${tot}</div><div class="rg-lbl">Total</div></div>
+      </div>
+      <div class="result-btns">
+        <button class="btn-primary" style="width:auto" onclick="document.getElementById('timed-home').style.display='block';document.getElementById('timed-test-wrap').style.display='none'">Try Again</button>
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════
+// PYQ
+// ═══════════════════════════════════
+function renderPYQ(){
+  const list=document.getElementById('pyq-list');list.innerHTML='';
+  const year=appState.selectedPYQYear;
+  const papers=year==='all'?PYQ_PAPERS:PYQ_PAPERS.filter(p=>p.year===year);
+  papers.forEach(p=>{
+    const card=document.createElement('div');card.className='pyq-paper-card';
+    card.innerHTML=`
+      <div class="pyq-icon">📄</div>
+      <div class="pyq-info">
+        <div class="pyq-name">${p.name}</div>
+        <div class="pyq-meta">${p.date} · ${p.qs} questions available · ${p.tags.map(t=>`<span style="background:#EEF0FF;color:var(--navy);padding:1px 6px;border-radius:4px;font-size:10px;font-weight:600">${t}</span>`).join(' ')}</div>
+      </div>
+      <div class="pyq-actions">
+        <button class="btn-dl" onclick="downloadPYQ('${p.year}')">⬇ Download PDF</button>
+        <button class="btn-practice" onclick="practicePYQ('${p.year}')">Practice MCQs</button>
+      </div>`;
+    list.appendChild(card);
+  });
+}
+function showPYQ(btn,year){
+  document.querySelectorAll('.pyq-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  appState.selectedPYQYear=year;
+  renderPYQ();
+}
+function downloadPYQ(year){
+  const p=PYQ_PAPERS.find(x=>x.year===year);
+  alert('📥 Download\n\n'+p.name+'\nDate: '+p.date+'\n\nNote: Official MPPSC PYQ PDFs are available at mppsc.mp.gov.in\nThis portal provides practice MCQs from the exam.');
+}
+function practicePYQ(year){
+  const p=PYQ_PAPERS.find(x=>x.year===year);
+  if(!p)return;
+  appState.pool=p.mcqs;
+  appState.ans=new Array(p.mcqs.length).fill(null);
+  appState.revArr=new Array(p.mcqs.length).fill(false);
+  appState.conf=new Array(p.mcqs.length).fill(null);
+  appState.cur=0;appState.startTime=Date.now();
+  showPage('test');
+  document.getElementById('test-home-scr').style.display='none';
+  document.getElementById('test-q-scr').style.display='block';
+  document.getElementById('test-result-scr').style.display='none';
+  renderQ();
+}
+
+// ═══════════════════════════════════
+// WEAK AREAS
+// ═══════════════════════════════════
+function renderWeakAreas(){
+  const list=document.getElementById('weak-list-full');list.innerHTML='';
+  const data=chapList.map((ch,i)=>{
+    const done=appState.history.filter(h=>h.ch===ch);
+    const correct=done.filter(h=>h.c).length;
+    const acc=done.length>0?Math.round(correct/done.length*100):0;
+    return{ch,acc,done:done.length,color:chapColors[i%chapColors.length]};
+  });
+  if(data.every(d=>d.done===0)){list.innerHTML='<div style="font-size:13px;color:var(--muted);text-align:center;padding:20px">Complete some tests to see weak areas.</div>';return;}
+  data.sort((a,b)=>a.acc-b.acc).forEach(w=>{
+    const bc=w.acc<40?'var(--danger)':w.acc<70?'var(--warn)':'var(--success)';
+    list.innerHTML+=`<div class="weak-item">
+      <div class="weak-name">${w.ch.replace('Ch.','').trim().substring(0,15)}</div>
+      <div class="weak-bar-wrap"><div class="weak-bar" style="width:${Math.max(w.acc,2)}%;background:${bc}"></div></div>
+      <div class="weak-pct" style="color:${bc}">${w.done>0?w.acc+'%':'—'}</div>
+    </div>`;
+  });
+  const sugg=document.getElementById('weak-suggestions');
+  const weak=data.filter(d=>d.done>0&&d.acc<50);
+  sugg.innerHTML=weak.length>0
+    ?'<div style="margin-bottom:8px;font-weight:600;color:var(--text)">Focus on these chapters:</div>'+weak.map(w=>`<div style="padding:4px 0">🔴 ${w.ch} (${w.acc}% accuracy)</div>`).join('')
+    :'<div style="color:var(--success)">✅ Good performance! Keep practicing to maintain accuracy.</div>';
+  const smart=appState.history.filter(h=>!h.c&&h.q).length;
+  document.getElementById('smart-rev-info').textContent=smart>0?`${smart} wrong answers found across all tests — perfect for targeted revision.`:'Complete some tests first.';
+}
+function startSmartRevision(){
+  const wrongQs=new Set(appState.history.filter(h=>!h.c).map(h=>h.q));
+  const src=Q.filter(q=>wrongQs.has(q.q));
+  if(src.length===0){alert('No wrong answers found yet. Complete some tests first!');return;}
+  appState.pool=[...src].sort(()=>Math.random()-.5);
+  appState.ans=new Array(appState.pool.length).fill(null);
+  appState.revArr=new Array(appState.pool.length).fill(false);
+  appState.conf=new Array(appState.pool.length).fill(null);
+  appState.cur=0;appState.startTime=Date.now();
+  showPage('test');
+  document.getElementById('test-home-scr').style.display='none';
+  document.getElementById('test-q-scr').style.display='block';
+  document.getElementById('test-result-scr').style.display='none';
+  renderQ();
+}
+
+// ═══════════════════════════════════
+// PROGRESS
+// ═══════════════════════════════════
+function renderProgress(){
+  const hist=appState.history;
+  const total=hist.length;
+  const correct=hist.filter(h=>h.c).length;
+  const acc=total>0?Math.round(correct/total*100):0;
+  const pg=document.getElementById('prog-stats');
+  pg.innerHTML=`
+    <div class="stat-card"><div class="stat-accent" style="background:var(--navy)"></div><div class="stat-lbl">Total Attempted</div><div class="stat-val">${total}</div></div>
+    <div class="stat-card"><div class="stat-accent" style="background:var(--success)"></div><div class="stat-lbl">Accuracy</div><div class="stat-val">${acc}%</div></div>
+    <div class="stat-card"><div class="stat-accent" style="background:var(--saff)"></div><div class="stat-lbl">Streak</div><div class="stat-val">${appState.streak} 🔥</div></div>
+    <div class="stat-card"><div class="stat-accent" style="background:var(--danger)"></div><div class="stat-lbl">Flags Reported</div><div class="stat-val">${appState.flags.length}</div></div>`;
+  renderHeatmap('heatmap2');
+  // progress rings
+  const rings=document.getElementById('progress-rings');rings.innerHTML='';
+  chapList.forEach((ch,i)=>{
+    const done=hist.filter(h=>h.ch===ch);
+    const correct=done.filter(h=>h.c).length;
+    const pct=done.length>0?Math.round(correct/done.length*100):0;
+    const chQ=Q.filter(q=>q.c===ch).length;
+    const color=pct<40?'#DC2626':pct<70?'#D97706':'#16A34A';
+    const r=24,circ=2*Math.PI*r,dash=circ*(pct/100);
+    rings.innerHTML+=`<div class="ring-wrap">
+      <svg width="58" height="58" viewBox="0 0 58 58">
+        <circle cx="29" cy="29" r="${r}" fill="none" stroke="#E2E8F0" stroke-width="5"/>
+        <circle cx="29" cy="29" r="${r}" fill="none" stroke="${color}" stroke-width="5"
+          stroke-dasharray="${dash} ${circ}" stroke-dashoffset="${circ*0.25}" stroke-linecap="round"/>
+        <text x="29" y="34" text-anchor="middle" font-size="12" font-weight="700" fill="${color}">${pct>0?pct+'%':'—'}</text>
+      </svg>
+      <div class="ring-lbl">${ch.replace('Ch.','').split(' ')[1]||ch.split(' ')[0]}</div>
+    </div>`;
+  });
+}
+
+// ═══════════════════════════════════
+// REVIEW FLAGS
+// ═══════════════════════════════════
+let currentFlagQIdx=-1;
+function flagQuestion(){
+  const m=appState.pool[appState.cur];
+  currentFlagQIdx=appState.cur;
+  document.getElementById('flag-q-preview').textContent='Q'+(appState.cur+1)+': '+m.q;
+  document.getElementById('flag-note').value='';
+  document.getElementById('flag-modal').style.display='flex';
+}
+function closeFlagModal(){document.getElementById('flag-modal').style.display='none';}
+function submitFlag(){
+  const m=appState.pool[currentFlagQIdx];
+  const reason=document.querySelector('input[name="fr"]:checked').value;
+  const note=document.getElementById('flag-note').value.trim();
+  const existing=appState.flags.find(f=>f.q===m.q);
+  if(existing){
+    existing.votes=(existing.votes||1)+1;
+  } else {
+    appState.flags.push({
+      q:m.q,ch:m.c||'PYQ',ans:m.o[m.a],reason,note,
+      date:new Date().toLocaleDateString(),
+      votes:1,status:'pending',id:Date.now()
+    });
+  }
+  saveState();
+  updateFlagCountBadge();
+  closeFlagModal();
+  const btn=document.getElementById('btn-flag');
+  btn.classList.add('flagged');btn.innerHTML='🚩 Flagged';
+  showToast('Report submitted! Thank you for helping improve accuracy.');
+}
+function updateFlagCountBadge(){
+  const pending=appState.flags.filter(f=>f.status==='pending').length;
+  document.getElementById('flag-count-badge').textContent=pending;
+  document.getElementById('flag-count-badge').style.display=pending>0?'':'none';
+  document.getElementById('d-flags').textContent=appState.flags.length;
+}
+function renderReviewPage(){
+  const flags=appState.flags;
+  const pending=flags.filter(f=>f.status==='pending').length;
+  const resolved=flags.filter(f=>f.status==='resolved').length;
+  document.getElementById('rev-total').textContent=flags.length;
+  document.getElementById('rev-pending').textContent=pending;
+  document.getElementById('rev-resolved').textContent=resolved;
+  const list=document.getElementById('flags-list');
+  if(flags.length===0){
+    list.innerHTML='<div style="text-align:center;padding:30px;color:var(--muted);font-size:13px">No flagged questions yet. Use the 🚩 button during test to report incorrect questions.</div>';
+    return;
+  }
+  list.innerHTML='';
+  [...flags].reverse().forEach((f,i)=>{
+    const d=document.createElement('div');d.className='review-flag-item';
+    const reasonLabels={wrong_answer:'Wrong Answer Marked',outdated:'Outdated Info',confusing:'Confusing Question',typo:'Spelling/Typo'};
+    d.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+        <div class="rf-q">${f.q}</div>
+        <div class="rf-votes" title="Users who flagged this">🚩 ${f.votes||1}</div>
+      </div>
+      <div class="rf-meta">Chapter: ${f.ch} · Reported: ${f.date} · Reason: ${reasonLabels[f.reason]||f.reason}</div>
+      ${f.note?`<div style="font-size:12px;color:var(--muted);margin:4px 0">Note: "${f.note}"</div>`:''}
+      <div style="font-size:12px;margin-top:4px"><b>Current Answer:</b> ${f.ans}</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+        <div class="rf-status ${f.status==='resolved'?'rf-resolved':'rf-pending'}">${f.status==='resolved'?'✓ Resolved':'⏳ Pending Review'}</div>
+        ${f.status==='pending'?`<button onclick="markResolved(${flags.length-1-i})" style="background:var(--success);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif">Mark Resolved (Admin)</button>`:''}
+        <button onclick="deleteFlag(${flags.length-1-i})" style="background:none;border:none;color:var(--danger);font-size:11px;cursor:pointer">Delete</button>
+      </div>`;
+    list.appendChild(d);
+  });
+}
+function markResolved(idx){
+  appState.flags[idx].status='resolved';
+  saveState();updateFlagCountBadge();renderReviewPage();
+  showToast('Marked as resolved.');
+}
+function deleteFlag(idx){
+  appState.flags.splice(idx,1);
+  saveState();updateFlagCountBadge();renderReviewPage();
+}
+
+// ═══════════════════════════════════
+// TOAST
+// ═══════════════════════════════════
+function showToast(msg){
+  let t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';
+    Object.assign(t.style,{position:'fixed',bottom:'24px',left:'50%',transform:'translateX(-50%)',background:'var(--navy)',color:'#fff',padding:'10px 20px',borderRadius:'30px',fontSize:'13px',fontWeight:'600',zIndex:'9999',boxShadow:'0 4px 20px rgba(0,0,0,.3)',transition:'opacity .3s'});
+    document.body.appendChild(t);}
+  t.textContent=msg;t.style.opacity='1';
+  setTimeout(()=>t.style.opacity='0',2500);
+}
+function focusSearch(){showToast('Search coming soon — use browser Ctrl+F on Notes page');}
+
+// ═══════════════════════════════════
+// INIT
+// ═══════════════════════════════════
+loadState();
+renderDashboard();
+renderChipFilters();
+</script>
+</body>
+</html>
