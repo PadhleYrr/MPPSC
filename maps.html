@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Map Quiz — India & MP | MPPSC 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1A237E;--saff:#FF6B00;--gold:#F9A825;
+  --bg:#F4F6FB;--card:#fff;--border:#E2E8F0;
+  --text:#1E293B;--muted:#64748B;
+  --success:#15803D;--danger:#DC2626;--warn:#D97706;
+  --radius:14px;--shadow:0 2px 12px rgba(30,41,59,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* ── TOP BAR ── */
+.topbar{background:var(--navy);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.topbar-logo{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:#fff;letter-spacing:-.3px}
+.topbar-logo span{color:var(--gold)}
+.topbar-tabs{display:flex;gap:6px}
+.topbar-tab{padding:7px 18px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;color:rgba(255,255,255,.65);border:1px solid transparent;transition:all .15s;font-family:'DM Sans',sans-serif}
+.topbar-tab.active{background:var(--saff);color:#fff}
+.topbar-tab:hover:not(.active){background:rgba(255,255,255,.1);color:#fff}
+.back-link{color:rgba(255,255,255,.6);font-size:12px;cursor:pointer;text-decoration:none;padding:6px 12px;border:1px solid rgba(255,255,255,.2);border-radius:8px}
+.back-link:hover{background:rgba(255,255,255,.1);color:#fff}
+
+/* ── MAIN LAYOUT ── */
+.main{max-width:1200px;margin:0 auto;padding:20px 20px 40px}
+
+/* ── MODE TOGGLE ── */
+.mode-bar{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.mode-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+.mode-pill{display:flex;background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.mode-pill-btn{padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all .15s}
+.mode-pill-btn.active{background:var(--navy);color:#fff}
+.score-pill{margin-left:auto;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 16px;font-size:12px;font-weight:600;display:flex;gap:14px}
+.score-c{color:var(--success)}.score-w{color:var(--danger)}.score-p{color:var(--muted)}
+
+/* ── MAP CONTAINER ── */
+.map-wrap{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);padding:0;overflow:hidden;position:relative}
+.map-header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.map-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
+.map-hint{font-size:12px;color:var(--muted)}
+.map-svg-wrap{width:100%;overflow:hidden;position:relative;background:#EEF3FF}
+.map-svg-wrap svg{width:100%;height:auto;display:block}
+
+/* ── SVG REGION STYLES ── */
+.region{fill:#C8D8FF;stroke:#fff;stroke-width:1.5;cursor:pointer;transition:fill .18s,stroke .18s}
+.region:hover{fill:#7DA8FF;stroke:#fff;stroke-width:2}
+.region.correct{fill:#BBF7D0;stroke:#16A34A;stroke-width:2}
+.region.wrong{fill:#FECACA;stroke:#DC2626;stroke-width:2}
+.region.revealed{fill:#FEF9C3;stroke:#D97706;stroke-width:2}
+.region.selected{fill:#7DA8FF;stroke:var(--navy);stroke-width:2.5}
+.region-label{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;fill:#1A237E;pointer-events:none;text-anchor:middle;dominant-baseline:middle;opacity:0}
+.region-label.show{opacity:1}
+.region-label.correct-lbl{fill:var(--success)}
+.region-label.wrong-lbl{fill:var(--danger)}
+
+/* District dots */
+.dist-dot{fill:#1A237E;cursor:pointer;transition:r .15s,fill .15s}
+.dist-dot:hover{fill:var(--saff)}
+.dist-dot.correct{fill:var(--success)}
+.dist-dot.wrong{fill:var(--danger)}
+.dist-dot.revealed{fill:var(--warn)}
+
+/* ── QUESTION PANEL ── */
+.q-panel{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px;margin-top:16px}
+.q-panel.hidden{display:none}
+.q-banner{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.q-asking{font-size:14px;font-weight:600}
+.q-target{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--navy)}
+.q-mode-tag{background:#EEF0FF;color:var(--navy);font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+
+/* Type mode */
+.type-input-wrap{display:flex;gap:10px;margin-bottom:10px}
+.type-input{flex:1;padding:12px 16px;border:2px solid var(--border);border-radius:10px;font-size:15px;font-family:'DM Sans',sans-serif;outline:none;background:var(--bg);transition:border .15s}
+.type-input:focus{border-color:var(--navy)}
+.type-input.correct{border-color:var(--success);background:#F0FDF4}
+.type-input.wrong{border-color:var(--danger);background:#FEF2F2}
+.btn-check{padding:12px 22px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s;white-space:nowrap}
+.btn-check:hover{background:#2534a0}
+.btn-reveal-ans{padding:10px 18px;background:none;border:1px solid var(--warn);color:var(--warn);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-reveal-ans:hover{background:#FFFBEB}
+.btn-next-q{padding:10px 22px;background:var(--saff);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* MCQ mode */
+.mcq-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.mcq-opt{padding:11px 16px;background:var(--bg);border:2px solid var(--border);border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;transition:all .15s;display:flex;align-items:center;gap:10px}
+.mcq-opt:hover:not(:disabled){border-color:var(--navy);background:#F0F3FF}
+.mcq-opt.correct{border-color:var(--success);background:#F0FDF4;color:var(--success);font-weight:700}
+.mcq-opt.wrong{border-color:var(--danger);background:#FEF2F2;color:var(--danger)}
+.mcq-opt:disabled{cursor:default}
+.opt-lbl{width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mcq-opt.correct .opt-lbl{background:var(--success)}
+.mcq-opt.wrong .opt-lbl{background:var(--danger)}
+
+/* Feedback */
+.feedback{padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;margin-bottom:10px;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:#F0FDF4;color:var(--success);border:1px solid #BBF7D0}
+.feedback.wrong{background:#FEF2F2;color:var(--danger);border:1px solid #FECACA}
+.feedback.reveal{background:#FFFBEB;color:var(--warn);border:1px solid #FEF08A}
+
+/* ── PROGRESS BAR ── */
+.prog-bar{height:6px;background:#E2E8F0;border-radius:3px;overflow:hidden;margin-bottom:16px}
+.prog-fill{height:100%;background:var(--navy);border-radius:3px;transition:width .4s}
+
+/* ── COMPLETED PANEL ── */
+.complete-panel{text-align:center;padding:40px 20px}
+.complete-emoji{font-size:48px;margin-bottom:12px}
+.complete-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:6px}
+.complete-sub{font-size:14px;color:var(--muted);margin-bottom:20px}
+.complete-score{display:inline-flex;gap:24px;background:var(--bg);border-radius:12px;padding:14px 28px;margin-bottom:20px}
+.cs-item{text-align:center}
+.cs-val{font-family:'Syne',sans-serif;font-size:24px;font-weight:800}
+.cs-lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.btn-restart{padding:12px 28px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin:4px}
+.btn-restart-saff{background:var(--saff)}
+
+/* ── DRILL BREADCRUMB ── */
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin-bottom:14px;flex-wrap:wrap}
+.bc-item{cursor:pointer;color:var(--navy);font-weight:600}
+.bc-item:hover{text-decoration:underline}
+.bc-sep{color:var(--border)}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:10px 22px;border-radius:30px;font-size:13px;font-weight:600;z-index:9999;transition:opacity .3s;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.25);opacity:0;color:#fff;background:var(--navy)}
+
+/* ── LEGEND ── */
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.leg-dot{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .mcq-opts{grid-template-columns:1fr}
+  .type-input-wrap{flex-direction:column}
+  .topbar{padding:12px 14px}
+  .main{padding:12px 12px 30px}
+  .score-pill{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">🗺️ Map Quiz <span>— MPPSC 2026</span></div>
+  <div class="topbar-tabs">
+    <div class="topbar-tab active" onclick="switchMap('india')">🇮🇳 India</div>
+    <div class="topbar-tab" onclick="switchMap('mp')">🏛️ MP</div>
+    <div class="topbar-tab" onclick="switchMap('dist')">📍 Districts</div>
+  </div>
+  <a class="back-link" href="index.html">← Back to Portal</a>
+</div>
+
+<div class="main">
+
+  <!-- Breadcrumb (for district drill) -->
+  <div class="breadcrumb" id="breadcrumb" style="display:none">
+    <span class="bc-item" onclick="switchMap('mp')">MP Divisions</span>
+    <span class="bc-sep">›</span>
+    <span id="bc-div">Division</span>
+  </div>
+
+  <!-- Mode bar -->
+  <div class="mode-bar">
+    <span class="mode-label">Mode</span>
+    <div class="mode-pill">
+      <button class="mode-pill-btn active" onclick="setMode('mcq',this)">🎯 MCQ</button>
+      <button class="mode-pill-btn" onclick="setMode('type',this)">✍️ Type</button>
+      <button class="mode-pill-btn" onclick="setMode('reveal',this)">👁️ Learn</button>
+    </div>
+    <div class="score-pill">
+      <span class="score-c">✓ <span id="sc-correct">0</span></span>
+      <span class="score-w">✗ <span id="sc-wrong">0</span></span>
+      <span class="score-p">— <span id="sc-skip">0</span></span>
+    </div>
+    <button onclick="resetQuiz()" style="padding:8px 16px;background:none;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted)">↺ Reset</button>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+
+  <!-- MAP SECTION -->
+  <div class="map-wrap">
+    <div class="map-header">
+      <div class="map-title" id="map-title">India — All States & UTs</div>
+      <div class="map-hint" id="map-hint">Click any region to quiz yourself</div>
+    </div>
+    <div class="map-svg-wrap" id="map-svg-wrap">
+      <!-- SVG injected by JS -->
+    </div>
+    <div style="padding:10px 16px 14px">
+      <div class="legend" id="legend">
+        <div class="leg-item"><div class="leg-dot" style="background:#C8D8FF;border:1px solid #7DA8FF"></div>Not attempted</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#BBF7D0;border:1px solid #16A34A"></div>Correct</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#FECACA;border:1px solid #DC2626"></div>Wrong</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#FEF9C3;border:1px solid #D97706"></div>Revealed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUESTION PANEL -->
+  <div class="q-panel hidden" id="q-panel">
+    <!-- Populated by JS -->
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════
+// MAP DATA
+// ════════════════════════════════════════════
+const INDIA_MAP_DATA = [
+  {id:"jammu_and_kashmir",name:"Jammu & Kashmir",abbr:"J&K",lx:140,ly:42,poly:"97.5,21.0 102.1,18.2 108.5,18.2 114.8,14.2 121.2,3.5 127.5,-7.1 134.8,-4.5 140.0,0.0 137.2,7.1 132.5,11.9 130.5,17.9 125.8,22.7 121.2,27.5 116.5,30.3 111.8,32.2 108.5,32.2 104.5,33.2 99.8,31.3 97.5,21.0"},
+  {id:"ladakh",name:"Ladakh",abbr:"LAD",lx:155,ly:60,poly:"152.5,11.9 159.8,8.3 163.5,4.5 164.5,-2.4 158.5,-8.3 151.5,-14.3 144.5,-10.7 139.8,-11.9 136.5,-6.0 140.0,0.0 148.5,1.2 152.5,11.9"},
+  {id:"himachal_pradesh",name:"Himachal Pradesh",abbr:"HP",lx:118,ly:75,poly:"108.5,18.2 116.5,18.2 121.2,27.5 125.8,22.7 130.5,17.9 125.5,31.0 119.5,35.8 112.5,37.0 106.5,35.8 103.5,32.2 108.5,18.2"},
+  {id:"punjab",name:"Punjab",abbr:"PB",lx:95,ly:70,poly:"97.5,21.0 102.1,18.2 108.5,18.2 103.5,32.2 106.5,35.8 103.5,40.6 97.2,44.4 92.5,44.4 89.5,39.6 88.8,33.6 90.8,27.6 97.5,21.0"},
+  {id:"uttarakhand",name:"Uttarakhand",abbr:"UK",lx:150,ly:72,poly:"144.5,-10.7 151.5,-14.3 158.5,-8.3 164.5,-2.4 169.5,5.7 165.5,17.9 160.5,24.0 153.5,27.0 143.5,27.0 136.5,17.9 135.5,11.9 140.0,0.0 144.5,-10.7"},
+  {id:"haryana",name:"Haryana",abbr:"HR",lx:107,ly:90,poly:"88.8,33.6 92.5,44.4 97.2,44.4 103.5,40.6 106.5,35.8 109.5,47.8 106.5,56.0 103.5,61.0 99.5,64.8 95.5,62.0 91.5,58.3 88.5,52.4 86.2,46.5 88.8,33.6"},
+  {id:"delhi",name:"Delhi",abbr:"DL",lx:113,ly:68,poly:"108.5,37.0 116.5,37.0 116.5,55.6 108.5,55.6 108.5,37.0"},
+  {id:"rajasthan",name:"Rajasthan",abbr:"RJ",lx:84,ly:148,poly:"23.5,7.1 30.8,0.0 38.5,2.4 49.5,0.0 61.5,0.0 74.5,5.9 88.5,3.6 95.5,3.6 99.5,5.9 99.5,17.9 103.5,22.7 109.5,30.9 112.5,37.0 109.5,47.8 106.5,56.0 103.5,61.0 99.5,64.8 95.5,62.0 88.0,74.0 81.5,84.0 76.5,94.4 70.5,106.4 67.5,118.4 63.5,121.2 57.0,128.1 50.5,122.2 44.0,118.4 37.5,114.7 30.8,115.9 23.5,108.9 19.5,96.0 19.5,60.8 23.5,48.8 23.5,7.1"},
+  {id:"uttar_pradesh",name:"Uttar Pradesh",abbr:"UP",lx:162,ly:120,poly:"109.5,47.8 112.5,37.0 119.5,47.8 127.5,51.6 136.5,51.6 143.5,51.6 150.5,39.6 160.5,45.6 169.5,39.6 178.5,51.6 182.5,63.6 183.5,75.6 182.5,87.6 177.5,93.6 172.5,99.6 162.5,105.6 152.5,111.6 142.5,111.6 132.5,111.6 122.5,113.6 112.5,108.0 103.5,102.0 95.5,102.0 88.0,74.0 95.5,62.0 99.5,64.8 103.5,61.0 106.5,56.0 109.5,47.8"},
+  {id:"bihar",name:"Bihar",abbr:"BR",lx:195,ly:95,poly:"182.5,63.6 186.5,51.6 192.5,63.6 201.5,51.6 211.5,56.0 224.5,51.6 235.5,51.6 235.5,63.6 233.5,75.6 229.5,83.6 219.5,88.0 209.5,88.0 199.5,94.4 189.5,94.4 182.5,87.6 183.5,75.6 182.5,63.6"},
+  {id:"jharkhand",name:"Jharkhand",abbr:"JH",lx:198,ly:128,poly:"182.5,87.6 189.5,94.4 199.5,94.4 209.5,88.0 219.5,88.0 229.5,83.6 220.5,102.0 215.5,116.0 204.5,124.0 193.5,124.0 182.5,120.4 180.5,110.4 180.5,100.4 182.5,87.6"},
+  {id:"west_bengal",name:"West Bengal",abbr:"WB",lx:228,ly:120,poly:"235.5,51.6 246.5,51.6 252.5,44.6 259.5,38.6 257.5,30.6 253.5,22.6 259.5,10.6 260.5,0.6 258.5,-5.4 255.5,-11.4 251.5,-17.4 246.5,-17.4 241.5,-17.4 237.5,-5.4 237.5,10.6 242.5,22.6 242.5,38.6 235.5,44.6 229.5,83.6 233.5,75.6 235.5,63.6 235.5,51.6"},
+  {id:"sikkim",name:"Sikkim",abbr:"SK",lx:255,ly:45,poly:"253.5,22.6 259.5,10.6 265.5,16.0 265.5,22.6 259.5,28.0 253.5,22.6"},
+  {id:"assam",name:"Assam",abbr:"AS",lx:285,ly:88,poly:"262.5,44.6 269.5,32.6 280.5,26.6 292.5,26.6 302.5,26.6 313.5,26.6 321.5,32.6 330.5,38.6 338.5,44.6 342.5,51.6 338.5,56.0 327.5,62.0 316.5,68.0 305.5,74.0 294.5,62.0 283.5,62.0 272.5,63.6 264.5,58.0 262.5,44.6"},
+  {id:"arunachal_pradesh",name:"Arunachal Pradesh",abbr:"AR",lx:318,ly:48,poly:"280.5,26.6 292.5,26.6 302.5,26.6 313.5,26.6 321.5,32.6 330.5,26.6 342.5,14.6 354.5,2.6 365.5,2.6 371.5,6.2 365.5,16.0 358.5,24.0 350.5,32.6 340.5,32.6 330.5,38.6 321.5,32.6 313.5,26.6 302.5,26.6 292.5,26.6 280.5,26.6"},
+  {id:"nagaland",name:"Nagaland",abbr:"NL",lx:342,ly:75,poly:"321.5,32.6 330.5,38.6 340.5,32.6 350.5,32.6 348.5,44.6 342.5,51.6 338.5,44.6 330.5,38.6 321.5,32.6"},
+  {id:"manipur",name:"Manipur",abbr:"MN",lx:340,ly:100,poly:"313.5,62.0 321.5,56.0 330.5,56.0 338.5,56.0 342.5,68.0 342.5,80.0 335.5,80.0 327.5,80.0 316.5,80.0 313.5,68.0 313.5,62.0"},
+  {id:"mizoram",name:"Mizoram",abbr:"MZ",lx:315,ly:125,poly:"286.5,62.0 294.5,62.0 305.5,62.0 313.5,68.0 313.5,80.0 305.5,86.0 294.5,92.0 286.5,86.0 286.5,62.0"},
+  {id:"tripura",name:"Tripura",abbr:"TR",lx:279,ly:104,poly:"268.5,56.0 276.5,56.0 283.5,56.0 286.5,62.0 286.5,74.0 283.5,80.0 276.5,80.0 268.5,74.0 268.5,56.0"},
+  {id:"meghalaya",name:"Meghalaya",abbr:"ML",lx:278,ly:72,poly:"259.5,38.6 265.5,44.6 272.5,50.6 283.5,50.6 294.5,50.6 305.5,50.6 313.5,56.0 305.5,62.0 294.5,62.0 283.5,62.0 272.5,63.6 264.5,58.0 259.5,44.6 259.5,38.6"},
+  {id:"odisha",name:"Odisha",abbr:"OD",lx:196,ly:175,poly:"180.5,100.4 182.5,120.4 193.5,124.0 204.5,124.0 215.5,116.0 220.5,102.0 229.5,83.6 242.5,-17.4 241.5,143.4 234.5,153.4 224.5,161.4 214.5,161.4 204.5,166.0 198.5,174.0 194.5,182.0 192.5,192.0 191.5,204.0 191.5,210.0 188.5,222.0 185.5,226.8 183.5,216.0 181.5,204.0 180.5,192.0 178.5,181.2 174.5,169.2 170.5,160.0 168.5,148.0 168.5,136.0 168.5,124.0 170.5,112.0 174.5,104.0 180.5,100.4"},
+  {id:"chhattisgarh",name:"Chhattisgarh",abbr:"CG",lx:170,ly:160,poly:"142.5,111.6 150.5,111.6 160.5,105.6 168.5,124.0 168.5,136.0 168.5,148.0 170.5,160.0 168.5,175.0 164.5,186.0 160.5,196.0 156.5,196.0 150.5,204.0 145.5,210.0 139.5,210.0 133.5,204.0 128.5,204.0 124.5,196.0 122.5,188.0 124.5,180.0 124.5,172.0 126.5,164.0 126.5,152.0 128.5,140.0 128.5,128.0 130.5,120.0 132.5,113.6 142.5,111.6"},
+  {id:"madhya_pradesh",name:"Madhya Pradesh",abbr:"MP",lx:140,ly:152,poly:"76.5,94.4 81.5,84.0 88.0,74.0 95.5,102.0 103.5,102.0 112.5,108.0 122.5,113.6 132.5,113.6 128.5,128.0 128.5,140.0 126.5,152.0 126.5,164.0 124.5,172.0 124.5,180.0 122.5,188.0 120.5,180.0 118.5,172.0 114.5,164.0 108.5,158.0 102.5,158.0 96.5,158.0 90.5,152.0 84.5,148.0 81.5,142.0 78.5,136.0 76.5,128.0 74.5,118.0 73.5,108.0 74.5,96.0 76.5,94.4"},
+  {id:"gujarat",name:"Gujarat",abbr:"GJ",lx:56,ly:152,poly:"19.5,60.8 23.5,48.8 23.5,7.1 30.8,0.0 38.5,2.4 49.5,0.0 61.5,0.0 67.5,118.4 63.5,121.2 57.0,128.1 50.5,134.0 44.5,140.0 41.5,152.0 38.5,158.0 34.5,168.0 30.5,172.0 26.5,178.0 24.5,190.0 22.5,195.6 18.5,186.0 18.5,176.0 20.5,166.0 20.5,156.0 19.5,144.0 20.5,132.0 20.5,120.0 21.5,108.0 20.5,96.0 19.5,84.0 19.5,60.8"},
+  {id:"maharashtra",name:"Maharashtra",abbr:"MH",lx:110,ly:215,poly:"67.5,118.4 76.5,128.0 78.5,136.0 81.5,142.0 84.5,148.0 90.5,152.0 96.5,158.0 102.5,158.0 108.5,158.0 114.5,164.0 118.5,172.0 120.5,180.0 122.5,188.0 124.5,196.0 128.5,204.0 133.5,204.0 124.5,214.4 120.5,222.0 114.5,226.8 108.5,232.8 102.5,232.8 96.5,232.8 90.5,226.8 84.5,226.8 80.5,220.8 76.5,214.8 70.5,210.0 64.5,214.8 58.5,220.0 54.5,226.8 50.5,220.0 46.5,210.0 44.5,200.0 44.5,190.0 42.5,182.0 38.5,174.0 34.5,168.0 38.5,158.0 41.5,152.0 44.5,140.0 50.5,134.0 57.0,128.1 63.5,121.2 67.5,118.4"},
+  {id:"goa",name:"Goa",abbr:"GA",lx:75,ly:283,poly:"67.5,262.0 79.5,262.0 79.5,282.0 67.5,282.0 67.5,262.0"},
+  {id:"karnataka",name:"Karnataka",abbr:"KA",lx:86,ly:285,poly:"76.5,214.8 80.5,220.8 84.5,226.8 90.5,226.8 96.5,232.8 102.5,232.8 108.5,232.8 114.5,226.8 120.5,222.0 124.5,214.4 133.5,204.0 139.5,210.0 133.5,228.0 131.5,244.0 130.5,258.0 128.5,270.0 126.5,280.0 122.5,288.0 118.5,296.0 113.5,304.0 107.5,310.0 101.5,316.0 95.5,316.0 89.5,310.0 83.5,306.0 79.5,300.0 75.5,294.0 71.5,288.0 67.5,282.0 67.5,262.0 70.5,252.0 72.5,240.0 74.5,228.0 76.5,214.8"},
+  {id:"andhra_pradesh",name:"Andhra Pradesh",abbr:"AP",lx:156,ly:255,poly:"139.5,210.0 145.5,210.0 150.5,204.0 156.5,196.0 160.5,196.0 164.5,186.0 168.5,175.0 170.5,160.0 174.5,169.2 178.5,181.2 180.5,192.0 181.5,204.0 183.5,216.0 185.5,226.8 188.5,222.0 191.5,210.0 196.5,204.0 202.5,202.0 208.5,204.0 214.5,208.0 220.5,216.0 225.5,224.0 229.5,232.0 232.5,238.0 234.5,248.0 232.5,256.0 228.5,264.0 222.5,270.0 214.5,274.0 206.5,278.0 198.5,280.0 190.5,276.0 184.5,272.0 178.5,266.0 172.5,260.0 166.5,254.0 160.5,248.0 154.5,244.0 150.5,238.0 148.5,230.0 144.5,224.0 140.5,218.0 139.5,210.0"},
+  {id:"telangana",name:"Telangana",abbr:"TS",lx:142,ly:215,poly:"133.5,204.0 139.5,210.0 140.5,218.0 144.5,224.0 148.5,230.0 150.5,238.0 154.5,244.0 144.5,250.0 136.5,254.0 128.5,250.0 120.5,248.0 113.5,244.0 107.5,238.0 107.5,226.0 113.5,220.0 118.5,214.0 124.5,214.4 133.5,204.0"},
+  {id:"tamil_nadu",name:"Tamil Nadu",abbr:"TN",lx:128,ly:330,poly:"95.5,316.0 101.5,316.0 107.5,310.0 113.5,304.0 118.5,296.0 122.5,288.0 126.5,280.0 128.5,270.0 130.5,258.0 131.5,244.0 136.5,254.0 144.5,250.0 150.5,238.0 154.5,244.0 160.5,248.0 166.5,254.0 160.5,264.0 156.5,272.0 152.5,280.0 148.5,290.0 144.5,300.0 138.5,308.0 132.5,316.0 126.5,322.0 118.5,326.0 110.5,328.0 102.5,328.0 95.5,326.0 92.5,320.0 95.5,316.0"},
+  {id:"kerala",name:"Kerala",abbr:"KL",lx:84,ly:330,poly:"89.5,310.0 95.5,316.0 92.5,320.0 95.5,326.0 102.5,328.0 100.5,338.0 96.5,346.0 90.5,352.0 83.5,352.0 77.5,346.0 76.5,338.0 76.5,328.0 77.5,318.0 80.5,310.0 84.5,304.0 89.5,310.0"}
+];
+
+// MP Division data with districts
+const MP_MAP_DATA = [
+  {id:"bhopal",name:"Bhopal",lx:311,ly:179,
+   poly:"223.6,234.0 405.5,234.0 405.5,377.6 223.6,377.6 223.6,234.0",
+   districts:[
+    {id:"bhopal_d",name:"Bhopal",cx:311,cy:294},{id:"raisen",name:"Raisen",cx:349,cy:330},
+    {id:"rajgarh",name:"Rajgarh",cx:272,cy:235},{id:"sehore",name:"Sehore",cx:272,cy:294},
+    {id:"vidisha",name:"Vidisha",cx:349,cy:258}]},
+  {id:"chambal",name:"Chambal",lx:200,ly:50,
+   poly:"96.4,0.0 405.5,0.0 405.5,143.6 96.4,143.6 96.4,0.0",
+   districts:[
+    {id:"morena",name:"Morena",cx:220,cy:46},{id:"bhind",name:"Bhind",cx:292,cy:36},
+    {id:"sheopur",name:"Sheopur",cx:148,cy:88}]},
+  {id:"gwalior",name:"Gwalior",lx:330,ly:82,
+   poly:"260.0,0.0 530.0,0.0 530.0,200.0 260.0,200.0 260.0,0.0",
+   districts:[
+    {id:"gwalior_d",name:"Gwalior",cx:329,cy:54},{id:"datia",name:"Datia",cx:348,cy:94},
+    {id:"shivpuri",name:"Shivpuri",cx:310,cy:130},{id:"guna",name:"Guna",cx:296,cy:175},
+    {id:"ashoknagar",name:"Ashoknagar",cx:310,cy:178}]},
+  {id:"indore",name:"Indore",lx:80,ly:260,
+   poly:"0.0,183.4 223.6,183.4 223.6,423.2 0.0,423.2 0.0,183.4",
+   districts:[
+    {id:"indore_d",name:"Indore",cx:75,cy:262},{id:"dhar",name:"Dhar",cx:50,cy:254},
+    {id:"jhabua",name:"Jhabua",cx:19,cy:235},{id:"alirajpur",name:"Alirajpur",cx:10,cy:270},
+    {id:"khargone",name:"Khargone",cx:60,cy:302},{id:"barwani",name:"Barwani",cx:28,cy:314},
+    {id:"burhanpur",name:"Burhanpur",cx:87,cy:344}]},
+  {id:"jabalpur",name:"Jabalpur",lx:530,ly:238,
+   poly:"480.0,180.0 728.0,180.0 728.0,413.0 480.0,413.0 480.0,180.0",
+   districts:[
+    {id:"jabalpur_d",name:"Jabalpur",cx:526,cy:238},{id:"narsinghpur",name:"Narsinghpur",cx:494,cy:256},
+    {id:"chhindwara",name:"Chhindwara",cx:482,cy:320},{id:"seoni",name:"Seoni",cx:516,cy:320},
+    {id:"mandla",name:"Mandla",cx:556,cy:274},{id:"dindori",name:"Dindori",cx:590,cy:254},
+    {id:"katni",name:"Katni",cx:558,cy:214}]},
+  {id:"narmadapuram",name:"Narmadapuram",lx:300,ly:285,
+   poly:"223.6,234.0 480.0,234.0 480.0,377.6 223.6,377.6 223.6,234.0",
+   districts:[
+    {id:"hoshangabad",name:"Hoshangabad",cx:300,cy:280},{id:"harda",name:"Harda",cx:260,cy:310},
+    {id:"betul",name:"Betul",cx:320,cy:334}]},
+  {id:"rewa",name:"Rewa",lx:640,ly:148,
+   poly:"580.0,60.0 800.0,60.0 800.0,236.0 580.0,236.0 580.0,60.0",
+   districts:[
+    {id:"rewa_d",name:"Rewa",cx:612,cy:138},{id:"satna",name:"Satna",cx:580,cy:132},
+    {id:"sidhi",name:"Sidhi",cx:648,cy:130},{id:"singrauli",name:"Singrauli",cx:688,cy:138}]},
+  {id:"sagarbhopal",name:"Sagar",lx:450,ly:160,
+   poly:"355.0,90.0 590.0,90.0 590.0,284.0 355.0,284.0 355.0,90.0",
+   districts:[
+    {id:"sagar_d",name:"Sagar",cx:452,cy:196},{id:"damoh",name:"Damoh",cx:498,cy:196},
+    {id:"panna",name:"Panna",cx:540,cy:148},{id:"chhatarpur",name:"Chhatarpur",cx:516,cy:122},
+    {id:"tikamgarh",name:"Tikamgarh",cx:468,cy:130},{id:"niwari",name:"Niwari",cx:472,cy:112}]},
+  {id:"shahdol",name:"Shahdol",lx:624,ly:258,
+   poly:"580.0,180.0 760.0,180.0 760.0,330.0 580.0,330.0 580.0,180.0",
+   districts:[
+    {id:"shahdol_d",name:"Shahdol",cx:624,cy:252},{id:"anuppur",name:"Anuppur",cx:650,cy:268},
+    {id:"umaria",name:"Umaria",cx:598,cy:240},{id:"deogarh",name:"Deoghar",cx:622,cy:290}]},
+  {id:"ujjain",name:"Ujjain",lx:148,ly:168,
+   poly:"0.0,44.0 260.0,44.0 260.0,234.0 0.0,234.0 0.0,44.0",
+   districts:[
+    {id:"ujjain_d",name:"Ujjain",cx:148,cy:222},{id:"ratlam",name:"Ratlam",cx:114,cy:216},
+    {id:"mandsaur",name:"Mandsaur",cx:116,cy:156},{id:"neemuch",name:"Neemuch",cx:108,cy:122},
+    {id:"shajapur",name:"Shajapur",cx:186,cy:208},{id:"agar",name:"Agar Malwa",cx:170,cy:178},
+    {id:"dewas",name:"Dewas",cx:166,cy:238}]}
+];
+
+// ════════════════════════════════════════════
+// APP STATE
+// ════════════════════════════════════════════
+let currentMap = 'india'; // 'india' | 'mp' | 'dist'
+let currentMode = 'mcq';  // 'mcq' | 'type' | 'reveal'
+let currentDivision = null;
+let quizState = {}; // id -> 'correct'|'wrong'|'revealed'|null
+let score = {correct:0, wrong:0, skip:0};
+let activeRegion = null;
+let quizQueue = [];
+let quizIdx = 0;
+
+// ════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════
+function init() {
+  renderMap('india');
+}
+
+function switchMap(mapId) {
+  currentMap = mapId;
+  currentDivision = null;
+  quizState = {};
+  score = {correct:0,wrong:0,skip:0};
+  activeRegion = null;
+  quizQueue = [];
+  quizIdx = 0;
+  updateScoreUI();
+
+  document.querySelectorAll('.topbar-tab').forEach((t,i) => {
+    t.classList.toggle('active', ['india','mp','dist'][i] === mapId);
+  });
+  document.getElementById('breadcrumb').style.display = 'none';
+  document.getElementById('q-panel').classList.add('hidden');
+  document.getElementById('prog-fill').style.width = '0%';
+  renderMap(mapId);
+}
+
+// ════════════════════════════════════════════
+// MAP RENDERING
+// ════════════════════════════════════════════
+function renderMap(mapId) {
+  const wrap = document.getElementById('map-svg-wrap');
+  const title = document.getElementById('map-title');
+  const hint = document.getElementById('map-hint');
+
+  if (mapId === 'india') {
+    title.textContent = 'India — All States & UTs';
+    hint.textContent = 'Click any state to quiz yourself';
+    renderIndiaSVG(wrap);
+  } else if (mapId === 'mp') {
+    title.textContent = 'Madhya Pradesh — 10 Divisions';
+    hint.textContent = 'Click a division to quiz it, or click its name to drill districts';
+    renderMPSVG(wrap, null);
+  } else if (mapId === 'dist' && currentDivision) {
+    const div = MP_MAP_DATA.find(d => d.id === currentDivision);
+    title.textContent = `${div ? div.name : ''} Division — Districts`;
+    hint.textContent = 'Click any district to quiz yourself';
+    renderDistrictSVG(wrap, currentDivision);
+  }
+}
+
+function renderIndiaSVG(wrap) {
+  let svg = `<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" style="background:#EEF3FF">
+  <defs><filter id="dropshadow"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity=".12"/></filter></defs>`;
+
+  INDIA_MAP_DATA.forEach(st => {
+    const st_state = quizState[st.id];
+    const cls = 'region' + (st_state ? ' '+st_state : '') + (activeRegion===st.id ? ' selected' : '');
+    svg += `<polygon id="r-${st.id}" class="${cls}" points="${st.poly}"
+      onclick="onRegionClick('${st.id}','${escQ(st.name)}')" filter="url(#dropshadow)"/>`;
+  });
+
+  // Labels (abbreviations always shown; full name after correct/revealed)
+  INDIA_MAP_DATA.forEach(st => {
+    const st_state = quizState[st.id];
+    const showFull = st_state === 'correct' || st_state === 'revealed';
+    const lblCls = 'region-label show' + (st_state === 'correct' ? ' correct-lbl' : st_state === 'wrong' ? ' wrong-lbl' : '');
+    if (showFull) {
+      svg += `<text class="${lblCls}" x="${st.lx}" y="${st.ly - 6}">${st.abbr}</text>`;
+      svg += `<text class="${lblCls}" x="${st.lx}" y="${st.ly + 6}" style="font-size:6px;font-weight:500">${st.name}</text>`;
+    } else {
+      svg += `<text class="region-label show" x="${st.lx}" y="${st.ly}" style="opacity:0.35">${st.abbr}</text>`;
+    }
+  });
+
+  svg += '</svg>';
+  wrap.innerHTML = svg;
+}
+
+function renderMPSVG(wrap, highlightDiv) {
+  let svg = `<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" style="background:#EEF3FF">
+  <defs><filter id="dropshadow"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity=".12"/></filter></defs>`;
+
+  MP_MAP_DATA.forEach(div => {
+    const st_state = quizState[div.id];
+    const cls = 'region' + (st_state ? ' '+st_state : '') + (activeRegion===div.id ? ' selected' : '');
+    svg += `<polygon id="r-${div.id}" class="${cls}" points="${div.poly}"
+      onclick="onRegionClick('${div.id}','${escQ(div.name)}')" filter="url(#dropshadow)"/>`;
+  });
+
+  MP_MAP_DATA.forEach(div => {
+    const st_state = quizState[div.id];
+    const showFull = st_state === 'correct' || st_state === 'revealed';
+    const lblCls = 'region-label show' + (st_state === 'correct' ? ' correct-lbl' : '');
+    svg += `<text class="${lblCls}" x="${div.lx}" y="${div.ly}" style="font-size:11px;${showFull?'':'opacity:.4'}">${div.name}</text>`;
+    // Drill button
+    svg += `<text x="${div.lx}" y="${div.ly+16}" style="font-size:9px;fill:#FF6B00;cursor:pointer;font-weight:700;text-anchor:middle"
+      onclick="drillDivision('${div.id}')">▶ Districts</text>`;
+  });
+
+  svg += '</svg>';
+  wrap.innerHTML = svg;
+}
+
+function renderDistrictSVG(wrap, divId) {
+  const div = MP_MAP_DATA.find(d => d.id === divId);
+  if (!div) return;
+
+  // Find bounding box of districts
+  const xs = div.districts.map(d => d.cx);
+  const ys = div.districts.map(d => d.cy);
+  const minX = Math.min(...xs) - 60, maxX = Math.max(...xs) + 60;
+  const minY = Math.min(...ys) - 60, maxY = Math.max(...ys) + 60;
+  const W = Math.max(400, maxX - minX + 120);
+  const H = Math.max(300, maxY - minY + 120);
+  const offX = minX - 60, offY = minY - 60;
+
+  let svg = `<svg viewBox="${offX} ${offY} ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="background:#EEF3FF;min-height:300px">`;
+
+  // Draw district dots
+  div.districts.forEach(d => {
+    const st_state = quizState[d.id];
+    const dotCls = 'dist-dot' + (st_state ? ' '+st_state : '') + (activeRegion===d.id ? ' selected' : '');
+    const r = activeRegion === d.id ? 14 : 10;
+    svg += `<circle id="r-${d.id}" class="${dotCls}" cx="${d.cx}" cy="${d.cy}" r="${r}"
+      onclick="onRegionClick('${d.id}','${escQ(d.name)}')"/>`;
+
+    // Label
+    const showName = st_state === 'correct' || st_state === 'revealed';
+    const color = st_state === 'correct' ? '#15803D' : st_state === 'wrong' ? '#DC2626' : st_state === 'revealed' ? '#D97706' : '#1A237E';
+    if (showName) {
+      svg += `<text x="${d.cx}" y="${d.cy - 18}" text-anchor="middle" style="font-family:Syne,sans-serif;font-size:10px;font-weight:700;fill:${color}">${d.name}</text>`;
+    } else if (activeRegion === d.id) {
+      svg += `<text x="${d.cx}" y="${d.cy - 18}" text-anchor="middle" style="font-family:Syne,sans-serif;font-size:10px;font-weight:700;fill:${color}">?</text>`;
+    }
+  });
+
+  svg += '</svg>';
+  wrap.innerHTML = svg;
+}
+
+function drillDivision(divId) {
+  currentDivision = divId;
+  currentMap = 'dist';
+  quizState = {};
+  score = {correct:0,wrong:0,skip:0};
+  activeRegion = null;
+  updateScoreUI();
+
+  const div = MP_MAP_DATA.find(d => d.id === divId);
+  document.getElementById('breadcrumb').style.display = 'flex';
+  document.getElementById('bc-div').textContent = div ? div.name + ' Division' : '';
+  document.getElementById('map-title').textContent = `${div ? div.name : ''} — Districts`;
+  document.getElementById('map-hint').textContent = 'Click any district dot to quiz yourself';
+  document.getElementById('q-panel').classList.add('hidden');
+  document.getElementById('prog-fill').style.width = '0%';
+
+  // Update tab highlights
+  document.querySelectorAll('.topbar-tab').forEach((t,i) => {
+    t.classList.toggle('active', i === 2);
+  });
+
+  renderDistrictSVG(document.getElementById('map-svg-wrap'), divId);
+}
+
+// ════════════════════════════════════════════
+// REGION CLICK
+// ════════════════════════════════════════════
+function onRegionClick(id, name) {
+  // If already done, just highlight
+  if (quizState[id] === 'correct') { showToast('✓ Already correct!','#15803D'); return; }
+
+  activeRegion = id;
+  rerenderMap();
+  showQuestion(id, name);
+}
+
+function rerenderMap() {
+  const wrap = document.getElementById('map-svg-wrap');
+  if (currentMap === 'india') renderIndiaSVG(wrap);
+  else if (currentMap === 'mp') renderMPSVG(wrap, currentDivision);
+  else if (currentMap === 'dist') renderDistrictSVG(wrap, currentDivision);
+}
+
+// ════════════════════════════════════════════
+// QUESTION PANEL
+// ════════════════════════════════════════════
+function showQuestion(id, name) {
+  const panel = document.getElementById('q-panel');
+  panel.classList.remove('hidden');
+
+  const mapLabel = currentMap === 'india' ? 'State' : currentMap === 'mp' ? 'Division' : 'District';
+
+  if (currentMode === 'reveal') {
+    panel.innerHTML = `
+      <div class="q-banner">
+        <div class="q-asking">You clicked: &nbsp;</div>
+        <div class="q-target">${name}</div>
+        <div class="q-mode-tag">Learn Mode</div>
+      </div>
+      <div class="feedback reveal show">👁️ This is <b>${name}</b>. Study its location!</div>
+      <button class="btn-next-q" onclick="markRevealed('${id}')">Mark as Studied →</button>`;
+    return;
+  }
+
+  if (currentMode === 'mcq') showMCQ(id, name, mapLabel);
+  else showTypeQ(id, name, mapLabel);
+}
+
+function showMCQ(id, name, mapLabel) {
+  const panel = document.getElementById('q-panel');
+  // Generate wrong options
+  const allNames = getData().map(r => r.name).filter(n => n !== name);
+  shuffle(allNames);
+  const wrong = allNames.slice(0, 3);
+  const opts = shuffle([name, ...wrong]);
+  const LABS = ['A','B','C','D'];
+
+  let optsHTML = opts.map((opt,i) =>
+    `<button class="mcq-opt" onclick="checkMCQ(this,'${escQ(opt)}','${escQ(name)}','${id}')">
+      <span class="opt-lbl">${LABS[i]}</span>${opt}
+    </button>`).join('');
+
+  panel.innerHTML = `
+    <div class="q-banner">
+      <div class="q-asking">Which <b>${mapLabel}</b> did you click?</div>
+      <div class="q-mode-tag">MCQ Mode</div>
+    </div>
+    <div class="mcq-opts">${optsHTML}</div>
+    <div class="feedback" id="q-feedback"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn-reveal-ans" onclick="revealAnswer('${id}','${escQ(name)}')">Show Answer</button>
+    </div>`;
+}
+
+function showTypeQ(id, name, mapLabel) {
+  const panel = document.getElementById('q-panel');
+  panel.innerHTML = `
+    <div class="q-banner">
+      <div class="q-asking">Name this <b>${mapLabel}</b>:</div>
+      <div class="q-mode-tag">Type Mode</div>
+    </div>
+    <div class="type-input-wrap">
+      <input class="type-input" id="type-inp" placeholder="Type the name..." autocomplete="off" autocorrect="off"
+        onkeydown="if(event.key==='Enter')checkType('${id}','${escQ(name)}')">
+      <button class="btn-check" onclick="checkType('${id}','${escQ(name)}')">Check →</button>
+    </div>
+    <div class="feedback" id="q-feedback"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn-reveal-ans" onclick="revealAnswer('${id}','${escQ(name)}')">Show Answer</button>
+    </div>`;
+  setTimeout(() => { const inp = document.getElementById('type-inp'); if(inp) inp.focus(); }, 100);
+}
+
+// ════════════════════════════════════════════
+// ANSWER CHECKING
+// ════════════════════════════════════════════
+function checkMCQ(btn, chosen, correct, id) {
+  document.querySelectorAll('.mcq-opt').forEach(b => b.disabled = true);
+  const fb = document.getElementById('q-feedback');
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    setResult(id, 'correct');
+    fb.className = 'feedback correct show';
+    fb.innerHTML = `✓ Correct! <b>${correct}</b>`;
+    score.correct++;
+  } else {
+    btn.classList.add('wrong');
+    // Mark correct one green
+    document.querySelectorAll('.mcq-opt').forEach(b => { if(b.textContent.trim().slice(1).trim() === correct) b.classList.add('correct'); });
+    setResult(id, 'wrong');
+    fb.className = 'feedback wrong show';
+    fb.innerHTML = `✗ Wrong. The answer is <b>${correct}</b>`;
+    score.wrong++;
+  }
+  updateScoreUI();
+  addNextBtn(id);
+}
+
+function checkType(id, correct) {
+  const inp = document.getElementById('type-inp');
+  if (!inp) return;
+  const val = inp.value.trim();
+  if (!val) { showToast('Type something first!','#D97706'); return; }
+  const fb = document.getElementById('q-feedback');
+  const isCorrect = normalize(val) === normalize(correct);
+  inp.disabled = true;
+  document.querySelector('.btn-check') && (document.querySelector('.btn-check').disabled = true);
+  if (isCorrect) {
+    inp.classList.add('correct');
+    setResult(id, 'correct');
+    fb.className = 'feedback correct show';
+    fb.innerHTML = `✓ Correct! <b>${correct}</b>`;
+    score.correct++;
+  } else {
+    inp.classList.add('wrong');
+    setResult(id, 'wrong');
+    fb.className = 'feedback wrong show';
+    fb.innerHTML = `✗ Wrong. You said "<b>${val}</b>". Answer: <b>${correct}</b>`;
+    score.wrong++;
+  }
+  updateScoreUI();
+  addNextBtn(id);
+}
+
+function revealAnswer(id, name) {
+  setResult(id, 'revealed');
+  const panel = document.getElementById('q-panel');
+  const fb = document.getElementById('q-feedback');
+  if (fb) {
+    fb.className = 'feedback reveal show';
+    fb.innerHTML = `👁️ Answer: <b>${name}</b>`;
+  }
+  document.querySelectorAll('.mcq-opt,.btn-check,.type-input').forEach(el => el.disabled = true);
+  score.skip++;
+  updateScoreUI();
+  addNextBtn(id);
+}
+
+function markRevealed(id) {
+  setResult(id, 'revealed');
+  score.skip++;
+  updateScoreUI();
+  document.getElementById('q-panel').classList.add('hidden');
+  activeRegion = null;
+  rerenderMap();
+  checkComplete();
+}
+
+function addNextBtn(id) {
+  // Remove existing
+  const existing = document.getElementById('btn-next-q');
+  if (existing) existing.remove();
+  const btn = document.createElement('button');
+  btn.className = 'btn-next-q';
+  btn.id = 'btn-next-q';
+  btn.textContent = 'Next Region →';
+  btn.onclick = () => {
+    activeRegion = null;
+    document.getElementById('q-panel').classList.add('hidden');
+    rerenderMap();
+    checkComplete();
+  };
+  document.getElementById('q-panel').appendChild(btn);
+}
+
+// ════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════
+function setResult(id, state) {
+  quizState[id] = state;
+  rerenderMap();
+  updateProgress();
+}
+
+function getData() {
+  if (currentMap === 'india') return INDIA_MAP_DATA;
+  if (currentMap === 'mp') return MP_MAP_DATA;
+  if (currentMap === 'dist' && currentDivision) {
+    return MP_MAP_DATA.find(d => d.id === currentDivision)?.districts || [];
+  }
+  return [];
+}
+
+function updateProgress() {
+  const data = getData();
+  const done = data.filter(r => quizState[r.id]).length;
+  const pct = data.length ? done / data.length * 100 : 0;
+  document.getElementById('prog-fill').style.width = pct + '%';
+}
+
+function checkComplete() {
+  const data = getData();
+  const done = data.filter(r => quizState[r.id]).length;
+  if (done >= data.length && data.length > 0) {
+    showComplete();
+  }
+}
+
+function showComplete() {
+  const panel = document.getElementById('q-panel');
+  panel.classList.remove('hidden');
+  const total = getData().length;
+  const pct = Math.round(score.correct / total * 100);
+  const emoji = pct >= 80 ? '🏆' : pct >= 60 ? '🎉' : pct >= 40 ? '💪' : '📚';
+  panel.innerHTML = `
+    <div class="complete-panel">
+      <div class="complete-emoji">${emoji}</div>
+      <div class="complete-title">Quiz Complete!</div>
+      <div class="complete-sub">You've gone through all ${total} regions</div>
+      <div class="complete-score">
+        <div class="cs-item"><div class="cs-val" style="color:var(--success)">${score.correct}</div><div class="cs-lbl">Correct</div></div>
+        <div class="cs-item"><div class="cs-val" style="color:var(--danger)">${score.wrong}</div><div class="cs-lbl">Wrong</div></div>
+        <div class="cs-item"><div class="cs-val" style="color:var(--warn)">${score.skip}</div><div class="cs-lbl">Revealed</div></div>
+        <div class="cs-item"><div class="cs-val">${pct}%</div><div class="cs-lbl">Score</div></div>
+      </div>
+      <button class="btn-restart" onclick="resetQuiz()">↺ Try Again</button>
+      <button class="btn-restart btn-restart-saff" onclick="setModeAndReset('mcq')">Practice MCQ</button>
+      <button class="btn-restart btn-restart-saff" onclick="setModeAndReset('type')">Practice Typing</button>
+    </div>`;
+}
+
+function normalize(s) {
+  return s.toLowerCase().replace(/[^a-z0-9]/g,'');
+}
+function shuffle(arr) {
+  for (let i = arr.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]] = [arr[j],arr[i]];
+  }
+  return arr;
+}
+function escQ(s) { return s.replace(/'/g,"\\'"); }
+
+function setMode(mode, btn) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-pill-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('q-panel').classList.add('hidden');
+  activeRegion = null;
+  rerenderMap();
+}
+function setModeAndReset(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-pill-btn').forEach((b,i) => b.classList.toggle('active', ['mcq','type','reveal'][i]===mode));
+  resetQuiz();
+}
+
+function resetQuiz() {
+  quizState = {};
+  score = {correct:0,wrong:0,skip:0};
+  activeRegion = null;
+  updateScoreUI();
+  updateProgress();
+  document.getElementById('q-panel').classList.add('hidden');
+  rerenderMap();
+}
+
+function updateScoreUI() {
+  document.getElementById('sc-correct').textContent = score.correct;
+  document.getElementById('sc-wrong').textContent = score.wrong;
+  document.getElementById('sc-skip').textContent = score.skip;
+}
+
+function showToast(msg, color) {
+  const t = document.getElementById('toast');
+  t.style.background = color || '#1A237E';
+  t.textContent = msg;
+  t.style.opacity = '1';
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.style.opacity='0', 2400);
+}
+
+// ════════════════════════════════════════════
+// START
+// ════════════════════════════════════════════
+init();
+</script>
+</body>
+</html>

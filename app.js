@@ -14,7 +14,7 @@ const PAGE_META = {
   daily:{title:'Daily 10',sub:'10 questions every day — build the habit'},
   timed:{title:'Timed Mock Test',sub:'Exam simulation with live countdown'},
   pyq:{title:'PYQ Papers',sub:'MPPSC 2021–2024 — 600 questions + PDF download'},
-  weakareas:{title:'Weak Areas',sub:'Chapter-wise performance analysis'},
+  maps:{title:'Map Quiz',sub:'India states · MP divisions · MP districts'},
   progress:{title:'My Progress',sub:'Study heatmap & chapter-wise progress rings'},
   review:{title:'Review Flags',sub:'Community-reported questions — admin panel'}
 };

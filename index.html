@@ -29,6 +29,7 @@
 <div class="nav-item" onclick="showPage('timed')"><span class="ni">⏱️</span>Timed Mock</div>
 <div class="nav-section">Resources</div>
 <div class="nav-item" onclick="showPage('pyq')"><span class="ni">📄</span>PYQ Papers<span class="nav-badge">4yr</span></div>
+<div class="nav-item" onclick="showPage('maps')"><span class="ni">🗺️</span>Map Quiz</div>
 <div class="nav-item" onclick="showPage('weakareas')"><span class="ni">📊</span>Weak Areas</div>
 <div class="nav-item" onclick="showPage('progress')"><span class="ni">📈</span>My Progress</div>
 <div class="nav-item" onclick="showPage('review')">
@@ -279,6 +280,19 @@
 <div style="font-size:12px;color:var(--muted);margin-top:4px">2021 papers have full MCQ practice (100 Qs each). Click <b>Practice MCQs</b> to attempt questions here, or <b>Download</b> to get the official PDF. 2021 Paper 1 (General Studies) and Paper 2 (Aptitude & GS-II) are fully available.</div>
 </div>
 <div id="pyq-list"></div>
+</div>
+<!-- ═══ MAP QUIZ ═══ -->
+<div class="page" id="page-maps">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+<div>
+<div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800">🗺️ Map Quiz</div>
+<div style="font-size:12px;color:var(--muted)">India states · MP divisions · MP districts — MCQ & typing modes</div>
+</div>
+<a href="maps.html" target="_blank" style="padding:9px 18px;background:var(--navy);color:#fff;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none">Open Full Screen ↗</a>
+</div>
+<div style="background:var(--card);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow)">
+<iframe src="maps.html" style="width:100%;height:75vh;border:none;display:block" id="map-iframe"></iframe>
+</div>
 </div>
 <!-- ═══ WEAK AREAS ═══ -->
 <div class="page" id="page-weakareas">
