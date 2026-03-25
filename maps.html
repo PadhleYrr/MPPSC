@@ -180,13 +180,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 
   <div id="qp">
-    <button id="qcl" onclick="closeQ()">✕</button>
+    <button id="qcl" onclick="closeQ()" title="Skip / Close">✕</button>
     <div id="qreg">REGION</div>
     <div id="qlbl">Click a region to quiz</div>
     <div id="opts"></div>
     <div id="tw" style="display:none">
       <input id="ti" type="text" placeholder="Type name…" onkeydown="if(event.key==='Enter')chkType()"/>
-      <button id="tsb" onclick="chkType()">Check ✓</button>
+      <button id="tsb">Check ✓</button>
     </div>
     <div id="qfb"></div>
     <button id="qnx" onclick="closeQ()">Next →</button>
@@ -318,16 +318,55 @@ function canonState(raw){
            r.includes(n)||n.includes(r);
   })||null;
 }
+// GeoJSON district name aliases (old name → canonical ALLD name)
+const DIST_ALIAS={
+  'hoshangabad':'Narmadapuram',
+  'harda':'Harda',
+  'east nimar':'Khandwa',
+  'west nimar':'Khargone',
+  'shajapur':'Shajapur',
+  'rajgarh':'Rajgarh',
+  'mandsaur':'Mandsour',
+  'mandsour':'Mandsour',
+  'chindwara':'Chhindwara',
+  'narsimhapur':'Narsinghpur',
+  'chhatarpur':'Chhatarpur',
+  'tikamgarh':'Tikamgarh',
+  'shivpuri':'Shivpuri',
+  'guna':'Guna',
+  'ashok nagar':'Ashoknagar',
+  'ashoknagar':'Ashoknagar',
+  'singroli':'Singrauli',
+  'umaria':'Umaria',
+  'dindori':'Dindori',
+  'anuppur':'Anuppur',
+  'barwani':'Barwani',
+  'agar':'Agar Malwa',
+  'agar malwa':'Agar Malwa',
+  'alirajpur':'Alirajpur',
+  'burhanpur':'Burhanpur',
+  'niwari':'Niwari',
+};
 function canonDist(raw){
   if(!raw) return raw;
   const r=raw.toLowerCase().trim();
+  const alias=DIST_ALIAS[r];
+  if(alias) return alias;
   return ALLD.find(d=>d.toLowerCase()===r||r.includes(d.toLowerCase())||d.toLowerCase().includes(r))||raw;
 }
 function fuzzyMatchDist(raw, allowed){
-  const r=raw.toLowerCase();
+  const r=raw.toLowerCase().trim();
+  // Check alias first
+  const aliased=(DIST_ALIAS[r]||'').toLowerCase();
+  // Exact match
+  if([...allowed].some(a=>a.toLowerCase()===r)) return true;
+  // Alias match
+  if(aliased&&[...allowed].some(a=>a.toLowerCase()===aliased)) return true;
+  // Levenshtein near-match (tight: same-length-ish strings only)
   return [...allowed].some(a=>{
     const al=a.toLowerCase();
-    return al===r||r.includes(al)||al.includes(r)||levenFuzzy(al,r)<=2;
+    if(Math.abs(al.length-r.length)>3) return false;
+    return levenFuzzy(al,r)<=1;
   });
 }
 function levenFuzzy(a,b){
@@ -369,17 +408,17 @@ async function drawIndia(){
   const lyr=L.geoJSON(data,{
     style:f=>{
       const raw=sName(f);
-      return rStyle(raw.toLowerCase());
+      const canon=canonState(raw);
+      const disp=canon?canon.name:raw;
+      return rStyle(disp.toLowerCase());
     },
     onEachFeature:(f,l)=>{
       const raw=sName(f); if(!raw) return;
       const canon=canonState(raw);
       const disp=canon?canon.name:raw;
-      const abbr=canon?canon.abbr:raw.slice(0,2).toUpperCase();
-      const key=raw.toLowerCase();
+      const key=disp.toLowerCase();
 
-      l.bindTooltip(`<b style="opacity:.45">${abbr}</b>`,
-        {permanent:true,direction:'center',className:'leaflet-tooltip'});
+      /* no permanent label on states — avoids giving hints */
       l.on('click',()=>openQ(disp,key,'india'));
       l.on('mouseover',()=>{if(!RS[key]) l.setStyle({fillColor:'rgba(108,99,255,.28)',color:'#6c63ff',weight:2});});
       l.on('mouseout',()=>lyr.resetStyle(l));
@@ -417,12 +456,7 @@ async function drawDivs(){
       style:{fillColor:fc,color:sc,weight:wt,fillOpacity:1,opacity:1}
     }).addTo(MAP);
 
-    try{
-      const c=lyr.getBounds().getCenter();
-      L.tooltip({permanent:true,direction:'center',className:'leaflet-tooltip'})
-       .setContent(`<b style="opacity:.5">${div.abbr}</b>`)
-       .setLatLng(c).addTo(MAP);
-    }catch(e){}
+    /* no permanent label — labels give away the answer */
 
     lyr.on('click',()=>openQ(div.name,key,'divs'));
     lyr.on('mouseover',()=>{
@@ -468,16 +502,17 @@ async function drawDists(divF){
 
   const lyr=L.geoJSON({type:'FeatureCollection',features:feats},{
     style:f=>{
-      const d=dName(f).toLowerCase();
-      return rStyle(d,'rgba(26,45,74,.7)','#4fc3f7');
+      const raw=dName(f);
+      const canon=canonDist(raw);
+      const key=canon.toLowerCase();
+      return rStyle(key,'rgba(26,45,74,.7)','#4fc3f7');
     },
     onEachFeature:(f,l)=>{
       const raw=dName(f); if(!raw) return;
-      const key=raw.toLowerCase();
-      const canon=canonDist(raw);
+      const canon=canonDist(raw);   // resolved name (e.g. Hoshangabad → Narmadapuram)
+      const key=canon.toLowerCase();
 
-      l.bindTooltip(`<b style="opacity:.45">${raw.slice(0,4).toUpperCase()}</b>`,
-        {permanent:true,direction:'center',className:'leaflet-tooltip'});
+      /* no permanent tooltip — avoids giving away the district name */
       l.on('click',()=>openQ(canon,key,'dists'));
       l.on('mouseover',()=>{if(!RS[key]) l.setStyle({fillColor:'rgba(79,195,247,.22)',color:'#4fc3f7',weight:2});});
       l.on('mouseout',()=>lyr.resetStyle(l));
@@ -566,7 +601,9 @@ function showType(){
   document.getElementById('tw').style.display='flex';
   const inp=document.getElementById('ti');
   inp.value=''; inp.className=''; inp.disabled=false;
-  document.getElementById('tsb').disabled=false;
+  const tsb=document.getElementById('tsb');
+  tsb.disabled=false;
+  tsb.onclick=chkType;
   setTimeout(()=>inp.focus(),50);
 }
 
@@ -601,6 +638,7 @@ function closeQ(){
   const inp=document.getElementById('ti');
   inp.disabled=false; inp.className='';
   document.getElementById('tsb').disabled=false;
+  document.getElementById('tsb').onclick=chkType;
 }
 function clrFb(){
   const fb=document.getElementById('qfb'); fb.className=''; fb.textContent='';
@@ -630,7 +668,7 @@ function refreshSty(key){
     if(!lyr.eachLayer) return;
     lyr.eachLayer(l=>{
       const f=l.feature; if(!f) return;
-      const n=type==='india'?sName(f).toLowerCase():dName(f).toLowerCase();
+      const n=type==='india'?(()=>{const canon=canonState(sName(f));return canon?canon.name.toLowerCase():sName(f).toLowerCase();})():(()=>{const c=canonDist(dName(f));return c.toLowerCase();})();
       if(n===key){
         const st=rStyle(key,type==='india'?'rgba(30,58,95,.65)':'rgba(26,45,74,.7)',
                              type==='india'?'#4a90d9':'#4fc3f7');
