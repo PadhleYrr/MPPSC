@@ -3,150 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Map Quiz — India &amp; MP | MPPSC 2026</title>
+<title>मध्य प्रदेश | MP Complete Atlas — MPPSC 2026</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0f1117;--surf:#1a1d27;--s2:#232635;--bord:#2e3248;
-  --acc:#6c63ff;--a2:#4fc3f7;--ok:#22c55e;--err:#ef4444;--rev:#f59e0b;
-  --txt:#e2e8f0;--mute:#94a3b8}
+:root{
+  --bg:#06080e;--surf:#0c1018;--s2:#111720;--s3:#172030;
+  --bord:#1c2840;--bord2:#253650;
+  --acc:#f5a623;--a2:#38bdf8;--a3:#a78bfa;--a4:#f472b6;
+  --ok:#22c55e;--err:#f43f5e;--rev:#f59e0b;
+  --txt:#dde4f0;--mute:#5a7090;--dim:#1e2d42;
+  --river:#38bdf8;--mtn:#f97316;--plateau:#84cc16;
+  --valley:#34d399;--wfall:#818cf8;--dam:#fb7185;--city:#fbbf24;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--txt);
-     height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--txt);height:100dvh;display:flex;flex-direction:column;overflow:hidden}
 
-/* TOPBAR */
-#top{background:var(--surf);border-bottom:1px solid var(--bord);padding:8px 14px;
-     display:flex;align-items:center;gap:10px;flex-shrink:0;flex-wrap:wrap;min-height:52px}
-#top a{color:var(--mute);text-decoration:none;font-size:12px}
-#top a:hover{color:var(--a2)}
-.tabs,.modes{display:flex;background:var(--s2);border-radius:8px;padding:3px;gap:2px}
-.tab,.mode{padding:5px 11px;border-radius:6px;border:none;background:transparent;
-  color:var(--mute);cursor:pointer;font-size:12px;font-weight:600;transition:.15s;white-space:nowrap}
-.tab.on{background:var(--acc);color:#fff}
-.mode.on{background:var(--surf);color:var(--txt);border:1px solid var(--bord)}
-.tab:hover:not(.on),.mode:hover:not(.on){color:var(--txt);background:var(--bord)}
-#sc{margin-left:auto;display:flex;gap:9px;font-size:13px;font-weight:700}
+/* ── TOP BAR ── */
+#top{background:var(--surf);border-bottom:1px solid var(--bord);padding:5px 10px;display:flex;align-items:center;gap:7px;flex-shrink:0;flex-wrap:wrap;min-height:46px}
+.logo{font-family:'Tiro Devanagari Hindi',serif;font-size:15px;color:var(--acc);white-space:nowrap;line-height:1.2}
+.logo small{color:var(--mute);font-size:9px;font-family:'DM Sans',sans-serif;display:block}
+.tabs,.modes{display:flex;background:var(--s2);border-radius:7px;padding:2px;gap:1px}
+.tab,.mode{padding:4px 9px;border-radius:5px;border:none;background:transparent;color:var(--mute);cursor:pointer;font-size:10.5px;font-weight:600;transition:.13s;white-space:nowrap}
+.tab.on{background:var(--acc);color:#000}
+.mode.on{background:var(--s3);color:var(--txt);border:1px solid var(--bord2)}
+.tab:hover:not(.on),.mode:hover:not(.on){color:var(--txt)}
+#sc{margin-left:auto;display:flex;gap:7px;font-size:11px;font-weight:700}
 .sco{color:var(--ok)}.scw{color:var(--err)}.scr{color:var(--mute)}
-.ibtn{padding:5px 10px;border-radius:6px;border:1px solid var(--bord);
-  background:transparent;color:var(--mute);cursor:pointer;font-size:12px;transition:.15s}
+.ibtn{padding:4px 8px;border-radius:5px;border:1px solid var(--bord);background:transparent;color:var(--mute);cursor:pointer;font-size:10px;transition:.13s}
 .ibtn:hover{color:var(--txt);border-color:var(--acc)}
 
-/* PROGRESS */
-#pb-w{height:3px;background:var(--bord);flex-shrink:0}
+/* ── LAYER BAR ── */
+#ltbar{background:var(--s2);border-bottom:1px solid var(--bord);padding:4px 10px;display:flex;align-items:center;gap:4px;flex-shrink:0;flex-wrap:wrap}
+.ltlabel{font-size:9px;color:var(--mute);font-weight:700;letter-spacing:.1em;margin-right:2px;white-space:nowrap}
+.ltog{display:flex;align-items:center;gap:4px;padding:3px 7px;border-radius:5px;border:1px solid transparent;cursor:pointer;font-size:10px;font-weight:600;transition:.13s;white-space:nowrap;opacity:.45}
+.ltog.on{border-color:currentColor;opacity:1}
+.ltog[data-t=river]{color:var(--river)}.ltog[data-t=river].on{background:rgba(56,189,248,.1)}
+.ltog[data-t=mtn]{color:var(--mtn)}.ltog[data-t=mtn].on{background:rgba(249,115,22,.1)}
+.ltog[data-t=plateau]{color:var(--plateau)}.ltog[data-t=plateau].on{background:rgba(132,204,22,.1)}
+.ltog[data-t=valley]{color:var(--valley)}.ltog[data-t=valley].on{background:rgba(52,211,153,.1)}
+.ltog[data-t=wfall]{color:var(--wfall)}.ltog[data-t=wfall].on{background:rgba(129,140,248,.1)}
+.ltog[data-t=dam]{color:var(--dam)}.ltog[data-t=dam].on{background:rgba(251,113,133,.1)}
+.ltog[data-t=region]{color:var(--a3)}.ltog[data-t=region].on{background:rgba(167,139,250,.1)}
+.ltog[data-t=city]{color:var(--city)}.ltog[data-t=city].on{background:rgba(251,191,36,.1)}
+.ldot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
+.lline{width:11px;height:2px;background:currentColor;flex-shrink:0;border-radius:1px}
+
+/* ── PROGRESS ── */
+#pb-w{height:2px;background:var(--bord);flex-shrink:0}
 #pb{height:100%;background:linear-gradient(90deg,var(--acc),var(--a2));width:0%;transition:width .4s}
 
-/* BREADCRUMB */
-#bc{background:var(--s2);border-bottom:1px solid var(--bord);padding:6px 14px;
-  font-size:12px;color:var(--mute);flex-shrink:0;display:flex;gap:5px;align-items:center}
-.lnk{cursor:pointer}.lnk:hover{color:var(--a2)}.sep{color:var(--bord)}
-
-/* MAP WRAP */
+/* ── MAP ── */
 #mw{flex:1;position:relative;overflow:hidden}
 #map{width:100%;height:100%}
-.leaflet-container{background:#0a0e1a}
-
-/* leaflet */
+.leaflet-container{background:#030508}
 .leaflet-control-zoom{border:1px solid var(--bord)!important;border-radius:8px!important;overflow:hidden}
-.leaflet-control-zoom a{background:var(--surf)!important;color:var(--txt)!important;border-color:var(--bord)!important}
-.leaflet-control-zoom a:hover{background:var(--s2)!important}
-.leaflet-tooltip{background:var(--surf)!important;border:1px solid var(--bord)!important;
-  color:var(--txt)!important;font-size:11px!important;border-radius:6px!important;
-  box-shadow:none!important;padding:2px 7px!important}
+.leaflet-control-zoom a{background:var(--surf)!important;color:var(--txt)!important;border-color:var(--bord)!important;font-size:14px!important}
+.leaflet-tooltip{background:rgba(12,16,24,.96)!important;border:1px solid var(--bord2)!important;color:var(--txt)!important;font-size:11px!important;border-radius:6px!important;box-shadow:0 4px 20px rgba(0,0,0,.6)!important;padding:4px 9px!important}
 .leaflet-tooltip::before{display:none!important}
 
-/* MAP TITLE */
-#mt{position:absolute;top:10px;left:10px;z-index:999;background:var(--surf);
-  border:1px solid var(--bord);padding:7px 13px;border-radius:10px;
-  font-size:12px;font-weight:700;color:var(--txt);pointer-events:none}
+/* ── MAP TITLE ── */
+#mt{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:990;background:rgba(12,16,24,.9);border:1px solid var(--bord2);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;color:var(--txt);pointer-events:none;backdrop-filter:blur(6px);white-space:nowrap}
 
-/* LEGEND */
-#leg{position:absolute;bottom:14px;left:10px;background:var(--surf);
-  border:1px solid var(--bord);border-radius:10px;padding:9px 13px;
-  z-index:1000;font-size:11px;display:flex;flex-direction:column;gap:5px}
-.lr{display:flex;align-items:center;gap:7px;color:var(--mute)}
-.ld{width:11px;height:11px;border-radius:2px;flex-shrink:0}
+/* ── LEGEND — collapsible ── */
+#leg-wrap{position:absolute;bottom:12px;left:10px;z-index:1000}
+#leg-toggle{display:flex;align-items:center;gap:6px;padding:5px 10px;background:rgba(12,16,24,.95);border:1px solid var(--bord2);border-radius:8px;cursor:pointer;font-size:10px;font-weight:700;color:var(--acc);backdrop-filter:blur(6px);user-select:none}
+#leg-toggle:hover{border-color:var(--acc)}
+#leg-toggle .arr{transition:transform .25s;display:inline-block;font-style:normal}
+#leg-toggle.open .arr{transform:rotate(180deg)}
+#leg{background:rgba(12,16,24,.97);border:1px solid var(--bord);border-radius:10px;padding:10px 12px;font-size:10.5px;display:none;flex-direction:column;gap:4px;backdrop-filter:blur(8px);max-height:55vh;overflow-y:auto;margin-bottom:4px;min-width:180px}
+#leg.open{display:flex}
+.lsec{margin-top:4px}
+.lsec:first-child{margin-top:0}
+.ltitle{font-size:8.5px;color:var(--mute);letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:3px;padding-bottom:2px;border-bottom:1px solid var(--bord)}
+.lr{display:flex;align-items:center;gap:6px;color:var(--mute);margin-bottom:1px;font-size:10px}
+.ld{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.ll{width:12px;height:2px;border-radius:1px;flex-shrink:0}
+.lcirc{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--bord2);border-radius:2px}
 
-/* QUIZ PANEL */
-#qp{position:absolute;right:10px;top:10px;width:285px;background:var(--surf);
-  border:1px solid var(--bord);border-radius:12px;padding:14px;z-index:1000;
-  display:none;box-shadow:0 8px 32px rgba(0,0,0,.6)}
-#qp.vis{display:block}
-#qcl{position:absolute;top:8px;right:8px;background:none;border:none;
-  color:var(--mute);cursor:pointer;font-size:15px;padding:2px 6px;border-radius:4px}
-#qcl:hover{color:var(--err);background:rgba(239,68,68,.1)}
-#qreg{font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
-#qlbl{font-size:14px;font-weight:700;margin-bottom:11px;line-height:1.4}
-#opts{display:flex;flex-direction:column;gap:7px}
-.opt{padding:9px 13px;background:var(--s2);border:1px solid var(--bord);
-  border-radius:8px;color:var(--txt);cursor:pointer;font-size:12px;text-align:left;transition:.14s}
-.opt:hover:not(:disabled){background:var(--bord);border-color:var(--acc)}
+/* ── QUIZ / INFO PANEL ── */
+#qp{position:absolute;right:10px;top:10px;width:300px;background:rgba(12,16,24,.98);border:1px solid var(--bord2);border-radius:12px;padding:0;z-index:1000;display:none;box-shadow:0 12px 50px rgba(0,0,0,.8);backdrop-filter:blur(10px);max-height:calc(100vh - 80px);overflow:hidden;display:none;flex-direction:column}
+#qp.vis{display:flex}
+/* Image strip */
+#qimg{width:100%;height:140px;object-fit:cover;display:none;flex-shrink:0;border-radius:12px 12px 0 0}
+#qimg.vis{display:block}
+#qimgph{width:100%;height:90px;background:linear-gradient(135deg,var(--s2),var(--s3));display:none;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;border-radius:12px 12px 0 0}
+#qimgph.vis{display:flex}
+#qbody{padding:12px 14px;overflow-y:auto;flex:1}
+#qcl{position:absolute;top:7px;right:7px;background:rgba(0,0,0,.5);border:none;color:#fff;cursor:pointer;font-size:13px;padding:3px 7px;border-radius:20px;z-index:10;backdrop-filter:blur(4px)}
+#qcl:hover{background:var(--err);color:#fff}
+#qtag{font-size:8.5px;color:var(--mute);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;display:flex;align-items:center;gap:5px}
+.qtag-pill{padding:1px 7px;border-radius:10px;font-size:8px;font-weight:700;letter-spacing:.06em}
+#qlbl{font-size:15px;font-weight:700;margin-bottom:1px;line-height:1.3;color:var(--acc)}
+#qhi{font-size:11px;color:var(--mute);margin-bottom:8px}
+/* Info rows */
+.icard{background:var(--s2);border:1px solid var(--bord);border-radius:8px;padding:8px 10px;margin-bottom:6px}
+.icard-title{font-size:8.5px;color:var(--mute);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.irow{display:flex;gap:6px;margin-bottom:3px;align-items:flex-start;font-size:10.5px;line-height:1.45}
+.ik{color:var(--mute);min-width:68px;flex-shrink:0;font-size:10px}
+.iv{color:var(--txt)}
+.star{color:var(--acc);font-size:10px;margin-bottom:4px;line-height:1.5}
+/* Quiz opts */
+#opts{display:flex;flex-direction:column;gap:5px;margin-top:6px}
+.opt{padding:8px 11px;background:var(--s2);border:1px solid var(--bord);border-radius:7px;color:var(--txt);cursor:pointer;font-size:11px;text-align:left;transition:.13s}
+.opt:hover:not(:disabled){background:var(--s3);border-color:var(--acc)}
 .opt.ok{background:rgba(34,197,94,.18)!important;border-color:var(--ok)!important;color:var(--ok)}
-.opt.bad{background:rgba(239,68,68,.14)!important;border-color:var(--err)!important;color:var(--err)}
+.opt.bad{background:rgba(244,63,94,.14)!important;border-color:var(--err)!important;color:var(--err)}
 .opt:disabled{cursor:default}
-#tw{display:flex;flex-direction:column;gap:7px}
-#ti{padding:9px 11px;background:var(--s2);border:1px solid var(--bord);
-  border-radius:8px;color:var(--txt);font-size:13px;outline:none;transition:.15s;width:100%}
+#tw{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+#ti{padding:8px 10px;background:var(--s2);border:1px solid var(--bord);border-radius:7px;color:var(--txt);font-size:12px;outline:none;transition:.15s;width:100%;font-family:inherit}
 #ti:focus{border-color:var(--acc)}
-#ti.ok{border-color:var(--ok);background:rgba(34,197,94,.08)}
-#ti.bad{border-color:var(--err);background:rgba(239,68,68,.08)}
-#tsb{padding:8px;background:var(--acc);border:none;border-radius:8px;
-  color:#fff;cursor:pointer;font-size:12px;font-weight:700;transition:opacity .15s}
-#tsb:hover{opacity:.82}
-#qfb{margin-top:8px;padding:7px 11px;border-radius:7px;font-size:12px;font-weight:600;display:none}
-#qfb.ok{background:rgba(34,197,94,.17);color:var(--ok);display:block}
-#qfb.bad{background:rgba(239,68,68,.13);color:var(--err);display:block}
-#qfb.rv{background:rgba(245,158,11,.14);color:var(--rev);display:block}
-#qnx{margin-top:8px;width:100%;padding:8px;background:var(--s2);
-  border:1px solid var(--bord);border-radius:8px;color:var(--txt);
-  cursor:pointer;font-size:12px;display:none;transition:.15s}
+#ti.ok{border-color:var(--ok)}.ti.bad{border-color:var(--err)}
+#tsb{padding:8px;background:var(--acc);border:none;border-radius:7px;color:#000;cursor:pointer;font-size:11px;font-weight:700;font-family:inherit}
+#qfb{margin-top:6px;padding:7px 10px;border-radius:6px;font-size:11px;font-weight:600;display:none;line-height:1.5}
+#qfb.ok{background:rgba(34,197,94,.15);color:var(--ok);display:block}
+#qfb.bad{background:rgba(244,63,94,.13);color:var(--err);display:block}
+#qnx{margin-top:6px;width:100%;padding:7px;background:var(--s2);border:1px solid var(--bord);border-radius:7px;color:var(--txt);cursor:pointer;font-size:11px;display:none;transition:.13s;font-family:inherit}
 #qnx:hover{background:var(--bord)}
 #qnx.vis{display:block}
-.drbtn{margin-top:8px;width:100%;padding:8px;background:transparent;
-  border:1px solid var(--acc);border-radius:8px;color:var(--a2);
-  cursor:pointer;font-size:12px;font-weight:600;transition:.15s}
-.drbtn:hover{background:var(--acc);color:#fff}
+.drbtn{margin-top:6px;width:100%;padding:7px;background:transparent;border:1px solid var(--a2);border-radius:7px;color:var(--a2);cursor:pointer;font-size:11px;font-weight:600;font-family:inherit}
 
-/* LOADING */
-#ld{position:absolute;inset:0;background:var(--bg);z-index:3000;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
-.spin{width:36px;height:36px;border:3px solid var(--bord);border-top-color:var(--acc);
-  border-radius:50%;animation:rot .75s linear infinite}
+/* ── GEO LABELS ── */
+.geo-lbl{background:transparent!important;border:none!important;box-shadow:none!important;pointer-events:none}
+.geo-lbl-btn{background:transparent!important;border:none!important;box-shadow:none!important}
+
+/* ── LOADING ── */
+#ld{position:absolute;inset:0;background:var(--bg);z-index:3000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.spin{width:34px;height:34px;border:3px solid var(--bord);border-top-color:var(--acc);border-radius:50%;animation:rot .7s linear infinite}
 @keyframes rot{to{transform:rotate(360deg)}}
-#ld p{color:var(--mute);font-size:13px}
+#ld p{color:var(--mute);font-size:12px}
 
-/* COMPLETION */
-#done{display:none;position:absolute;inset:0;background:rgba(10,14,26,.95);
-  z-index:2000;flex-direction:column;align-items:center;justify-content:center}
+/* ── DONE ── */
+#done{display:none;position:absolute;inset:0;background:rgba(4,6,10,.97);z-index:2000;flex-direction:column;align-items:center;justify-content:center}
 #done.vis{display:flex}
-.dbox{background:var(--surf);border:1px solid var(--bord);border-radius:16px;
-  padding:34px;text-align:center;max-width:330px;width:92%}
-.dbox h2{font-size:22px;margin-bottom:5px}
-.dpct{font-size:50px;font-weight:800;
-  background:linear-gradient(135deg,var(--acc),var(--a2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;line-height:1.1;margin-bottom:8px}
-.dst{display:flex;justify-content:center;gap:20px;margin:10px 0;font-size:13px}
+.dbox{background:var(--surf);border:1px solid var(--bord2);border-radius:14px;padding:30px;text-align:center;max-width:300px;width:90%}
+.dpct{font-size:48px;font-weight:800;background:linear-gradient(135deg,var(--acc),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:6px}
+.dst{display:flex;justify-content:center;gap:18px;margin:8px 0}
 .ds{display:flex;flex-direction:column;align-items:center;gap:2px}
-.ds strong{font-size:19px}.ds span{color:var(--mute);font-size:11px}
-.dbtns{display:flex;gap:8px;margin-top:16px}
-.dbtn{flex:1;padding:9px;border-radius:8px;border:1px solid var(--bord);
-  background:var(--s2);color:var(--txt);cursor:pointer;font-size:12px;font-weight:700}
-.dbtn:hover{opacity:.83}.dbtn.pri{background:var(--acc);border-color:var(--acc)}
+.ds strong{font-size:18px}.ds span{color:var(--mute);font-size:10px}
+.dbtns{display:flex;gap:7px;margin-top:14px}
+.dbtn{flex:1;padding:8px;border-radius:7px;border:1px solid var(--bord);background:var(--s2);color:var(--txt);cursor:pointer;font-size:11px;font-weight:700;font-family:inherit}
+.dbtn.pri{background:var(--acc);border-color:var(--acc);color:#000}
 </style>
 </head>
 <body>
 
+<!-- TOP BAR -->
 <div id="top">
-  <a href="index.html">← Portal</a>
+  <div class="logo">मध्य प्रदेश<small>MP Complete Atlas — MPPSC 2026</small></div>
   <div class="tabs">
-    <button class="tab on" data-v="india" onclick="switchV('india')">🇮🇳 India</button>
-    <button class="tab"    data-v="divs"  onclick="switchV('divs')">🏛️ MP Divs</button>
-    <button class="tab"    data-v="dists" onclick="switchV('dists')">📍 MP Dists</button>
+    <button class="tab on" data-v="geo" onclick="switchV('geo')">🏔️ Geography</button>
+    <button class="tab" data-v="cities" onclick="switchV('cities')">🏙️ Cities</button>
+    <button class="tab" data-v="divs" onclick="switchV('divs')">🏛️ Divisions</button>
+    <button class="tab" data-v="dists" onclick="switchV('dists')">📍 Districts</button>
+    <button class="tab" data-v="india" onclick="switchV('india')">🇮🇳 India</button>
   </div>
   <div class="modes">
-    <button class="mode on" data-m="mcq"   onclick="setM('mcq')">🎯 MCQ</button>
-    <button class="mode"    data-m="type"  onclick="setM('type')">✍️ Type</button>
-    <button class="mode"    data-m="learn" onclick="setM('learn')">👁️ Learn</button>
+    <button class="mode on" data-m="learn" onclick="setM('learn')">👁 Learn</button>
+    <button class="mode" data-m="mcq" onclick="setM('mcq')">🎯 MCQ</button>
+    <button class="mode" data-m="type" onclick="setM('type')">✍ Type</button>
   </div>
   <div id="sc">
     <span class="sco">✓ <b id="s1">0</b></span>
@@ -154,47 +171,91 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <span class="scr">— <b id="s3">0</b></span>
   </div>
   <button class="ibtn" onclick="resetAll()">↺ Reset</button>
-  <button class="ibtn" onclick="toggleFS()">⛶ Full</button>
+  <button class="ibtn" onclick="toggleFS()">⛶</button>
+</div>
+
+<!-- LAYER TOGGLES (geo/cities view) -->
+<div id="ltbar" style="display:none">
+  <span class="ltlabel">LAYERS :</span>
+  <button class="ltog on" data-t="region" onclick="togL('region')"><span class="ldot"></span>Regions</button>
+  <button class="ltog on" data-t="river" onclick="togL('river')"><span class="lline"></span>Rivers</button>
+  <button class="ltog on" data-t="mtn" onclick="togL('mtn')"><span class="ldot"></span>Mountains</button>
+  <button class="ltog on" data-t="plateau" onclick="togL('plateau')"><span class="ldot"></span>Plateaus</button>
+  <button class="ltog on" data-t="valley" onclick="togL('valley')"><span class="ldot"></span>Valleys</button>
+  <button class="ltog on" data-t="wfall" onclick="togL('wfall')"><span class="ldot"></span>Waterfalls</button>
+  <button class="ltog on" data-t="dam" onclick="togL('dam')"><span class="ldot"></span>Dams</button>
+  <button class="ltog on" data-t="city" onclick="togL('city')"><span class="ldot"></span>Cities</button>
 </div>
 
 <div id="pb-w"><div id="pb"></div></div>
 
-<div id="bc">
-  <span class="lnk" onclick="switchV('india')">🇮🇳 India</span>
-  <span class="sep">›</span>
-  <span id="bc2">All States &amp; UTs</span>
-  <span class="sep" id="bs3" style="display:none">›</span>
-  <span id="bc3" style="display:none"></span>
-</div>
-
 <div id="mw">
-  <div id="ld"><div class="spin"></div><p id="lmsg">Loading map…</p></div>
+  <div id="ld"><div class="spin"></div><p id="lmsg">Loading…</p></div>
   <div id="map"></div>
-  <div id="mt">India — All States &amp; UTs</div>
+  <div id="mt">Madhya Pradesh — Physiographic Geography</div>
 
-  <div id="leg">
-    <div class="lr"><div class="ld" style="background:#1e3a5f;border:1px solid #4a90d9"></div>Not attempted</div>
-    <div class="lr"><div class="ld" style="background:rgba(34,197,94,.3);border:1px solid #22c55e"></div>Correct</div>
-    <div class="lr"><div class="ld" style="background:rgba(239,68,68,.25);border:1px solid #ef4444"></div>Wrong</div>
-    <div class="lr"><div class="ld" style="background:rgba(245,158,11,.25);border:1px solid #f59e0b"></div>Revealed</div>
+  <!-- COLLAPSIBLE LEGEND -->
+  <div id="leg-wrap">
+    <div id="leg">
+      <div class="lsec">
+        <div class="ltitle">Physiographic Regions</div>
+        <div class="lr"><div class="ld" style="background:rgba(167,139,250,.35);border:1px solid #a78bfa"></div>Central Highlands</div>
+        <div class="lr"><div class="ld" style="background:rgba(249,115,22,.3);border:1px solid #f97316"></div>Satpura Range</div>
+        <div class="lr"><div class="ld" style="background:rgba(34,197,94,.28);border:1px solid #22c55e"></div>Bagelkhand (East)</div>
+        <div class="lr"><div class="ld" style="background:rgba(96,165,250,.28);border:1px solid #60a5fa"></div>Narmada Valley</div>
+      </div>
+      <div class="lsec">
+        <div class="ltitle">Water Features</div>
+        <div class="lr"><div class="ll" style="background:#38bdf8;height:3px"></div>Major Rivers</div>
+        <div class="lr"><div class="ll" style="background:#7dd3fc;height:1px"></div>Minor Rivers</div>
+        <div class="lr"><div class="lcirc" style="background:#818cf8;border:2px solid #a5b4fc"></div>Waterfall</div>
+        <div class="lr"><div class="lcirc" style="background:#fb7185;border:2px solid #fda4af"></div>Dam</div>
+      </div>
+      <div class="lsec">
+        <div class="ltitle">Terrain</div>
+        <div class="lr"><div class="lcirc" style="background:#f97316;border:2px solid #fdba74"></div>Mountain/Peak</div>
+        <div class="lr"><div class="ld" style="background:rgba(132,204,22,.3);border:1px solid #84cc16"></div>Plateau</div>
+        <div class="lr"><div class="ld" style="background:rgba(52,211,153,.25);border:1px solid #34d399"></div>Valley</div>
+      </div>
+      <div class="lsec">
+        <div class="ltitle">Cities</div>
+        <div class="lr"><div class="lcirc" style="background:#fbbf24;border:2px solid #fde68a"></div>City / Town</div>
+      </div>
+      <div class="lsec">
+        <div class="ltitle">Quiz Status</div>
+        <div class="lr"><div class="ld" style="background:rgba(34,197,94,.35);border:1px solid #22c55e"></div>Correct</div>
+        <div class="lr"><div class="ld" style="background:rgba(244,63,94,.28);border:1px solid #f43f5e"></div>Wrong</div>
+        <div class="lr"><div class="ld" style="background:rgba(245,158,11,.28);border:1px solid #f59e0b"></div>Revealed</div>
+      </div>
+    </div>
+    <div id="leg-toggle" onclick="togLeg()">
+      <span>🗺 Legend</span><i class="arr">▲</i>
+    </div>
   </div>
 
+  <!-- INFO / QUIZ PANEL -->
   <div id="qp">
-    <button id="qcl" onclick="closeQ()" title="Skip / Close">✕</button>
-    <div id="qreg">REGION</div>
-    <div id="qlbl">Click a region to quiz</div>
-    <div id="opts"></div>
-    <div id="tw" style="display:none">
-      <input id="ti" type="text" placeholder="Type name…" onkeydown="if(event.key==='Enter')chkType()"/>
-      <button id="tsb">Check ✓</button>
+    <button id="qcl" onclick="closeQ()">✕</button>
+    <img id="qimg" src="" alt="" onerror="this.style.display='none';document.getElementById('qimgph').classList.add('vis')"/>
+    <div id="qimgph"></div>
+    <div id="qbody">
+      <div id="qtag"></div>
+      <div id="qlbl">Click a feature</div>
+      <div id="qhi"></div>
+      <div id="qcontent"></div>
+      <div id="opts"></div>
+      <div id="tw" style="display:none">
+        <input id="ti" type="text" placeholder="Type answer…" onkeydown="if(event.key==='Enter')chkType()"/>
+        <button id="tsb">Check ✓</button>
+      </div>
+      <div id="qfb"></div>
+      <button id="qnx" onclick="nxtQ()">Next →</button>
     </div>
-    <div id="qfb"></div>
-    <button id="qnx" onclick="closeQ()">Next →</button>
   </div>
 
   <div id="done">
     <div class="dbox">
-      <h2>🎉 Done!</h2>
+      <h2 style="margin-bottom:4px">🎉 Complete!</h2>
       <div class="dpct" id="dpct">0%</div>
       <div class="dst">
         <div class="ds"><strong id="dok" style="color:var(--ok)">0</strong><span>Correct</span></div>
@@ -203,385 +264,1009 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       </div>
       <div class="dbtns">
         <button class="dbtn" onclick="closeDone()">Review</button>
-        <button class="dbtn pri" onclick="resetAll()">↺ Try Again</button>
+        <button class="dbtn pri" onclick="resetAll()">↺ Retry</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-// ── DATA ──────────────────────────────────────────
-const STATES=[
-  {name:"Andhra Pradesh",abbr:"AP"},{name:"Arunachal Pradesh",abbr:"AR"},
-  {name:"Assam",abbr:"AS"},{name:"Bihar",abbr:"BR"},
-  {name:"Chhattisgarh",abbr:"CG"},{name:"Goa",abbr:"GA"},
-  {name:"Gujarat",abbr:"GJ"},{name:"Haryana",abbr:"HR"},
-  {name:"Himachal Pradesh",abbr:"HP"},{name:"Jharkhand",abbr:"JH"},
-  {name:"Karnataka",abbr:"KA"},{name:"Kerala",abbr:"KL"},
-  {name:"Madhya Pradesh",abbr:"MP"},{name:"Maharashtra",abbr:"MH"},
-  {name:"Manipur",abbr:"MN"},{name:"Meghalaya",abbr:"ML"},
-  {name:"Mizoram",abbr:"MZ"},{name:"Nagaland",abbr:"NL"},
-  {name:"Odisha",abbr:"OD"},{name:"Punjab",abbr:"PB"},
-  {name:"Rajasthan",abbr:"RJ"},{name:"Sikkim",abbr:"SK"},
-  {name:"Tamil Nadu",abbr:"TN"},{name:"Telangana",abbr:"TS"},
-  {name:"Tripura",abbr:"TR"},{name:"Uttar Pradesh",abbr:"UP"},
-  {name:"Uttarakhand",abbr:"UK"},{name:"West Bengal",abbr:"WB"},
-  {name:"Andaman & Nicobar",abbr:"AN"},{name:"Chandigarh",abbr:"CH"},
-  {name:"Dadra & Nagar Haveli and Daman & Diu",abbr:"DD"},
-  {name:"Delhi",abbr:"DL"},{name:"Jammu & Kashmir",abbr:"JK"},
-  {name:"Ladakh",abbr:"LA"},{name:"Lakshadweep",abbr:"LD"},
-  {name:"Puducherry",abbr:"PY"}
+// ════════════════════════════════════════════════════════════
+//  ALL DATA — MPPSC COMPLETE
+// ════════════════════════════════════════════════════════════
+
+// ── CITIES (from both videos) ──────────────────────────────
+const CITIES = [
+  {
+    id:'bhopal', name:'Bhopal', nameHi:'भोपाल', lat:23.26, lng:77.41,
+    emoji:'🏛️', category:'Capital',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Bhopal_Lake_View.jpg/640px-Bhopal_Lake_View.jpg',
+    known:'State Capital, City of Lakes',
+    facts:[
+      ['Famous for','1984 Bhopal Gas Tragedy (worst industrial disaster)'],
+      ['Railway','Rani Kamalapati — India\'s 1st private railway station'],
+      ['Located on','Upper Lake & Lower Lake'],
+      ['Headquarters','Bhopal Division'],
+      ['Key institution','High Court (Jabalpur also), Raj Bhavan'],
+    ],
+    mppsc:'★★★ State capital. Gas tragedy 1984 (Union Carbide/MIC gas). Rani Kamalapati station named after Gond queen.',
+    tags:['Capital','Disaster','Heritage']
+  },
+  {
+    id:'indore', name:'Indore', nameHi:'इंदौर', lat:22.72, lng:75.86,
+    emoji:'🏙️', category:'Commercial',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Rajwada_Indore.jpg/640px-Rajwada_Indore.jpg',
+    known:'Commercial Capital / Most Developed City of MP',
+    facts:[
+      ['Title','Most developed / cleanest city of MP'],
+      ['Famous for','Rajwada Palace, Sarafa Bazaar (night food market)'],
+      ['On river','Saraswati & Khan rivers'],
+      ['Division','Indore Division (8 districts)'],
+      ['Industry','Textile, IT, Education hub'],
+    ],
+    mppsc:'★★★ Largest city of MP. Cleanest city India (Swachh Survekshan multiple times). Devi Ahilya University.',
+    tags:['Commercial','Clean','Education']
+  },
+  {
+    id:'jabalpur', name:'Jabalpur', nameHi:'जबलपुर', lat:23.16, lng:79.94,
+    emoji:'⚖️', category:'Judicial',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Dhuandhar_falls.jpg/640px-Dhuandhar_falls.jpg',
+    known:'City of Marble Rocks, Judicial Capital',
+    facts:[
+      ['High Court','MP High Court is located here'],
+      ['Waterfall','Dhuandhar Falls (Bhedaghat) — smoke-like mist'],
+      ['Marble Rocks','Bhedaghat — UNESCO Tentative List'],
+      ['Military','Army base (Jabalpur Cantonment)'],
+      ['On river','Narmada River'],
+    ],
+    mppsc:'★★★ MP High Court. Dhuandhar Waterfall. Marble Rocks at Bhedaghat. Narmada river. Ammonite fossils found here.',
+    tags:['Judicial','Waterfall','Heritage']
+  },
+  {
+    id:'gwalior', name:'Gwalior', nameHi:'ग्वालियर', lat:26.21, lng:78.18,
+    emoji:'🎵', category:'Historical',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Gwalior_fort.jpg/640px-Gwalior_fort.jpg',
+    known:'City of Tansen / Fort City',
+    facts:[
+      ['Famous for','Tansen — legendary musician of Akbar\'s court'],
+      ['Military','Air Force Station Gwalior'],
+      ['Fort','Gwalior Fort — "Gibraltar of India"'],
+      ['Music','Tansen Music Festival held annually'],
+      ['On river','Chambal basin'],
+    ],
+    mppsc:'★★★ Gwalior Fort (one of India\'s strongest). Tansen birthplace. Air Force base. Scindia dynasty.',
+    tags:['Historical','Military','Music']
+  },
+  {
+    id:'ujjain', name:'Ujjain', nameHi:'उज्जैन', lat:23.18, lng:75.77,
+    emoji:'🕉️', category:'Religious',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Mahakaleshwar_Ujjain.jpg/640px-Mahakaleshwar_Ujjain.jpg',
+    known:'Religious Capital, Kumbh Mela City',
+    facts:[
+      ['River','On Shipra (Kshipra) river banks'],
+      ['Temple','Mahakaleshwar Jyotirlinga (one of 12)'],
+      ['Festival','Kumbh Mela / Simhastha (every 12 years)'],
+      ['First Meridian','First Vedic Clock / Prime Meridian of ancient India (23.5°N)'],
+      ['Astronomy','Jantar Mantar (ancient observatory)'],
+    ],
+    mppsc:'★★★ Mahakaleshwar Jyotirlinga. Kumbh/Simhastha Mela. Ancient meridian (Ujjain = 0° longitude in ancient India). Shipra river.',
+    tags:['Religious','Heritage','Astronomy']
+  },
+  {
+    id:'khajuraho', name:'Khajuraho', nameHi:'खजुराहो', lat:24.85, lng:79.93,
+    emoji:'🏛️', category:'Heritage',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Khajuraho_DSC_0025.jpg/640px-Khajuraho_DSC_0025.jpg',
+    known:'UNESCO World Heritage — Chandela Temples',
+    facts:[
+      ['UNESCO','World Heritage Site — Group of Monuments'],
+      ['Temple','Kandariya Mahadev Temple (largest & grandest)'],
+      ['Built by','Chandela dynasty (9th–11th century)'],
+      ['District','Chhatarpur district'],
+      ['Style','Nagara architecture with erotic sculptures'],
+    ],
+    mppsc:'★★★ UNESCO World Heritage. Kandariya Mahadev Temple. Chandela dynasty. Chhatarpur district.',
+    tags:['UNESCO','Heritage','Temple']
+  },
+  {
+    id:'sanchi', name:'Sanchi', nameHi:'साँची', lat:23.48, lng:77.74,
+    emoji:'🏛️', category:'Heritage',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Sanchi_stupa.jpg/640px-Sanchi_stupa.jpg',
+    known:'UNESCO — Great Stupa',
+    facts:[
+      ['UNESCO','World Heritage Site'],
+      ['Structure','Great Stupa (built by Ashoka 3rd c. BCE)'],
+      ['Near','Vidisha district'],
+      ['Also','Heliodorus Pillar at nearby Vidisha (Besnagar)'],
+      ['Buddhist','Most important Buddhist monument in India'],
+    ],
+    mppsc:'★★★ Great Stupa of Sanchi = UNESCO. Ashoka. Heliodorus Pillar at Vidisha (Greek ambassador, 2nd c. BCE).',
+    tags:['UNESCO','Buddhist','Ashoka']
+  },
+  {
+    id:'bhimbetka', name:'Bhimbetka Caves', nameHi:'भीमबेटका', lat:22.93, lng:77.61,
+    emoji:'🎨', category:'Heritage',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Bhimbetka_rock_paintings.jpg/640px-Bhimbetka_rock_paintings.jpg',
+    known:'UNESCO — Prehistoric Rock Paintings',
+    facts:[
+      ['UNESCO','World Heritage Site'],
+      ['Age','30,000+ years old rock paintings'],
+      ['Location','Vindhya foothills, Raisen district'],
+      ['Discovery','Dr. V.S. Wakankar (1957)'],
+      ['Paintings','Animals, hunt scenes, dance — earliest human art in India'],
+    ],
+    mppsc:'★★★ UNESCO. Oldest rock paintings in India. Raisen district. Discovered by Wakankar.',
+    tags:['UNESCO','Prehistoric','Painting']
+  },
+  {
+    id:'amarkantak', name:'Amarkantak', nameHi:'अमरकंटक', lat:22.67, lng:81.76,
+    emoji:'🏔️', category:'Geographic',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Amarkantak_Narmada_Udgam.jpg/640px-Amarkantak_Narmada_Udgam.jpg',
+    known:'Origin of Narmada & Son rivers',
+    facts:[
+      ['Rivers origin','Narmada, Son, and Johilla originate here'],
+      ['Height','~1048m above MSL'],
+      ['Range','Maikal Hills (eastern Satpura)'],
+      ['District','Anuppur'],
+      ['Biosphere','Achanakmar-Amarkantak UNESCO Biosphere Reserve'],
+    ],
+    mppsc:'★★★ Only place in India where 3 rivers originate — Narmada (W), Son (E), Johilla. UNESCO Biosphere. Tirtharaja.',
+    tags:['Geographic','Religious','Rivers']
+  },
+  {
+    id:'pachmarhi', name:'Pachmarhi', nameHi:'पचमढ़ी', lat:22.47, lng:78.43,
+    emoji:'⛰️', category:'Geographic',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Pachmarhi_view.jpg/640px-Pachmarhi_view.jpg',
+    known:'Only Hill Station of MP / Highest Point',
+    facts:[
+      ['Highest peak','Dhupgarh — 1352m (highest in MP)'],
+      ['Range','Mahadev Hills, Satpura'],
+      ['District','Narmadapuram (Hoshangabad)'],
+      ['Biosphere','Satpura UNESCO Biosphere Reserve'],
+      ['Waterfalls','Bee Falls, Rajat Pratap, Silver Falls'],
+    ],
+    mppsc:'★★★ Dhupgarh = highest peak of MP (1352m). Only hill station. Satpura Biosphere. Pandav Caves, Bee Falls.',
+    tags:['Hill Station','Highest Peak','Biosphere']
+  },
+  {
+    id:'singrauli', name:'Singrauli', nameHi:'सिंगरौली', lat:24.19, lng:82.67,
+    emoji:'⛏️', category:'Industrial',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Singrauli_power_plant.jpg/640px-Singrauli_power_plant.jpg',
+    known:'Largest Coal Reserves in MP',
+    facts:[
+      ['Famous for','Largest coal reserves in MP'],
+      ['Power','Multiple thermal power plants (NTPC, Vindhyachal)'],
+      ['District','Singrauli district (carved from Sidhi, 2008)'],
+      ['Also known','Energy capital of MP'],
+      ['On river','Rihand river (Son tributary)'],
+    ],
+    mppsc:'★★ Singrauli = coal + thermal power. Vindhyachal Super Thermal Power Station (largest in MP).',
+    tags:['Industrial','Coal','Power']
+  },
+  {
+    id:'panna', name:'Panna', nameHi:'पन्ना', lat:24.71, lng:80.19,
+    emoji:'💎', category:'Mining',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Panna_Tiger_Reserve_entrance.jpg/640px-Panna_Tiger_Reserve_entrance.jpg',
+    known:'Diamond Mining Capital of India',
+    facts:[
+      ['Famous for','Only diamond mines in India'],
+      ['Tiger Reserve','Panna Tiger Reserve on Ken river'],
+      ['Ken river','Ken-Betwa Inter-link Project starts here'],
+      ['UNESCO','Panna Biosphere Reserve'],
+      ['Division','Sagar Division'],
+    ],
+    mppsc:'★★★ Only diamond mines in India (Panna). Ken-Betwa river linking. Panna Tiger Reserve. Biosphere.',
+    tags:['Mining','Diamond','Tiger Reserve']
+  },
+  {
+    id:'katni', name:'Katni', nameHi:'कटनी', lat:23.83, lng:80.40,
+    emoji:'🪨', category:'Industrial',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Katni_railway_junction.jpg/640px-Katni_railway_junction.jpg',
+    known:'Lime City / Railway Junction',
+    facts:[
+      ['Nickname','Lime City (limestone abundant)'],
+      ['Industry','Cement factories, lime production'],
+      ['Railway','Major railway junction (Katni Junction)'],
+      ['On river','Katni river (Narmada tributary)'],
+      ['Division','Jabalpur Division'],
+    ],
+    mppsc:'★ Katni = Lime City. Important railway junction. Limestone/cement industry.',
+    tags:['Industrial','Railway','Limestone']
+  },
+  {
+    id:'hoshangabad', name:'Narmadapuram (Hoshangabad)', nameHi:'नर्मदापुरम', lat:22.74, lng:77.73,
+    emoji:'💵', category:'Industrial',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Narmada_river_Hoshangabad.jpg/640px-Narmada_river_Hoshangabad.jpg',
+    known:'Currency Paper Manufacturing Unit',
+    facts:[
+      ['Famous for','Security Paper Mill — currency paper manufacturing'],
+      ['On river','Narmada river banks'],
+      ['Hill Station','Pachmarhi (highest peak in MP) in this district'],
+      ['Renamed','Renamed from Hoshangabad to Narmadapuram (2022)'],
+      ['Division','Narmadapuram Division'],
+    ],
+    mppsc:'★★ Security Paper Mill (currency paper). Tawa Dam (largest in MP). Pachmarhi hill station. Renamed 2022.',
+    tags:['Industrial','Currency','Narmada']
+  },
+  {
+    id:'devas', name:'Devas', nameHi:'देवास', lat:22.97, lng:76.05,
+    emoji:'💴', category:'Industrial',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Bank_Note_Press_Devas.jpg/640px-Bank_Note_Press_Devas.jpg',
+    known:'Currency Printing City',
+    facts:[
+      ['Famous for','Bank Note Press — currency printing'],
+      ['Division','Indore Division'],
+      ['Industry','Also pharmaceutical hub'],
+      ['On river','Kshipra (Shipra) basin'],
+      ['Note','Devas = notes printing; Hoshangabad = paper for notes'],
+    ],
+    mppsc:'★★★ Bank Note Press Devas = currency printing. Hoshangabad = currency paper. Both important MPPSC facts.',
+    tags:['Industrial','Currency','Banking']
+  },
+  {
+    id:'vidisha', name:'Vidisha', nameHi:'विदिशा', lat:23.52, lng:77.82,
+    emoji:'🏛️', category:'Heritage',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Heliodorus_pillar.jpg/640px-Heliodorus_pillar.jpg',
+    known:'Heliodorus Pillar & Gateway to Sanchi',
+    facts:[
+      ['Heritage','Heliodorus Pillar (Besnagar) — 2nd century BCE'],
+      ['UNESCO','Sanchi Stupa nearby (~10km)'],
+      ['River','At confluence of Betwa & Bes rivers'],
+      ['History','Ancient city (Vidisha = Besnagar)'],
+      ['District','Bhopal Division'],
+    ],
+    mppsc:'★★ Heliodorus Pillar at Vidisha (Greek ambassador erected pillar to Vasudeva/Vishnu). Sanchi nearby.',
+    tags:['Heritage','Greek','Pillar']
+  },
+  {
+    id:'mandu', name:'Mandu', nameHi:'माण्डू', lat:22.35, lng:75.39,
+    emoji:'🏰', category:'Heritage',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Mandu_Jahaz_Mahal.jpg/640px-Mandu_Jahaz_Mahal.jpg',
+    known:'City of Joy / Baz Bahadur & Roopmati',
+    facts:[
+      ['Famous for','Love story of Baz Bahadur & Rani Roopmati'],
+      ['Architecture','Jahaz Mahal, Hindola Mahal, Rani Roopmati Pavilion'],
+      ['Dynasty','Malwa Sultanate, later Mughal'],
+      ['District','Dhar district'],
+      ['Altitude','~2000 ft — plateau fort city'],
+    ],
+    mppsc:'★★ Mandu (Mandavgad) = Baz Bahadur + Roopmati love story. Jahaz Mahal. Dhar district.',
+    tags:['Heritage','Fort','Love Story']
+  },
+  {
+    id:'alirajpur', name:'Alirajpur', nameHi:'अलीराजपुर', lat:22.34, lng:74.35,
+    emoji:'🌧️', category:'Geographic',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Alirajpur_district_view.jpg/640px-Alirajpur_district_view.jpg',
+    known:'Cherrapunji of MP — Highest Rainfall',
+    facts:[
+      ['Nickname','Cherrapunji of MP'],
+      ['Rainfall','Highest annual rainfall in MP (~2000mm+)'],
+      ['Tribal','Bhil & Bhilala tribes dominant'],
+      ['District','Indore Division'],
+      ['Adjacent','Near Anjanvara — forests of Vindhya'],
+    ],
+    mppsc:'★★ Alirajpur = highest rainfall in MP = "Cherrapunji of MP". Tribal district. Indore division.',
+    tags:['Geographic','Rainfall','Tribal']
+  },
+  {
+    id:'mandsaur', name:'Mandsaur', nameHi:'मंदसौर', lat:24.07, lng:75.07,
+    emoji:'🌿', category:'Industrial',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Opium_poppy_Mandsaur.jpg/640px-Opium_poppy_Mandsaur.jpg',
+    known:'Opium Production Capital of MP',
+    facts:[
+      ['Famous for','Largest legal opium production in MP'],
+      ['Also','Pashupatinath Temple (replica of Nepal)'],
+      ['River','Shivna river'],
+      ['Division','Ujjain Division'],
+      ['Crop','Opium (government licensed)'],
+    ],
+    mppsc:'★★ Mandsaur = No.1 opium producing district. Pashupatinath Temple. Shivna river.',
+    tags:['Industrial','Opium','Temple']
+  },
+  {
+    id:'nepanagar', name:'Nepanagar', nameHi:'नेपानगर', lat:21.45, lng:76.42,
+    emoji:'📰', category:'Industrial',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Newsprint_production.jpg/640px-Newsprint_production.jpg',
+    known:'Newsprint Paper Production',
+    facts:[
+      ['Famous for','Nepa Mills — newsprint paper factory'],
+      ['District','Burhanpur district'],
+      ['Estd.','1947 (post-independence newsprint factory)'],
+      ['Division','Indore Division'],
+      ['Importance','Only newsprint mill in central India'],
+    ],
+    mppsc:'★★ Nepanagar = newsprint paper. Nepa Mills. Burhanpur district.',
+    tags:['Industrial','Paper','Newsprint']
+  },
+  {
+    id:'asirgarh', name:'Asirgarh Fort', nameHi:'असीरगढ़ किला', lat:21.51, lng:76.42,
+    emoji:'🏰', category:'Heritage',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Asirgarh_Fort.jpg/640px-Asirgarh_Fort.jpg',
+    known:'Gateway to South India / Deccan',
+    facts:[
+      ['Nickname','"Gateway to South India" / "Key to Deccan"'],
+      ['District','Burhanpur district'],
+      ['River','Near Tapti (Tapi) river'],
+      ['History','Captured by Akbar (1601), strategic pass to south'],
+      ['Location','Satpura-Vindhya gap pass to Deccan'],
+    ],
+    mppsc:'★★ Asirgarh = Gateway to Deccan/South India. Burhanpur. Strategic location between Vindhya & Satpura.',
+    tags:['Fort','Heritage','Strategic']
+  },
+  {
+    id:'omkareshwar', name:'Omkareshwar', nameHi:'ओंकारेश्वर', lat:22.24, lng:76.15,
+    emoji:'🕉️', category:'Religious',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Omkareshwar_Temple.jpg/640px-Omkareshwar_Temple.jpg',
+    known:'Jyotirlinga on Narmada Island',
+    facts:[
+      ['Temple','Omkareshwar Jyotirlinga (one of 12)'],
+      ['Island','Om-shaped island in Narmada — Mandhata Island'],
+      ['Dam','Omkareshwar Dam nearby'],
+      ['District','Khandwa district'],
+      ['River','Narmada river'],
+    ],
+    mppsc:'★★★ Omkareshwar = 2nd Jyotirlinga in MP (after Mahakaleshwar). Island shaped like Om symbol.',
+    tags:['Religious','Jyotirlinga','Narmada']
+  }
 ];
 
-const DIVS=[
-  {name:"Bhopal",  abbr:"BPL",color:"#6c63ff",dists:["Bhopal","Raisen","Rajgarh","Sehore","Vidisha"]},
-  {name:"Indore",  abbr:"IDR",color:"#ec4899",dists:["Indore","Dhar","Jhabua","Alirajpur","Burhanpur","Khargone","Barwani","Khandwa"]},
-  {name:"Gwalior", abbr:"GWL",color:"#f59e0b",dists:["Gwalior","Ashoknagar","Datia","Guna","Shivpuri"]},
-  {name:"Chambal", abbr:"CBL",color:"#10b981",dists:["Morena","Bhind","Sheopur"]},
-  {name:"Jabalpur",abbr:"JBP",color:"#3b82f6",dists:["Jabalpur","Katni","Mandla","Seoni","Balaghat","Chhindwara","Narsinghpur"]},
-  {name:"Rewa",    abbr:"RWA",color:"#ef4444",dists:["Rewa","Satna","Sidhi","Singrauli"]},
-  {name:"Sagar",   abbr:"SGR",color:"#8b5cf6",dists:["Sagar","Chhatarpur","Damoh","Panna","Tikamgarh","Niwari"]},
-  {name:"Ujjain",  abbr:"UJN",color:"#06b6d4",dists:["Ujjain","Mandsour","Neemuch","Ratlam","Shajapur","Agar Malwa","Dewas"]},
-  {name:"Narmadapuram",abbr:"NPM",color:"#84cc16",dists:["Narmadapuram","Betul","Harda"]},
-  {name:"Shahdol", abbr:"SDL",color:"#f97316",dists:["Shahdol","Anuppur","Umaria","Dindori"]}
+// ── PHYSIOGRAPHIC REGIONS ─────────────────────────────────
+const REGIONS = [
+  {
+    id:'central_highlands', name:'Central Highlands', nameHi:'मध्यवर्ती उच्चभूमि',
+    color:'#a78bfa',
+    facts:[
+      ['Location','North & central MP; east of Aravalli, west of Kaimur, south of Narmada-Son Valley'],
+      ['Sub-regions','Malwa Plateau, Bundelkhand, Central Indian Plateau, Gwalior Plateau, Chambal region'],
+      ['Key districts','Gwalior, Morena, Bhind, Tikamgarh, Chhatarpur, Panna, Mandsaur, Vidisha'],
+      ['Soil','Black cotton (Malwa), Red soil (Bundelkhand)'],
+      ['Rivers','Chambal, Betwa, Ken, Shipra'],
+    ],
+    mppsc:'Largest physiographic region. Malwa = wheat bowl. Bundelkhand = drought prone. Chambal = ravines.',
+    coords:[[25.8,76],[26.5,78.5],[25.5,81.5],[24.5,80.5],[23.8,79],[23.5,77.5],[24,76.5],[25,76.2]]
+  },
+  {
+    id:'satpura_region', name:'Satpura Range Region', nameHi:'सतपुड़ा पर्वत क्षेत्र',
+    color:'#f97316',
+    facts:[
+      ['Location','Southern MP, between Narmada (N) and Tapi (S)'],
+      ['Extensions','Mahadev Hills (Pachmarhi), Maikal Hills (Amarkantak), Rajpipla Hills (W)'],
+      ['Highest peak','Dhupgarh — 1352m near Pachmarhi'],
+      ['Forest','Sal, Teak, dense tiger habitat'],
+      ['Tiger reserves','Satpura, Kanha, Pench, Bori'],
+    ],
+    mppsc:'Highest region of MP. Pachmarhi hill station. Source of Narmada tributaries. Tiger habitat.',
+    coords:[[22.0,74.5],[22.3,76],[22.5,78],[22.8,80.5],[23.2,81],[23.5,80],[23.2,78],[22.8,76],[22.3,75],[22,74.5]]
+  },
+  {
+    id:'bagelkhand', name:'Bagelkhand (Eastern Range)', nameHi:'बघेलखंड',
+    color:'#22c55e',
+    facts:[
+      ['Location','Eastern MP — part of Vindhyan Uplands & Kaimur Range'],
+      ['Districts','Rewa, Satna, Sidhi, Singrauli, Shahdol, Umaria, Anuppur'],
+      ['Resources','Coal (Singrauli), Bauxite (Amarkantak), Limestone (Satna/Katni)'],
+      ['National Parks','Bandhavgarh, Sanjay-Dubri'],
+      ['Rivers','Son, Johilla, Rihand'],
+    ],
+    mppsc:'Coal-rich. Bandhavgarh (highest tiger density). Singrauli power plants. White tigers of Rewa.',
+    coords:[[23.0,81],[23.5,82.5],[24.5,82.5],[25.2,82],[24.8,81],[24,80],[23.3,80.5],[23,81]]
+  },
+  {
+    id:'narmada_valley', name:'Narmada-Son Valley', nameHi:'नर्मदा-सोन घाटी',
+    color:'#60a5fa',
+    facts:[
+      ['Type','Rift Valley (Graben) — formed by faulting'],
+      ['Between','Vindhya Range (N) and Satpura Range (S)'],
+      ['Districts','Mandla, Jabalpur, Narmadapuram, Harda, Dewas (partly)'],
+      ['Famous sites','Marble Rocks Bhedaghat, Dhuandhar Falls, Kapildhara'],
+      ['Dams','Bargi, Tawa, Omkareshwar, Indira Sagar, Maheshwar'],
+    ],
+    mppsc:'Classic rift valley. Marble Rocks = UNESCO Tentative. Bhedaghat near Jabalpur. Multiple dams.',
+    coords:[[22.5,75.5],[22.8,78],[23,80],[23.3,81.5],[23.5,80.5],[23.2,78.5],[22.8,76.5],[22.5,75.5]]
+  }
 ];
 
-const ALLD=[
-  "Agar Malwa","Alirajpur","Anuppur","Ashoknagar","Balaghat","Barwani","Betul","Bhind",
-  "Bhopal","Burhanpur","Chhatarpur","Chhindwara","Damoh","Datia","Dewas","Dhar",
-  "Dindori","Guna","Gwalior","Harda","Narmadapuram","Indore","Jabalpur","Jhabua",
-  "Katni","Khandwa","Khargone","Mandla","Mandsour","Morena","Narsinghpur","Neemuch",
-  "Niwari","Panna","Raisen","Rajgarh","Ratlam","Rewa","Sagar","Satna","Sehore",
-  "Seoni","Shahdol","Shajapur","Sheopur","Shivpuri","Sidhi","Singrauli","Tikamgarh",
-  "Ujjain","Umaria","Vidisha"
+// ── RIVERS ────────────────────────────────────────────────
+const RIVERS = [
+  {
+    id:'narmada', name:'Narmada', nameHi:'नर्मदा', major:true, color:'#38bdf8', weight:3.5,
+    origin:'Amarkantak, Anuppur (1048m)', length:'1312 km total, 1077 km in MP', flows:'West → Arabian Sea',
+    tributaries:'Left: Burhner, Banjar, Sher, Shakkar, Dudhi, Tawa | Right: Hiran, Orsang, Karam',
+    dams:'Bargi (Jabalpur), Tawa (Narmadapuram), Barna, Omkareshwar (Khandwa), Indira Sagar (Khandwa — largest capacity), Maheshwar (Khargone), Sardar Sarovar (Gujarat)',
+    states:'MP, Maharashtra (border), Gujarat',
+    special:'Flows in reverse (west) unlike most peninsular rivers. Only river with Parikrama tradition.',
+    mppsc:'★★★ Lifeline of MP. Origin Amarkantak. Flows West (unique). Marble Rocks at Bhedaghat. Dhuandhar Falls. 7 Jyotirlingas on its banks.',
+    coords:[[22.67,81.76],[22.7,81.2],[22.8,80],[23.0,78.5],[22.8,77.5],[22.5,77],[22.3,75.8],[22.2,74.2]]
+  },
+  {
+    id:'chambal', name:'Chambal', nameHi:'चंबल', major:true, color:'#38bdf8', weight:3,
+    origin:'Vindhya Range near Mhow (Indore), Singar Chouri peak', length:'965 km total', flows:'North → Yamuna (UP/Rajasthan)',
+    tributaries:'Kali Sindh, Parbati, Banas, Shipra/Kshipra',
+    dams:'Gandhi Sagar (Mandsaur), Rana Pratap Sagar, Jawahar Sagar (all in Rajasthan cascade)',
+    states:'MP, Rajasthan, UP',
+    special:'Forms MP-Rajasthan boundary. Famous Chambal Ravines (beehads). Gharial & Dolphin sanctuary.',
+    mppsc:'★★★ Gandhi Sagar Dam (Mandsaur). Chambal Ravines. National Chambal Sanctuary (Gharial/Dolphin/Mugger). Vindhya origin.',
+    coords:[[22.5,75.6],[23.5,76.5],[24.5,77.2],[25.5,77.8],[26.0,78.5]]
+  },
+  {
+    id:'son', name:'Son', nameHi:'सोन', major:true, color:'#38bdf8', weight:2.5,
+    origin:'Amarkantak plateau (same as Narmada but flows East)', length:'784 km', flows:'East → Ganga (Bihar)',
+    tributaries:'Johilla, Banas, Rihand, Gopad',
+    dams:'Bansagar Dam (Shahdol/Rewa — largest earthen dam in MP)',
+    special:'Originates same plateau as Narmada but flows opposite direction (East). White sand.',
+    mppsc:'★★★ Originates Amarkantak (with Narmada) but flows East. Bansagar Dam = MP\'s largest capacity dam.',
+    coords:[[22.67,81.76],[23.0,82],[23.5,82.5],[24.3,83.0],[24.5,83.5]]
+  },
+  {
+    id:'betwa', name:'Betwa', nameHi:'बेतवा', major:true, color:'#38bdf8', weight:2.5,
+    origin:'Vindhya Range, Raisen district', length:'590 km', flows:'NE → Yamuna (UP)',
+    tributaries:'Dhasan, Birsagar, Bes (Beas)',
+    dams:'Rajghat Dam (MP-UP border, Sagar), Matatila Dam',
+    special:'Flows through Bundelkhand. Ken-Betwa link project.',
+    mppsc:'★★ Rajghat Dam on Betwa (MP-UP boundary). Flows through Sanchi, Vidisha area. Ken-Betwa interlinking.',
+    coords:[[23.0,77.6],[23.8,78.3],[24.5,78.8],[25.3,79.3],[25.7,79.5]]
+  },
+  {
+    id:'tapti', name:'Tapi (Tapti)', nameHi:'ताप्ती', major:true, color:'#38bdf8', weight:2.5,
+    origin:'Multai, Betul district (710m)', length:'724 km', flows:'West → Arabian Sea (Gujarat)',
+    tributaries:'Purna, Girna, Aner, Arunavati',
+    dams:'Upper Tapi Project',
+    special:'Flows parallel to Narmada. Southern boundary of Satpura range. Also flows West like Narmada.',
+    mppsc:'★★★ Originates Multai (Betul). Flows West like Narmada. Both flow to Arabian Sea. Satpura southern boundary.',
+    coords:[[21.77,78.13],[21.8,77],[21.7,76],[21.5,75],[21.2,74.5]]
+  },
+  {
+    id:'ken', name:'Ken', nameHi:'केन', major:false, color:'#7dd3fc', weight:2,
+    origin:'Kaimur Range, Satna/Jabalpur area', length:'427 km', flows:'North → Yamuna (UP)',
+    tributaries:'Tons, Sonar, Bearma',
+    dams:'Ken-Betwa interlinking (proposed)',
+    special:'Panna Tiger Reserve and Diamond Mines on banks.',
+    mppsc:'★★ Ken-Betwa River Interlinking (Bundelkhand water crisis). Panna Tiger Reserve. Diamond mines near.',
+    coords:[[23.5,79.5],[24.2,79.8],[24.8,80.3],[25.3,80.6]]
+  },
+  {
+    id:'kshipra', name:'Kshipra (Shipra)', nameHi:'क्षिप्रा', major:false, color:'#7dd3fc', weight:2,
+    origin:'Kakribardi Hill, Dhar/Indore area (Vindhya)', length:'195 km', flows:'North → Chambal',
+    tributaries:'Khan river (flows through Indore)',
+    dams:'None major',
+    special:'Holy river. Ujjain Simhastha Kumbh Mela on its banks every 12 years.',
+    mppsc:'★★★ Kshipra = Simhastha/Kumbh Mela at Ujjain. Mahakaleshwar on its banks. Flows through Malwa plateau.',
+    coords:[[22.7,75.8],[23.2,75.7],[23.7,75.6],[24.2,75.5]]
+  },
+  {
+    id:'wainganga', name:'Wainganga', nameHi:'वैनगंगा', major:false, color:'#7dd3fc', weight:2,
+    origin:'Near Mundhara, Seoni district', length:'579 km', flows:'South → Wardha → Pranhita → Godavari (Maharashtra)',
+    tributaries:'Bawanthadi, Kanhan',
+    dams:'Bawanthadi Dam, Gosikhurd (Maharashtra)',
+    special:'Flows south to Godavari basin. Rudyard Kipling\'s Jungle Book set here (Seoni forests).',
+    mppsc:'★ Jungle Book (Kipling) — Seoni forests on Wainganga. Flows to Godavari (not Ganga or Arabian Sea).',
+    coords:[[22.5,79.6],[22.1,79.8],[21.7,80.2],[21.3,80.5]]
+  },
+  {
+    id:'tawa', name:'Tawa', nameHi:'तवा', major:false, color:'#7dd3fc', weight:1.8,
+    origin:'Satpura Range, Betul/Chhindwara area', length:'172 km', flows:'W → Narmada (at Narmadapuram)',
+    tributaries:'Denwa, Sonbhadra',
+    dams:'Tawa Dam (Narmadapuram) — largest dam in MP by area',
+    special:'Tawa Reservoir is largest reservoir in MP. Part of Satpura Tiger Reserve.',
+    mppsc:'★★ Tawa Dam = largest in MP (area). Joins Narmada at Narmadapuram. Satpura Tiger Reserve.',
+    coords:[[22.5,78.2],[22.8,77.8],[23.0,77.4],[23.15,77.7]]
+  }
 ];
 
-// ── APP STATE ─────────────────────────────────────
-let V='india', M='mcq';
-let SC={ok:0,bad:0,rv:0};
-let RS={};          // regionKey→'ok'|'bad'|'rv'
-let CUR=null;       // current quiz region
-let TOT=0;
-let GC={};          // GeoJSON cache
-let LYRS=[];        // active leaflet layers
-let CURDIV=null;    // current division filter
-
-// ── URLS (multiple fallbacks) ─────────────────────
-const INDIA_URLS=[
-  'https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@main/geojson/india.geojson',
-  'https://raw.githubusercontent.com/udit-001/india-maps-data/main/geojson/india.geojson',
-  'https://cdn.jsdelivr.net/gh/Subhash9325/GeoJson-Data-of-Indian-States@master/Indian_States.geojson'
+// ── WATERFALLS ─────────────────────────────────────────────
+const WATERFALLS = [
+  {
+    id:'dhuandhar', name:'Dhuandhar Falls', nameHi:'धुआँधार', lat:23.12, lng:79.91,
+    emoji:'💧', height:'~15m', river:'Narmada', district:'Jabalpur',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Dhuandhar_falls.jpg/640px-Dhuandhar_falls.jpg',
+    desc:'Narmada river falls over marble rocks creating smoke-like mist ("Dhua" = smoke). At Bhedaghat.',
+    mppsc:'★★★ Dhuandhar = "smoke cascade". Narmada river. Bhedaghat Marble Rocks. Near Jabalpur.'
+  },
+  {
+    id:'kapildhara', name:'Kapildhara Falls', nameHi:'कपिलधारा', lat:22.67, lng:81.73,
+    emoji:'💧', height:'~100m', river:'Narmada', district:'Anuppur',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Kapildhara_waterfall.jpg/640px-Kapildhara_waterfall.jpg',
+    desc:'First major waterfall on Narmada river, just 6km from its origin at Amarkantak.',
+    mppsc:'★★★ First waterfall on Narmada. Near Amarkantak. ~100m height.'
+  },
+  {
+    id:'chachai', name:'Chachai Falls', nameHi:'चचाई', lat:24.32, lng:81.67,
+    emoji:'💧', height:'130m (tallest in MP)', river:'Bihad river (Son tributary)', district:'Rewa',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Chachai_falls_rewa.jpg/640px-Chachai_falls_rewa.jpg',
+    desc:'Tallest waterfall in Madhya Pradesh at 130m. Located in Rewa district on Bihad river.',
+    mppsc:'★★★ Tallest waterfall in MP — 130m. Rewa district. Bihad river (Son tributary).'
+  },
+  {
+    id:'bahuti', name:'Bahuti Falls', nameHi:'बहुती', lat:24.43, lng:81.8,
+    emoji:'💧', height:'198m (tallest in India some sources)', river:'Selur nala (Tamsa tributary)', district:'Rewa',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Bahuti_waterfall_rewa.jpg/640px-Bahuti_waterfall_rewa.jpg',
+    desc:'One of the highest waterfalls in India. Located in Rewa, MP.',
+    mppsc:'★★★ Bahuti Falls, Rewa — one of tallest in India (~198m). Selur nala. Very important MPPSC.'
+  },
+  {
+    id:'rajat_pratap', name:'Rajat Pratap (Silver Falls)', nameHi:'रजत प्रपात', lat:22.48, lng:78.44,
+    emoji:'💧', height:'106m', river:'Beefall stream (Satpura)', district:'Narmadapuram (Pachmarhi)',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Rajat_Pratap_Falls.jpg/640px-Rajat_Pratap_Falls.jpg',
+    desc:'Also called "Silver Falls" or "Big Falls". Beautiful waterfall in Pachmarhi area.',
+    mppsc:'★★ Silver/Rajat Pratap = 106m. Pachmarhi area. Big Falls also nearby.'
+  },
+  {
+    id:'bee_falls', name:'Bee Falls', nameHi:'बी फॉल्स', lat:22.48, lng:78.42,
+    emoji:'💧', height:'~35m', river:'Jambu Dwip stream', district:'Narmadapuram (Pachmarhi)',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Bee_falls_pachmarhi.jpg/640px-Bee_falls_pachmarhi.jpg',
+    desc:'Most visited waterfall in MP. Located at Pachmarhi hill station.',
+    mppsc:'★ Most popular waterfall at Pachmarhi. Tourist attraction.'
+  },
+  {
+    id:'keoti', name:'Keoti Falls', nameHi:'केओटी', lat:24.28, lng:81.40,
+    emoji:'💧', height:'98m', river:'Mahana river (Son tributary)', district:'Rewa',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Keoti_falls.jpg/640px-Keoti_falls.jpg',
+    desc:'98m high waterfall in Rewa district. Also called Keoti Falls.',
+    mppsc:'★★ Keoti Falls, Rewa — 98m. Mahana river. Important MPPSC waterfall.'
+  }
 ];
-const MP_URLS=[
-  'https://cdn.jsdelivr.net/gh/datta07/INDIAN-SHAPEFILES@master/INDIA/MADHYA%20PRADESH/MADHYA_PRADESH_DISTRICTS.geojson',
-  'https://raw.githubusercontent.com/datta07/INDIAN-SHAPEFILES/master/INDIA/MADHYA%20PRADESH/MADHYA_PRADESH_DISTRICTS.geojson',
-  'https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@main/geojson/states/madhya-pradesh.geojson',
-  'https://raw.githubusercontent.com/udit-001/india-maps-data/main/geojson/states/madhya-pradesh.geojson'
+
+// ── DAMS ──────────────────────────────────────────────────
+const DAMS = [
+  {
+    id:'indira_sagar', name:'Indira Sagar Dam', nameHi:'इंदिरा सागर', lat:22.27, lng:76.47,
+    emoji:'🌊', river:'Narmada', district:'Khandwa',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Indira_Sagar_Dam.jpg/640px-Indira_Sagar_Dam.jpg',
+    capacity:'12.22 BCM (largest reservoir capacity in India)', powerKW:'1000 MW hydropower',
+    desc:'Largest reservoir in India by water storage capacity. On Narmada river.',
+    mppsc:'★★★ Indira Sagar = largest water storage capacity dam in INDIA. Khandwa. Narmada.'
+  },
+  {
+    id:'tawa_dam', name:'Tawa Dam', nameHi:'तवा बाँध', lat:22.60, lng:77.73,
+    emoji:'🌊', river:'Tawa (Narmada tributary)', district:'Narmadapuram',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Tawa_reservoir.jpg/640px-Tawa_reservoir.jpg',
+    capacity:'Largest reservoir area in MP', powerKW:'13.4 MW',
+    desc:'Largest dam in MP by surface area of reservoir. Near Pachmarhi.',
+    mppsc:'★★★ Tawa Dam = largest reservoir area in MP. Narmadapuram. Tawa river joins Narmada here.'
+  },
+  {
+    id:'bansagar', name:'Bansagar Dam', nameHi:'बाण सागर', lat:24.19, lng:81.29,
+    emoji:'🌊', river:'Son', district:'Shahdol/Rewa border',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Bansagar_dam.jpg/640px-Bansagar_dam.jpg',
+    capacity:'Multipurpose — irrigation to MP, UP, Bihar', powerKW:'425 MW',
+    desc:'Major multipurpose dam on Son river. Shared project of MP, UP, and Bihar.',
+    mppsc:'★★ Bansagar Dam (Son river) = MP + UP + Bihar joint project. Bagelkhand region.'
+  },
+  {
+    id:'gandhi_sagar', name:'Gandhi Sagar Dam', nameHi:'गाँधी सागर', lat:24.68, lng:75.57,
+    emoji:'🌊', river:'Chambal', district:'Mandsaur/Neemuch',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Gandhi_Sagar_dam.jpg/640px-Gandhi_Sagar_dam.jpg',
+    capacity:'7.32 BCM', powerKW:'115 MW',
+    desc:'First and largest dam on Chambal river. Gandhi Sagar Wildlife Sanctuary.',
+    mppsc:'★★★ Gandhi Sagar = largest dam on Chambal. Mandsaur. Wildlife Sanctuary for Chambal gharial.'
+  },
+  {
+    id:'bargi', name:'Bargi Dam (Ranisati)', nameHi:'बरगी बाँध', lat:22.97, lng:79.92,
+    emoji:'🌊', river:'Narmada', district:'Jabalpur',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Bargi_dam_jabalpur.jpg/640px-Bargi_dam_jabalpur.jpg',
+    capacity:'3.8 BCM', powerKW:'105 MW',
+    desc:'First large dam on Narmada river. Near Jabalpur.',
+    mppsc:'★ First dam built on Narmada river. Near Jabalpur. Bargi Reservoir.'
+  },
+  {
+    id:'omkareshwar_dam', name:'Omkareshwar Dam', nameHi:'ओंकारेश्वर बाँध', lat:22.24, lng:76.14,
+    emoji:'🌊', river:'Narmada', district:'Khandwa',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Omkareshwar_dam.jpg/640px-Omkareshwar_dam.jpg',
+    capacity:'1.17 BCM', powerKW:'520 MW',
+    desc:'Near Omkareshwar Jyotirlinga. Important run-of-the-river dam.',
+    mppsc:'★★ Omkareshwar Dam, Khandwa. Near Jyotirlinga island. Narmada.'
+  }
 ];
 
-// ── MAP ───────────────────────────────────────────
-const MAP=L.map('map',{zoomControl:true,attributionControl:false,zoomSnap:.5,minZoom:3,maxZoom:11});
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',
-  {subdomains:'abcd',maxZoom:19}).addTo(MAP);
-MAP.setView([22.5,80],5);
+// ── MOUNTAINS & PLATEAUS ──────────────────────────────────
+const MOUNTAINS = [
+  {id:'dhupgarh',name:'Dhupgarh Peak',nameHi:'धूपगढ़',lat:22.46,lng:78.40,height:'1352m — Highest in MP',range:'Mahadev Hills',district:'Narmadapuram',mppsc:'★★★ Highest peak of MP = Dhupgarh = 1352m. Near Pachmarhi.',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Dhupgarh.jpg/640px-Dhupgarh.jpg'},
+  {id:'amark_peak',name:'Amarkantak Plateau',nameHi:'अमरकंटक',lat:22.67,lng:81.76,height:'~1048m',range:'Maikal Hills',district:'Anuppur',mppsc:'★★★ Origin Narmada+Son+Johilla. Biosphere Reserve.',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Amarkantak_Narmada_Udgam.jpg/640px-Amarkantak_Narmada_Udgam.jpg'},
+  {id:'vindhya_range',name:'Vindhya Range',nameHi:'विंध्याचल',lat:24.5,lng:79,height:'300–600m',range:'Vindhyan',district:'Rewa, Satna, Panna, Chhatarpur to Rajgarh',mppsc:'★★★ Vindhya = divides Ganga & Narmada basins. Limestone. Panna diamonds in Vindhyan rocks.',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Vindhya_hills.jpg/640px-Vindhya_hills.jpg'}
+];
+const PLATEAUS = [
+  {id:'malwa',name:'Malwa Plateau',nameHi:'मालवा पठार',lat:23.5,lng:75.8,height:'400-600m',soil:'Black cotton (Regur)',crops:'Wheat, Soybean, Opium',dist:'Ujjain, Dewas, Mandsaur, Ratlam, Rajgarh, Shajapur',mppsc:'★★★ Fertile. Black soil. Wheat bowl. Opium (Neemuch-Mandsaur). Malwa Plateau drained by Chambal.',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Malwa_plateau.jpg/640px-Malwa_plateau.jpg'},
+  {id:'bundelkhand',name:'Bundelkhand Plateau',nameHi:'बुंदेलखंड',lat:24.5,lng:79.5,height:'300-600m',soil:'Mixed red-black, drought prone',crops:'Wheat, millets',dist:'Tikamgarh, Niwari, Datia, Chhatarpur, Sagar, Damoh',mppsc:'★★ Panna diamonds. Ken-Betwa link. Orchha, Khajuraho historical sites.',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Bundelkhand_terrain.jpg/640px-Bundelkhand_terrain.jpg'},
+  {id:'rewa_plateau',name:'Rewa-Panna Plateau',nameHi:'रीवा-पन्ना',lat:24.5,lng:81.3,height:'300-500m',soil:'Laterite',crops:'Paddy, pulses',dist:'Rewa, Satna, Panna, Katni',mppsc:'★★ White Tigers of Rewa. Bansagar Dam. Bahuti & Chachai waterfalls.',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Rewa_plateau.jpg/640px-Rewa_plateau.jpg'},
+  {id:'gwalior_plateau',name:'Gwalior-Morena Plateau',nameHi:'ग्वालियर-मुरैना',lat:26.2,lng:78,height:'200-400m',soil:'Alluvial in Chambal',crops:'Mustard, wheat',dist:'Gwalior, Morena, Bhind, Sheopur',mppsc:'★★ Chambal Ravines. Gwalior Fort. Gharial/Dolphin sanctuary. Scindia dynasty.',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Gwalior_fort.jpg/640px-Gwalior_fort.jpg'}
+];
+const VALLEYS = [
+  {id:'narmada_v',name:'Narmada Valley',nameHi:'नर्मदा घाटी',lat:23.1,lng:77.5,type:'Rift Valley (Graben)',between:'Vindhya (N) & Satpura (S)',features:'Marble Rocks, Dhuandhar, Kapildhara, multiple dams',mppsc:'★★★ Classic rift valley. Bhedaghat Marble Rocks. Most important valley of MP.',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Marble_rocks_bhedaghat.jpg/640px-Marble_rocks_bhedaghat.jpg'},
+  {id:'chambal_v',name:'Chambal Valley',nameHi:'चंबल घाटी',lat:25.2,lng:76.8,type:'Ravine Valley (Beehad)',between:'Vindhya uplands',features:'Chambal Ravines, Gandhi Sagar, Gharial Sanctuary',mppsc:'★★ Chambal beehad/ravines. Gharial + Dolphin sanctuary. Badland geography.',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Chambal_ravines.jpg/640px-Chambal_ravines.jpg'},
+  {id:'son_v',name:'Son Valley',nameHi:'सोन घाटी',lat:23.5,lng:81.8,type:'River Valley',between:'Kaimur Range (N) & Maikal Hills (S)',features:'Bansagar Dam, coal fields, Son Gharial Sanctuary',mppsc:'★ Son Valley = coal (Singrauli), Bansagar Dam, white sand.',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Bansagar_dam.jpg/640px-Bansagar_dam.jpg'}
+];
 
-// ── GEO FETCH ─────────────────────────────────────
+// States
+const STATES=[{name:"Andhra Pradesh",abbr:"AP"},{name:"Arunachal Pradesh",abbr:"AR"},{name:"Assam",abbr:"AS"},{name:"Bihar",abbr:"BR"},{name:"Chhattisgarh",abbr:"CG"},{name:"Goa",abbr:"GA"},{name:"Gujarat",abbr:"GJ"},{name:"Haryana",abbr:"HR"},{name:"Himachal Pradesh",abbr:"HP"},{name:"Jharkhand",abbr:"JH"},{name:"Karnataka",abbr:"KA"},{name:"Kerala",abbr:"KL"},{name:"Madhya Pradesh",abbr:"MP"},{name:"Maharashtra",abbr:"MH"},{name:"Manipur",abbr:"MN"},{name:"Meghalaya",abbr:"ML"},{name:"Mizoram",abbr:"MZ"},{name:"Nagaland",abbr:"NL"},{name:"Odisha",abbr:"OD"},{name:"Punjab",abbr:"PB"},{name:"Rajasthan",abbr:"RJ"},{name:"Sikkim",abbr:"SK"},{name:"Tamil Nadu",abbr:"TN"},{name:"Telangana",abbr:"TS"},{name:"Tripura",abbr:"TR"},{name:"Uttar Pradesh",abbr:"UP"},{name:"Uttarakhand",abbr:"UK"},{name:"West Bengal",abbr:"WB"},{name:"Andaman & Nicobar",abbr:"AN"},{name:"Chandigarh",abbr:"CH"},{name:"Dadra & Nagar Haveli and Daman & Diu",abbr:"DD"},{name:"Delhi",abbr:"DL"},{name:"Jammu & Kashmir",abbr:"JK"},{name:"Ladakh",abbr:"LA"},{name:"Lakshadweep",abbr:"LD"},{name:"Puducherry",abbr:"PY"}];
+const DIVS=[{name:"Bhopal",abbr:"BPL",color:"#6c63ff",dists:["Bhopal","Raisen","Rajgarh","Sehore","Vidisha"]},{name:"Indore",abbr:"IDR",color:"#ec4899",dists:["Indore","Dhar","Jhabua","Alirajpur","Burhanpur","Khargone","Barwani","Khandwa"]},{name:"Gwalior",abbr:"GWL",color:"#f59e0b",dists:["Gwalior","Ashoknagar","Datia","Guna","Shivpuri"]},{name:"Chambal",abbr:"CBL",color:"#10b981",dists:["Morena","Bhind","Sheopur"]},{name:"Jabalpur",abbr:"JBP",color:"#3b82f6",dists:["Jabalpur","Katni","Mandla","Seoni","Balaghat","Chhindwara","Narsinghpur"]},{name:"Rewa",abbr:"RWA",color:"#ef4444",dists:["Rewa","Satna","Sidhi","Singrauli"]},{name:"Sagar",abbr:"SGR",color:"#8b5cf6",dists:["Sagar","Chhatarpur","Damoh","Panna","Tikamgarh","Niwari"]},{name:"Ujjain",abbr:"UJN",color:"#06b6d4",dists:["Ujjain","Mandsour","Neemuch","Ratlam","Shajapur","Agar Malwa","Dewas"]},{name:"Narmadapuram",abbr:"NPM",color:"#84cc16",dists:["Narmadapuram","Betul","Harda"]},{name:"Shahdol",abbr:"SDL",color:"#f97316",dists:["Shahdol","Anuppur","Umaria","Dindori"]}];
+const ALLD=["Agar Malwa","Alirajpur","Anuppur","Ashoknagar","Balaghat","Barwani","Betul","Bhind","Bhopal","Burhanpur","Chhatarpur","Chhindwara","Damoh","Datia","Dewas","Dhar","Dindori","Guna","Gwalior","Harda","Narmadapuram","Indore","Jabalpur","Jhabua","Katni","Khandwa","Khargone","Mandla","Mandsour","Morena","Narsinghpur","Neemuch","Niwari","Panna","Raisen","Rajgarh","Ratlam","Rewa","Sagar","Satna","Sehore","Seoni","Shahdol","Shajapur","Sheopur","Shivpuri","Sidhi","Singrauli","Tikamgarh","Ujjain","Umaria","Vidisha"];
+
+// ════════════════════════════════════════════════════════════
+//  APP STATE
+// ════════════════════════════════════════════════════════════
+let V='geo', M='learn';
+let SC={ok:0,bad:0,rv:0}, RS={}, CUR=null, TOT=0;
+let GC={}, LYRS=[], CURDIV=null;
+let GL={region:null,river:null,mtn:null,plateau:null,valley:null,wfall:null,dam:null,city:null};
+let LV={region:true,river:true,mtn:true,plateau:true,valley:true,wfall:true,dam:true,city:true};
+
+// URLs
+const INDIA_URLS=['https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@main/geojson/india.geojson','https://raw.githubusercontent.com/udit-001/india-maps-data/main/geojson/india.geojson'];
+const MP_URLS=['https://cdn.jsdelivr.net/gh/datta07/INDIAN-SHAPEFILES@master/INDIA/MADHYA%20PRADESH/MADHYA_PRADESH_DISTRICTS.geojson','https://raw.githubusercontent.com/datta07/INDIAN-SHAPEFILES/master/INDIA/MADHYA%20PRADESH/MADHYA_PRADESH_DISTRICTS.geojson','https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@main/geojson/states/madhya-pradesh.geojson'];
+
+// MAP
+const MAP=L.map('map',{zoomControl:true,attributionControl:false,zoomSnap:.5,minZoom:4,maxZoom:13});
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19}).addTo(MAP);
+MAP.setView([23.5,78],7);
+
+// ════ HELPERS ════
 async function fetchG(key){
   if(GC[key]) return GC[key];
   const urls=key==='india'?INDIA_URLS:MP_URLS;
-  for(const url of urls){
-    try{
-      const r=await fetch(url);
-      if(!r.ok) continue;
-      const d=await r.json();
-      if(d&&d.features&&d.features.length>0){GC[key]=d;return d;}
-    }catch(e){/* next */}
-  }
+  for(const url of urls){try{const r=await fetch(url);if(!r.ok) continue;const d=await r.json();if(d?.features?.length){GC[key]=d;return d;}}catch(e){}}
   return null;
 }
+function sName(f){const p=f.properties||{};return p.ST_NM||p.state||p.NAME_1||p.statename||p.State_Name||p.State||p.name||p.NAME||'';}
+function dName(f){const p=f.properties||{};return p.DISTRICT||p.district||p.NAME_2||p.dtname||p.District||p.name||p.NAME||'';}
+function canonState(raw){if(!raw) return null;const r=raw.toLowerCase().trim();return STATES.find(s=>{const n=s.name.toLowerCase();return n===r||r.includes(n)||n.includes(r);})||null;}
+const DA={'hoshangabad':'Narmadapuram','east nimar':'Khandwa','west nimar':'Khargone','mandsaur':'Mandsour','chindwara':'Chhindwara','narsimhapur':'Narsinghpur','ashok nagar':'Ashoknagar','singroli':'Singrauli','agar':'Agar Malwa','agar malwa':'Agar Malwa'};
+function canonDist(raw){if(!raw) return raw;const r=raw.toLowerCase().trim();const a=DA[r];if(a) return a;return ALLD.find(d=>d.toLowerCase()===r||r.includes(d.toLowerCase())||d.toLowerCase().includes(r))||raw;}
+function fuzzyD(raw,allowed){const r=raw.toLowerCase().trim();const al=(DA[r]||'').toLowerCase();if([...allowed].some(a=>a.toLowerCase()===r)) return true;if(al&&[...allowed].some(a=>a.toLowerCase()===al)) return true;return[...allowed].some(a=>{const al2=a.toLowerCase();if(Math.abs(al2.length-r.length)>3) return false;return lev(al2,r)<=1;});}
+function lev(a,b){let d=[];for(let i=0;i<=b.length;i++) d[i]=[i];for(let j=0;j<=a.length;j++) d[0][j]=j;for(let i=1;i<=b.length;i++) for(let j=1;j<=a.length;j++) d[i][j]=b[i-1]===a[j-1]?d[i-1][j-1]:1+Math.min(d[i-1][j-1],d[i][j-1],d[i-1][j]);return d[b.length][a.length];}
+function rStyle(key,df,ds){const s=RS[key];if(s==='ok') return{fillColor:'rgba(34,197,94,.35)',color:'#22c55e',weight:1.5,fillOpacity:1,opacity:1};if(s==='bad') return{fillColor:'rgba(244,63,94,.28)',color:'#f43f5e',weight:1.5,fillOpacity:1,opacity:1};if(s==='rv') return{fillColor:'rgba(245,158,11,.28)',color:'#f59e0b',weight:1.5,fillOpacity:1,opacity:1};return{fillColor:df||'rgba(30,58,95,.65)',color:ds||'#4a90d9',weight:1,fillOpacity:1,opacity:1};}
+function clearMap(){MAP.eachLayer(l=>{if(!(l instanceof L.TileLayer)) MAP.removeLayer(l);});LYRS=[];GL={region:null,river:null,mtn:null,plateau:null,valley:null,wfall:null,dam:null,city:null};}
+function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function mkIcon(html,w,h){return L.divIcon({className:'geo-lbl-btn',html,iconSize:[w,h],iconAnchor:[w/2,h/2]});}
 
-// ── PROP HELPERS ─────────────────────────────────
-function sName(f){
-  const p=f.properties||{};
-  return p.ST_NM||p.state||p.NAME_1||p.statename||p.State_Name||p.State||p.name||p.NAME||'';
+// ════ LEGEND TOGGLE ════
+let legOpen=false;
+function togLeg(){
+  legOpen=!legOpen;
+  document.getElementById('leg').classList.toggle('open',legOpen);
+  document.getElementById('leg-toggle').classList.toggle('open',legOpen);
 }
-function dName(f){
-  const p=f.properties||{};
-  return p.DISTRICT||p.district||p.NAME_2||p.dtname||p.District||p.name||p.NAME||'';
+
+// ════ LAYER TOGGLE ════
+function togL(t){
+  LV[t]=!LV[t];
+  document.querySelector(`.ltog[data-t="${t}"]`).classList.toggle('on',LV[t]);
+  if(GL[t]){if(LV[t]) GL[t].addTo(MAP);else MAP.removeLayer(GL[t]);}
 }
-function canonState(raw){
-  if(!raw) return null;
-  const r=raw.toLowerCase().trim();
-  return STATES.find(s=>{
-    const n=s.name.toLowerCase();
-    return n===r||r===n||r.startsWith(n.split(' ')[0])||n.startsWith(r.split(' ')[0])||
-           r.includes(n)||n.includes(r);
-  })||null;
+
+// ════ GEO VIEW ════
+async function drawGeo(){
+  clearMap();closeQ();
+  setTitle('Madhya Pradesh — Complete Geography');
+  document.getElementById('ltbar').style.display='flex';
+  showLD(true,'Loading geography layers…');
+  const data=await fetchG('mp');
+  showLD(false);
+
+  // Base MP outline
+  if(data){
+    const base=L.geoJSON(data,{style:{fillColor:'rgba(18,28,45,.8)',color:'#1c2840',weight:1,fillOpacity:1,opacity:1}}).addTo(MAP);
+    MAP.fitBounds(base.getBounds(),{padding:[28,28]});
+    LYRS.push({lyr:base,type:'base'});
+  } else MAP.setView([23.5,78],7);
+
+  buildGeoLayers();
+  TOT=0;updProg();
 }
-// GeoJSON district name aliases (old name → canonical ALLD name)
-const DIST_ALIAS={
-  'hoshangabad':'Narmadapuram',
-  'harda':'Harda',
-  'east nimar':'Khandwa',
-  'west nimar':'Khargone',
-  'shajapur':'Shajapur',
-  'rajgarh':'Rajgarh',
-  'mandsaur':'Mandsour',
-  'mandsour':'Mandsour',
-  'chindwara':'Chhindwara',
-  'narsimhapur':'Narsinghpur',
-  'chhatarpur':'Chhatarpur',
-  'tikamgarh':'Tikamgarh',
-  'shivpuri':'Shivpuri',
-  'guna':'Guna',
-  'ashok nagar':'Ashoknagar',
-  'ashoknagar':'Ashoknagar',
-  'singroli':'Singrauli',
-  'umaria':'Umaria',
-  'dindori':'Dindori',
-  'anuppur':'Anuppur',
-  'barwani':'Barwani',
-  'agar':'Agar Malwa',
-  'agar malwa':'Agar Malwa',
-  'alirajpur':'Alirajpur',
-  'burhanpur':'Burhanpur',
-  'niwari':'Niwari',
+
+function buildGeoLayers(){
+  // Remove old
+  Object.keys(GL).forEach(t=>{if(GL[t]){MAP.removeLayer(GL[t]);GL[t]=null;}});
+
+  // 1. REGIONS
+  const rg=L.layerGroup();
+  REGIONS.forEach(r=>{
+    const poly=L.polygon(r.coords.map(c=>[c[0],c[1]]),{fillColor:r.color,color:r.color,weight:1.5,fillOpacity:.2,opacity:.65,dashArray:'7,4'});
+    poly.bindTooltip(`<b>${r.name}</b><br><small>${r.nameHi}</small>`);
+    poly.on('click',()=>showPanel(r,'region',null));
+    poly.on('mouseover',()=>poly.setStyle({fillOpacity:.35,opacity:1,weight:2.5}));
+    poly.on('mouseout',()=>poly.setStyle({fillOpacity:.2,opacity:.65,weight:1.5}));
+    rg.addLayer(poly);
+    const cx=[r.coords.reduce((s,c)=>s+c[0],0)/r.coords.length,r.coords.reduce((s,c)=>s+c[1],0)/r.coords.length];
+    rg.addLayer(L.marker(cx,{icon:mkIcon(`<div style="color:${r.color};font-size:9px;font-weight:700;text-shadow:0 0 5px #000,0 0 8px #000;white-space:nowrap;transform:translateX(-50%)">${r.name}</div>`,160,16),interactive:false,zIndexOffset:-100}));
+  });
+  GL.region=rg; if(LV.region) rg.addTo(MAP);
+
+  // 2. RIVERS
+  const rv=L.layerGroup();
+  RIVERS.forEach(r=>{
+    const line=L.polyline(r.coords.map(c=>[c[0],c[1]]),{color:r.color,weight:r.weight,opacity:.85,dashArray:r.major?null:'9,4'});
+    line.bindTooltip(`<b>${r.name}</b> • ${r.nameHi}`);
+    line.on('click',()=>showPanel(r,'river',null));
+    rv.addLayer(line);
+    const mid=r.coords[Math.floor(r.coords.length/2)];
+    rv.addLayer(L.marker(mid,{icon:mkIcon(`<div style="color:#7dd3fc;font-size:8.5px;font-weight:600;text-shadow:0 0 4px #000;white-space:nowrap;transform:translateX(-50%)">${r.name}</div>`,120,14),interactive:false,zIndexOffset:-50}));
+  });
+  GL.river=rv; if(LV.river) rv.addTo(MAP);
+
+  // 3. MOUNTAINS
+  const mg=L.layerGroup();
+  MOUNTAINS.forEach(m=>{
+    const mk=L.marker([m.lat,m.lng],{icon:mkIcon(`<div style="display:flex;flex-direction:column;align-items:center;cursor:pointer"><div style="width:10px;height:10px;background:#f97316;border-radius:50%;border:2px solid #fed7aa;box-shadow:0 0 8px rgba(249,115,22,.6)"></div><div style="color:#f97316;font-size:8.5px;font-weight:700;text-shadow:0 0 4px #000;margin-top:1px;white-space:nowrap;transform:translateX(-50%)">${m.name}</div></div>`,140,26)});
+    mk.bindTooltip(`<b>${m.name}</b> ${m.height?'| '+m.height:''}`);
+    mk.on('click',()=>showPanel(m,'mountain',m.img));
+    mg.addLayer(mk);
+  });
+  GL.mtn=mg; if(LV.mtn) mg.addTo(MAP);
+
+  // 4. PLATEAUS
+  const pg=L.layerGroup();
+  PLATEAUS.forEach(p=>{
+    const mk=L.marker([p.lat,p.lng],{icon:mkIcon(`<div style="background:rgba(132,204,22,.2);border:1px solid #84cc16;border-radius:4px;padding:2px 7px;cursor:pointer"><div style="color:#84cc16;font-size:8.5px;font-weight:700;text-shadow:0 0 4px #000;white-space:nowrap">${p.name}</div></div>`,160,18)});
+    mk.bindTooltip(`<b>${p.name}</b> | ${p.nameHi}`);
+    mk.on('click',()=>showPanel(p,'plateau',p.img));
+    pg.addLayer(mk);
+  });
+  GL.plateau=pg; if(LV.plateau) pg.addTo(MAP);
+
+  // 5. VALLEYS
+  const vg=L.layerGroup();
+  VALLEYS.forEach(vl=>{
+    const mk=L.marker([vl.lat,vl.lng],{icon:mkIcon(`<div style="background:rgba(52,211,153,.2);border:1px solid #34d399;border-radius:4px;padding:2px 7px;cursor:pointer"><div style="color:#34d399;font-size:8.5px;font-weight:700;text-shadow:0 0 4px #000;white-space:nowrap">↓ ${vl.name}</div></div>`,160,18)});
+    mk.bindTooltip(`<b>${vl.name}</b> | ${vl.nameHi}`);
+    mk.on('click',()=>showPanel(vl,'valley',vl.img));
+    vg.addLayer(mk);
+  });
+  GL.valley=vg; if(LV.valley) vg.addTo(MAP);
+
+  // 6. WATERFALLS
+  const wg=L.layerGroup();
+  WATERFALLS.forEach(wf=>{
+    const mk=L.marker([wf.lat,wf.lng],{icon:mkIcon(`<div style="display:flex;flex-direction:column;align-items:center;cursor:pointer"><div style="width:9px;height:9px;background:#818cf8;border-radius:50%;border:2px solid #c7d2fe;box-shadow:0 0 7px rgba(129,140,248,.6)"></div><div style="color:#818cf8;font-size:8px;font-weight:700;text-shadow:0 0 4px #000;white-space:nowrap;transform:translateX(-50%)">${wf.name}</div></div>`,150,24)});
+    mk.bindTooltip(`<b>${wf.name}</b> | ${wf.height}`);
+    mk.on('click',()=>showPanel(wf,'waterfall',wf.img));
+    wg.addLayer(mk);
+  });
+  GL.wfall=wg; if(LV.wfall) wg.addTo(MAP);
+
+  // 7. DAMS
+  const dg=L.layerGroup();
+  DAMS.forEach(dm=>{
+    const mk=L.marker([dm.lat,dm.lng],{icon:mkIcon(`<div style="display:flex;flex-direction:column;align-items:center;cursor:pointer"><div style="width:10px;height:6px;background:#fb7185;border-radius:1px;border:1px solid #fda4af;box-shadow:0 0 6px rgba(251,113,133,.6)"></div><div style="color:#fb7185;font-size:7.5px;font-weight:700;text-shadow:0 0 4px #000;white-space:nowrap;transform:translateX(-50%)">${dm.name}</div></div>`,160,24)});
+    mk.bindTooltip(`<b>${dm.name}</b> | ${dm.river}`);
+    mk.on('click',()=>showPanel(dm,'dam',dm.img));
+    dg.addLayer(mk);
+  });
+  GL.dam=dg; if(LV.dam) dg.addTo(MAP);
+
+  // 8. CITIES (geo view — optional)
+  buildCityLayer();
+  if(LV.city) GL.city.addTo(MAP);
+}
+
+function buildCityLayer(){
+  const cg=L.layerGroup();
+  CITIES.forEach(c=>{
+    const mk=L.marker([c.lat,c.lng],{icon:mkIcon(`<div style="display:flex;flex-direction:column;align-items:center;cursor:pointer"><div style="width:8px;height:8px;background:#fbbf24;border-radius:50%;border:2px solid #fde68a;box-shadow:0 0 6px rgba(251,191,36,.6)"></div><div style="color:#fde68a;font-size:8px;font-weight:600;text-shadow:0 0 4px #000;white-space:nowrap;transform:translateX(-50%)">${c.name}</div></div>`,140,24),zIndexOffset:100});
+    mk.bindTooltip(`<b>${c.name}</b> | ${c.known}`);
+    mk.on('click',()=>showPanel(c,'city',c.img));
+    cg.addLayer(mk);
+  });
+  GL.city=cg;
+}
+
+// ════ CITIES VIEW ════
+async function drawCities(){
+  clearMap();closeQ();
+  setTitle('MP — Key Cities & Facts');
+  document.getElementById('ltbar').style.display='flex';
+  showLD(true,'Loading MP map…');
+  const data=await fetchG('mp');
+  showLD(false);
+  if(data){
+    const base=L.geoJSON(data,{style:{fillColor:'rgba(18,28,45,.8)',color:'#1c2840',weight:1,fillOpacity:1}}).addTo(MAP);
+    MAP.fitBounds(base.getBounds(),{padding:[28,28]});
+    LYRS.push({lyr:base,type:'base'});
+  } else MAP.setView([23.5,78],7);
+  buildCityLayer();
+  if(LV.city) GL.city.addTo(MAP);
+  // Also rivers
+  buildGeoLayers();
+  TOT=CITIES.length;updProg();
+}
+
+// ════ PANEL DISPLAY ════
+const TYPE_META = {
+  region:  {label:'PHYSIOGRAPHIC REGION', color:'#a78bfa', emoji:'🌍'},
+  river:   {label:'RIVER', color:'#38bdf8', emoji:'🌊'},
+  mountain:{label:'MOUNTAIN / PEAK', color:'#f97316', emoji:'⛰️'},
+  plateau: {label:'PLATEAU', color:'#84cc16', emoji:'🏔️'},
+  valley:  {label:'VALLEY', color:'#34d399', emoji:'🏞️'},
+  waterfall:{label:'WATERFALL', color:'#818cf8', emoji:'💧'},
+  dam:     {label:'DAM / RESERVOIR', color:'#fb7185', emoji:'🌊'},
+  city:    {label:'CITY / TOWN', color:'#fbbf24', emoji:'🏙️'},
+  india:   {label:'INDIA STATE/UT', color:'#6c63ff', emoji:'🇮🇳'},
+  divs:    {label:'MP DIVISION', color:'#f59e0b', emoji:'🏛️'},
+  dists:   {label:'MP DISTRICT', color:'#4fc3f7', emoji:'📍'},
 };
-function canonDist(raw){
-  if(!raw) return raw;
-  const r=raw.toLowerCase().trim();
-  const alias=DIST_ALIAS[r];
-  if(alias) return alias;
-  return ALLD.find(d=>d.toLowerCase()===r||r.includes(d.toLowerCase())||d.toLowerCase().includes(r))||raw;
-}
-function fuzzyMatchDist(raw, allowed){
-  const r=raw.toLowerCase().trim();
-  // Check alias first
-  const aliased=(DIST_ALIAS[r]||'').toLowerCase();
-  // Exact match
-  if([...allowed].some(a=>a.toLowerCase()===r)) return true;
-  // Alias match
-  if(aliased&&[...allowed].some(a=>a.toLowerCase()===aliased)) return true;
-  // Levenshtein near-match (tight: same-length-ish strings only)
-  return [...allowed].some(a=>{
-    const al=a.toLowerCase();
-    if(Math.abs(al.length-r.length)>3) return false;
-    return levenFuzzy(al,r)<=1;
-  });
-}
-function levenFuzzy(a,b){
-  if(Math.abs(a.length-b.length)>4) return 99;
-  let d=[];
-  for(let i=0;i<=b.length;i++) d[i]=[i];
-  for(let j=0;j<=a.length;j++) d[0][j]=j;
-  for(let i=1;i<=b.length;i++)
-    for(let j=1;j<=a.length;j++)
-      d[i][j]=b[i-1]===a[j-1]?d[i-1][j-1]:1+Math.min(d[i-1][j-1],d[i][j-1],d[i-1][j]);
-  return d[b.length][a.length];
-}
 
-// ── STYLE ─────────────────────────────────────────
-function rStyle(key,df,ds){
-  const s=RS[key];
-  if(s==='ok')  return{fillColor:'rgba(34,197,94,.35)',color:'#22c55e',weight:1.5,fillOpacity:1,opacity:1};
-  if(s==='bad') return{fillColor:'rgba(239,68,68,.28)',color:'#ef4444',weight:1.5,fillOpacity:1,opacity:1};
-  if(s==='rv')  return{fillColor:'rgba(245,158,11,.28)',color:'#f59e0b',weight:1.5,fillOpacity:1,opacity:1};
-  return{fillColor:df||'rgba(30,58,95,.65)',color:ds||'#4a90d9',weight:1,fillOpacity:1,opacity:1};
-}
+function showPanel(item, type, imgUrl){
+  CUR={item,type,name:item.name,key:item.id||item.name.toLowerCase()};
+  const qp=document.getElementById('qp');
+  qp.classList.add('vis');
 
-// ── CLEAR MAP ─────────────────────────────────────
-function clearMap(){
-  MAP.eachLayer(l=>{if(!(l instanceof L.TileLayer)) MAP.removeLayer(l);});
-  LYRS=[];
-}
+  const meta=TYPE_META[type]||{label:'FEATURE',color:'#fff',emoji:'📌'};
 
-// ── INDIA ─────────────────────────────────────────
-async function drawIndia(){
-  clearMap(); closeQ();
-  setTitle('India — All States & UTs');
-  setBC('All States & UTs');
-  showLD(true,'Loading India GeoJSON…');
-  const data=await fetchG('india');
-  showLD(false);
-  if(!data){showErr('Could not load India map. Check connection.');return;}
-
-  const lyr=L.geoJSON(data,{
-    style:f=>{
-      const raw=sName(f);
-      const canon=canonState(raw);
-      const disp=canon?canon.name:raw;
-      return rStyle(disp.toLowerCase());
-    },
-    onEachFeature:(f,l)=>{
-      const raw=sName(f); if(!raw) return;
-      const canon=canonState(raw);
-      const disp=canon?canon.name:raw;
-      const key=disp.toLowerCase();
-
-      /* no permanent label on states — avoids giving hints */
-      l.on('click',()=>openQ(disp,key,'india'));
-      l.on('mouseover',()=>{if(!RS[key]) l.setStyle({fillColor:'rgba(108,99,255,.28)',color:'#6c63ff',weight:2});});
-      l.on('mouseout',()=>lyr.resetStyle(l));
-    }
-  }).addTo(MAP);
-
-  LYRS.push({lyr,type:'india'});
-  MAP.fitBounds(lyr.getBounds(),{padding:[20,20]});
-  TOT=STATES.length; updProg();
-}
-
-// ── MP DIVS ──────────────────────────────────────
-async function drawDivs(){
-  clearMap(); closeQ();
-  setTitle('Madhya Pradesh — 10 Divisions');
-  setBC('MP Divisions');
-  showLD(true,'Loading MP GeoJSON…');
-  const data=await fetchG('mp');
-  showLD(false);
-  if(!data){showErr('Could not load MP map. Check connection.');return;}
-
-  DIVS.forEach(div=>{
-    const key=div.name.toLowerCase();
-    const allowed=new Set(div.dists.map(d=>d.toLowerCase()));
-    const feats=data.features.filter(f=>fuzzyMatchDist(dName(f),allowed));
-    if(!feats.length) return;
-
-    const s=RS[key];
-    let fc=div.color+'4a',sc=div.color,wt=2;
-    if(s==='ok'){fc='rgba(34,197,94,.32)';sc='#22c55e';}
-    if(s==='bad'){fc='rgba(239,68,68,.28)';sc='#ef4444';}
-    if(s==='rv'){fc='rgba(245,158,11,.28)';sc='#f59e0b';}
-
-    const lyr=L.geoJSON({type:'FeatureCollection',features:feats},{
-      style:{fillColor:fc,color:sc,weight:wt,fillOpacity:1,opacity:1}
-    }).addTo(MAP);
-
-    /* no permanent label — labels give away the answer */
-
-    lyr.on('click',()=>openQ(div.name,key,'divs'));
-    lyr.on('mouseover',()=>{
-      if(!RS[key]) lyr.setStyle({fillColor:div.color+'80',color:div.color,weight:2.5});
-    });
-    lyr.on('mouseout',()=>{
-      const s2=RS[key];
-      lyr.setStyle({
-        fillColor:s2==='ok'?'rgba(34,197,94,.32)':s2==='bad'?'rgba(239,68,68,.28)':s2==='rv'?'rgba(245,158,11,.28)':div.color+'4a',
-        color:s2==='ok'?'#22c55e':s2==='bad'?'#ef4444':s2==='rv'?'#f59e0b':div.color,
-        weight:2,fillOpacity:1,opacity:1
-      });
-    });
-
-    LYRS.push({lyr,type:'div',div,key});
-  });
-
-  try{MAP.fitBounds(L.geoJSON(data).getBounds(),{padding:[30,30]});}
-  catch(e){MAP.setView([23.5,78],7);}
-  TOT=DIVS.length; updProg();
-}
-
-// ── MP DISTRICTS ─────────────────────────────────
-async function drawDists(divF){
-  clearMap(); closeQ();
-  CURDIV=divF||null;
-  const title=divF?`${divF} Division — Districts`:'MP — All Districts';
-  setTitle(title);
-  setBC('MP Districts',divF);
-  showLD(true,'Loading MP Districts…');
-  const data=await fetchG('mp');
-  showLD(false);
-  if(!data){showErr('Could not load MP districts.');return;}
-
-  let feats=data.features;
-  if(divF){
-    const divObj=DIVS.find(d=>d.name===divF);
-    if(divObj){
-      const allowed=new Set(divObj.dists.map(d=>d.toLowerCase()));
-      feats=feats.filter(f=>fuzzyMatchDist(dName(f),allowed));
-    }
+  // Image
+  const img=document.getElementById('qimg');
+  const ph=document.getElementById('qimgph');
+  img.classList.remove('vis');ph.classList.remove('vis');
+  if(imgUrl){
+    img.src=imgUrl;
+    img.classList.add('vis');
+    ph.innerHTML='';
+  } else {
+    ph.innerHTML=`<span style="font-size:36px">${meta.emoji}</span>`;
+    ph.classList.add('vis');
   }
 
-  const lyr=L.geoJSON({type:'FeatureCollection',features:feats},{
-    style:f=>{
-      const raw=dName(f);
-      const canon=canonDist(raw);
-      const key=canon.toLowerCase();
-      return rStyle(key,'rgba(26,45,74,.7)','#4fc3f7');
-    },
-    onEachFeature:(f,l)=>{
-      const raw=dName(f); if(!raw) return;
-      const canon=canonDist(raw);   // resolved name (e.g. Hoshangabad → Narmadapuram)
-      const key=canon.toLowerCase();
+  // Tag + title
+  document.getElementById('qtag').innerHTML=`<span class="qtag-pill" style="background:${meta.color}22;color:${meta.color};border:1px solid ${meta.color}44">${meta.emoji} ${meta.label}</span>`;
+  document.getElementById('qlbl').textContent=item.name;
+  document.getElementById('qhi').textContent=item.nameHi||'';
 
-      /* no permanent tooltip — avoids giving away the district name */
-      l.on('click',()=>openQ(canon,key,'dists'));
-      l.on('mouseover',()=>{if(!RS[key]) l.setStyle({fillColor:'rgba(79,195,247,.22)',color:'#4fc3f7',weight:2});});
-      l.on('mouseout',()=>lyr.resetStyle(l));
-    }
-  }).addTo(MAP);
-
-  LYRS.push({lyr,type:'dists'});
-  try{MAP.fitBounds(lyr.getBounds(),{padding:[20,20]});}
-  catch(e){MAP.setView([23.5,78],7);}
-  TOT=feats.length; updProg();
-}
-
-// ── QUIZ ─────────────────────────────────────────
-function openQ(name,key,v){
-  CUR={name,key,v};
-  if(M==='learn'){openLearn(name,key,v);return;}
-
-  const qp=document.getElementById('qp');
-  qp.classList.add('vis');
-  document.getElementById('qreg').textContent=
-    v==='india'?'INDIA STATE / UT':v==='divs'?'MP DIVISION':'MP DISTRICT';
-  document.getElementById('qlbl').textContent='What is this region?';
-  clrFb(); rmDrill();
-
-  if(M==='mcq') showMCQ(name,key,v);
-  else showType();
-}
-
-function openLearn(name,key,v){
-  const qp=document.getElementById('qp');
-  qp.classList.add('vis');
-  document.getElementById('qreg').textContent='👁️ LEARN';
-  document.getElementById('qlbl').textContent=name;
+  // Content
   document.getElementById('opts').innerHTML='';
   document.getElementById('opts').style.display='none';
   document.getElementById('tw').style.display='none';
   clrFb();
 
-  if(!RS[key]){
-    RS[key]='rv'; SC.rv++;
-    updSC(); updProg(); refreshSty(key);
+  if(M==='learn'){
+    buildLearnContent(item,type);
+    if(!RS[CUR.key]){RS[CUR.key]='rv';SC.rv++;updSC();updProg();}
+    const nx=document.getElementById('qnx');
+    nx.className='vis';nx.textContent='Got it ✓';
+  } else if(M==='mcq'){
+    buildLearnContent(item,type);
+    buildMCQ(item,type);
+  } else {
+    buildLearnContent(item,type);
+    buildType();
+  }
+}
+
+function buildLearnContent(item, type){
+  const c=document.getElementById('qcontent');
+  c.innerHTML='';
+
+  const makeCard=(title,rows)=>{
+    const d=document.createElement('div');
+    d.className='icard';
+    if(title) d.innerHTML=`<div class="icard-title">${title}</div>`;
+    rows.forEach(([k,v])=>{
+      if(!v) return;
+      d.innerHTML+=`<div class="irow"><span class="ik">${k}</span><span class="iv">${v}</span></div>`;
+    });
+    c.appendChild(d);
+  };
+
+  if(item.mppsc||item.importance){
+    const star=document.createElement('div');
+    star.className='star';
+    star.innerHTML=`⭐ <b>MPPSC KEY:</b> ${item.mppsc||item.importance}`;
+    c.appendChild(star);
   }
 
-  const nx=document.getElementById('qnx');
-  nx.className='vis'; nx.textContent='Got it ✓';
+  if(type==='city'){
+    if(item.facts) makeCard('Key Facts',item.facts);
+    makeCard('',[ ['Category',item.category], ['Known for',item.known] ]);
+    if(item.tags) {
+      const td=document.createElement('div');
+      td.style.cssText='display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;margin-bottom:6px';
+      item.tags.forEach(t=>{td.innerHTML+=`<span style="padding:2px 7px;background:var(--s3);border:1px solid var(--bord2);border-radius:10px;font-size:9px;color:var(--mute)">${t}</span>`;});
+      c.appendChild(td);
+    }
+  } else if(type==='river'){
+    makeCard('River Details',[
+      ['Origin',item.origin],['Length',item.length],['Flows',item.flows],
+      ['Tributaries',item.tributaries],['Dams',item.dams],['States',item.states],['Special',item.special]
+    ]);
+  } else if(type==='waterfall'){
+    makeCard('Waterfall Details',[
+      ['Height',item.height],['River',item.river],['District',item.district],['Description',item.desc]
+    ]);
+  } else if(type==='dam'){
+    makeCard('Dam Details',[
+      ['River',item.river],['District',item.district],['Capacity',item.capacity],['Power',item.powerKW],['Description',item.desc]
+    ]);
+  } else if(type==='mountain'){
+    makeCard('Peak Details',[
+      ['Height',item.height],['Range',item.range],['District',item.district]
+    ]);
+  } else if(type==='plateau'){
+    makeCard('Plateau Details',[
+      ['Height',item.height],['Soil',item.soil],['Crops',item.crops],['Districts',item.dist]
+    ]);
+  } else if(type==='valley'){
+    makeCard('Valley Details',[
+      ['Type',item.type],['Between',item.between],['Features',item.features]
+    ]);
+  } else if(type==='region'){
+    if(item.facts) makeCard('Regional Facts',item.facts);
+  }
+}
 
+function buildMCQ(item,type){
+  let pool=[];
+  if(type==='city') pool=CITIES.map(c=>c.name);
+  else if(type==='river') pool=RIVERS.map(r=>r.name);
+  else if(type==='waterfall') pool=WATERFALLS.map(w=>w.name);
+  else if(type==='dam') pool=DAMS.map(d=>d.name);
+  else if(type==='mountain') pool=MOUNTAINS.map(m=>m.name);
+  else if(type==='plateau') pool=PLATEAUS.map(p=>p.name);
+  else if(type==='valley') pool=VALLEYS.map(v=>v.name);
+  else pool=REGIONS.map(r=>r.name);
+  if(pool.length<2) return;
+  const wrongs=shuf(pool.filter(n=>n!==item.name));
+  const opts=shuf([item.name,...wrongs.slice(0,3)]);
+  const oc=document.getElementById('opts');
+  oc.style.display='flex';oc.innerHTML='';
+  opts.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='opt';b.textContent=o;
+    b.onclick=()=>ansMCQ(o,item.name,CUR.key);
+    oc.appendChild(b);
+  });
+}
+
+function buildType(){
+  document.getElementById('tw').style.display='flex';
+  const inp=document.getElementById('ti');
+  inp.value='';inp.className='';inp.disabled=false;
+  document.getElementById('tsb').disabled=false;
+  document.getElementById('tsb').onclick=chkType;
+  setTimeout(()=>inp.focus(),50);
+}
+
+// ════ QUIZ (India/Divs/Dists) ════
+function openQ(name,key,v){
+  CUR={name,key,v,type:v};
+  const meta=TYPE_META[v]||{};
+  const qp=document.getElementById('qp');
+  qp.classList.add('vis');
+  const img=document.getElementById('qimg'); img.classList.remove('vis');
+  const ph=document.getElementById('qimgph'); ph.classList.remove('vis');
+  ph.innerHTML=`<span style="font-size:30px">${meta.emoji||'📌'}</span>`;
+  ph.classList.add('vis');
+  document.getElementById('qtag').innerHTML=`<span class="qtag-pill" style="background:${(meta.color||'#fff')}22;color:${meta.color||'#fff'};border:1px solid ${(meta.color||'#fff')}44">${meta.emoji||''} ${meta.label||'REGION'}</span>`;
+  document.getElementById('qlbl').textContent=M==='learn'?name:'What is this region?';
+  document.getElementById('qhi').textContent='';
+  document.getElementById('qcontent').innerHTML='';
+  document.getElementById('opts').innerHTML='';
+  document.getElementById('opts').style.display='none';
+  document.getElementById('tw').style.display='none';
+  clrFb();rmDrill();
+  if(M==='learn') openLearnQ(name,key,v);
+  else if(M==='mcq') showMCQ(name,key,v);
+  else buildType();
+}
+
+function openLearnQ(name,key,v){
+  document.getElementById('qlbl').textContent=name;
+  if(!RS[key]){RS[key]='rv';SC.rv++;updSC();updProg();refreshSty(key);}
+  const nx=document.getElementById('qnx'); nx.className='vis'; nx.textContent='Got it ✓';
   if(v==='divs'){
     const btn=document.createElement('button');
-    btn.className='drbtn';
-    btn.textContent=`▶ Drill ${name} Districts`;
+    btn.className='drbtn';btn.textContent=`▶ Drill ${name} Districts`;
     btn.onclick=()=>{closeQ();drillDiv(name);};
-    qp.appendChild(btn);
+    document.getElementById('qbody').appendChild(btn);
   }
 }
 
 function showMCQ(correct,key,v){
-  document.getElementById('opts').style.display='flex';
-  document.getElementById('tw').style.display='none';
   const pool=v==='india'?STATES.map(s=>s.name):v==='divs'?DIVS.map(d=>d.name):ALLD;
   const wrongs=shuf(pool.filter(n=>n.toLowerCase()!==correct.toLowerCase()));
   const opts=shuf([correct,...wrongs.slice(0,3)]);
-
-  const c=document.getElementById('opts');
-  c.innerHTML='';
+  const oc=document.getElementById('opts');
+  oc.style.display='flex';oc.innerHTML='';
   opts.forEach(o=>{
     const b=document.createElement('button');
-    b.className='opt'; b.textContent=o;
+    b.className='opt';b.textContent=o;
     b.onclick=()=>ansMCQ(o,correct,key);
-    c.appendChild(b);
+    oc.appendChild(b);
   });
 }
 
@@ -591,109 +1276,127 @@ function ansMCQ(chosen,correct,key){
     if(b.textContent===correct) b.classList.add('ok');
     else if(b.textContent===chosen&&chosen!==correct) b.classList.add('bad');
   });
-  const right=chosen.toLowerCase()===correct.toLowerCase();
-  setFb(right,correct,key);
+  setFb(chosen.toLowerCase()===correct.toLowerCase(),correct,key);
 }
-
-function showType(){
-  document.getElementById('opts').style.display='none';
-  document.getElementById('opts').innerHTML='';
-  document.getElementById('tw').style.display='flex';
-  const inp=document.getElementById('ti');
-  inp.value=''; inp.className=''; inp.disabled=false;
-  const tsb=document.getElementById('tsb');
-  tsb.disabled=false;
-  tsb.onclick=chkType;
-  setTimeout(()=>inp.focus(),50);
-}
-
 function chkType(){
   const inp=document.getElementById('ti');
   const ans=inp.value.trim();
   if(!ans||!CUR) return;
   const right=ans.toLowerCase()===CUR.name.toLowerCase();
-  inp.disabled=true; inp.className=right?'ok':'bad';
+  inp.disabled=true;inp.className=right?'ok':'bad';
   document.getElementById('tsb').disabled=true;
   setFb(right,CUR.name,CUR.key);
 }
-
 function setFb(right,correct,key){
   const fb=document.getElementById('qfb');
   fb.className=right?'ok':'bad';
   fb.textContent=right?'✓ Correct! — '+correct:'✗ Wrong! Answer: '+correct;
-  const nx=document.getElementById('qnx');
-  nx.className='vis'; nx.textContent='Next →';
-
+  const nx=document.getElementById('qnx'); nx.className='vis'; nx.textContent='Next →';
   if(!RS[key]){
     RS[key]=right?'ok':'bad';
-    if(right) SC.ok++; else SC.bad++;
-    updSC(); updProg(); refreshSty(key);
-    chkDone();
+    if(right) SC.ok++;else SC.bad++;
+    updSC();updProg();refreshSty(key);chkDone();
   }
 }
-
+function nxtQ(){closeQ();}
 function closeQ(){
   document.getElementById('qp').classList.remove('vis');
   rmDrill();
   const inp=document.getElementById('ti');
-  inp.disabled=false; inp.className='';
-  document.getElementById('tsb').disabled=false;
-  document.getElementById('tsb').onclick=chkType;
+  if(inp){inp.disabled=false;inp.className='';}
+  const tsb=document.getElementById('tsb');
+  if(tsb){tsb.disabled=false;tsb.onclick=chkType;}
 }
 function clrFb(){
-  const fb=document.getElementById('qfb'); fb.className=''; fb.textContent='';
-  const nx=document.getElementById('qnx'); nx.className=''; nx.textContent='';
+  const fb=document.getElementById('qfb');fb.className='';fb.textContent='';
+  document.getElementById('qnx').className='';document.getElementById('qnx').textContent='';
 }
 function rmDrill(){document.querySelectorAll('.drbtn').forEach(b=>b.remove());}
-function drillDiv(n){
-  V='dists';
-  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.v==='dists'));
-  drawDists(n);
-}
+function drillDiv(n){V='dists';document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.v==='dists'));drawDists(n);}
 
-// ── STYLE REFRESH ────────────────────────────────
+// ════ STYLE REFRESH ════
 function refreshSty(key){
   LYRS.forEach(({lyr,type,div,key:dk})=>{
-    if(type==='div'){
-      if(dk===key){
-        const s=RS[key];
-        lyr.setStyle({
-          fillColor:s==='ok'?'rgba(34,197,94,.32)':s==='bad'?'rgba(239,68,68,.28)':s==='rv'?'rgba(245,158,11,.28)':div.color+'4a',
-          color:s==='ok'?'#22c55e':s==='bad'?'#ef4444':s==='rv'?'#f59e0b':div.color,
-          weight:2,fillOpacity:1,opacity:1
-        });
-      }
-      return;
-    }
+    if(type==='div'){if(dk===key){const s=RS[key];lyr.setStyle({fillColor:s==='ok'?'rgba(34,197,94,.32)':s==='bad'?'rgba(244,63,94,.28)':s==='rv'?'rgba(245,158,11,.28)':div.color+'4a',color:s==='ok'?'#22c55e':s==='bad'?'#f43f5e':s==='rv'?'#f59e0b':div.color,weight:2,fillOpacity:1,opacity:1});}return;}
     if(!lyr.eachLayer) return;
     lyr.eachLayer(l=>{
-      const f=l.feature; if(!f) return;
-      const n=type==='india'?(()=>{const canon=canonState(sName(f));return canon?canon.name.toLowerCase():sName(f).toLowerCase();})():(()=>{const c=canonDist(dName(f));return c.toLowerCase();})();
-      if(n===key){
-        const st=rStyle(key,type==='india'?'rgba(30,58,95,.65)':'rgba(26,45,74,.7)',
-                             type==='india'?'#4a90d9':'#4fc3f7');
-        l.setStyle(st);
-      }
+      const f=l.feature;if(!f) return;
+      const n=type==='india'?(()=>{const c=canonState(sName(f));return c?c.name.toLowerCase():sName(f).toLowerCase();})():canonDist(dName(f)).toLowerCase();
+      if(n===key){l.setStyle(rStyle(key,type==='india'?'rgba(30,58,95,.65)':'rgba(26,45,74,.7)',type==='india'?'#4a90d9':'#4fc3f7'));}
     });
   });
 }
 
-// ── SCORE / PROGRESS ─────────────────────────────
-function updSC(){
-  document.getElementById('s1').textContent=SC.ok;
-  document.getElementById('s2').textContent=SC.bad;
-  document.getElementById('s3').textContent=SC.rv;
+// ════ INDIA / DIVS / DISTS ════
+async function drawIndia(){
+  clearMap();closeQ();setTitle('India — States & UTs');
+  document.getElementById('ltbar').style.display='none';
+  showLD(true,'Loading…');const data=await fetchG('india');showLD(false);
+  if(!data){showErr('Could not load India map.');return;}
+  const lyr=L.geoJSON(data,{
+    style:f=>{const raw=sName(f);const c=canonState(raw);return rStyle((c?c.name:raw).toLowerCase());},
+    onEachFeature:(f,l)=>{
+      const raw=sName(f);if(!raw) return;const c=canonState(raw);const disp=c?c.name:raw;const key=disp.toLowerCase();
+      l.on('click',()=>openQ(disp,key,'india'));
+      l.on('mouseover',()=>{if(!RS[key]) l.setStyle({fillColor:'rgba(108,99,255,.28)',color:'#6c63ff',weight:2});});
+      l.on('mouseout',()=>lyr.resetStyle(l));
+    }
+  }).addTo(MAP);
+  LYRS.push({lyr,type:'india'});MAP.fitBounds(lyr.getBounds(),{padding:[20,20]});
+  TOT=STATES.length;updProg();
 }
-function updProg(){
-  const done=Object.keys(RS).length;
-  document.getElementById('pb').style.width=TOT?(done/TOT*100)+'%':'0%';
+async function drawDivs(){
+  clearMap();closeQ();setTitle('MP — 10 Divisions');
+  document.getElementById('ltbar').style.display='none';
+  showLD(true,'Loading…');const data=await fetchG('mp');showLD(false);
+  if(!data){showErr('Could not load.');return;}
+  DIVS.forEach(div=>{
+    const key=div.name.toLowerCase();
+    const allowed=new Set(div.dists.map(d=>d.toLowerCase()));
+    const feats=data.features.filter(f=>fuzzyD(dName(f),allowed));
+    if(!feats.length) return;
+    const s=RS[key];
+    let fc=div.color+'4a',sc=div.color;
+    if(s==='ok'){fc='rgba(34,197,94,.32)';sc='#22c55e';}
+    if(s==='bad'){fc='rgba(244,63,94,.28)';sc='#f43f5e';}
+    if(s==='rv'){fc='rgba(245,158,11,.28)';sc='#f59e0b';}
+    const lyr=L.geoJSON({type:'FeatureCollection',features:feats},{style:{fillColor:fc,color:sc,weight:2,fillOpacity:1,opacity:1}}).addTo(MAP);
+    lyr.on('click',()=>openQ(div.name,key,'divs'));
+    lyr.on('mouseover',()=>{if(!RS[key]) lyr.setStyle({fillColor:div.color+'80',color:div.color,weight:2.5});});
+    lyr.on('mouseout',()=>{const s2=RS[key];lyr.setStyle({fillColor:s2==='ok'?'rgba(34,197,94,.32)':s2==='bad'?'rgba(244,63,94,.28)':s2==='rv'?'rgba(245,158,11,.28)':div.color+'4a',color:s2==='ok'?'#22c55e':s2==='bad'?'#f43f5e':s2==='rv'?'#f59e0b':div.color,weight:2,fillOpacity:1,opacity:1});});
+    LYRS.push({lyr,type:'div',div,key});
+  });
+  try{MAP.fitBounds(L.geoJSON(data).getBounds(),{padding:[30,30]});}catch(e){MAP.setView([23.5,78],7);}
+  TOT=DIVS.length;updProg();
 }
-function chkDone(){
-  if(Object.keys(RS).length>=TOT&&TOT>0) setTimeout(showDone,700);
+async function drawDists(divF){
+  clearMap();closeQ();CURDIV=divF||null;
+  const title=divF?`${divF} Division — Districts`:'MP — All Districts';
+  setTitle(title);document.getElementById('ltbar').style.display='none';
+  showLD(true,'Loading…');const data=await fetchG('mp');showLD(false);
+  if(!data){showErr('Could not load.');return;}
+  let feats=data.features;
+  if(divF){const divObj=DIVS.find(d=>d.name===divF);if(divObj){const allowed=new Set(divObj.dists.map(d=>d.toLowerCase()));feats=feats.filter(f=>fuzzyD(dName(f),allowed));}}
+  const lyr=L.geoJSON({type:'FeatureCollection',features:feats},{
+    style:f=>{const raw=dName(f);const key=canonDist(raw).toLowerCase();return rStyle(key,'rgba(26,45,74,.7)','#4fc3f7');},
+    onEachFeature:(f,l)=>{
+      const raw=dName(f);if(!raw) return;const canon=canonDist(raw);const key=canon.toLowerCase();
+      l.on('click',()=>openQ(canon,key,'dists'));
+      l.on('mouseover',()=>{if(!RS[key]) l.setStyle({fillColor:'rgba(79,195,247,.22)',color:'#4fc3f7',weight:2});});
+      l.on('mouseout',()=>lyr.resetStyle(l));
+    }
+  }).addTo(MAP);
+  LYRS.push({lyr,type:'dists'});
+  try{MAP.fitBounds(lyr.getBounds(),{padding:[20,20]});}catch(e){MAP.setView([23.5,78],7);}
+  TOT=feats.length;updProg();
 }
+
+// ════ SCORE / PROGRESS ════
+function updSC(){document.getElementById('s1').textContent=SC.ok;document.getElementById('s2').textContent=SC.bad;document.getElementById('s3').textContent=SC.rv;}
+function updProg(){const done=Object.keys(RS).length;document.getElementById('pb').style.width=TOT?(done/TOT*100)+'%':'0%';}
+function chkDone(){if(TOT>0&&Object.keys(RS).length>=TOT) setTimeout(showDone,700);}
 function showDone(){
-  const t=SC.ok+SC.bad+SC.rv;
-  const pct=t?Math.round(SC.ok/t*100):0;
+  const t=SC.ok+SC.bad+SC.rv;const pct=t?Math.round(SC.ok/t*100):0;
   document.getElementById('dpct').textContent=pct+'%';
   document.getElementById('dok').textContent=SC.ok;
   document.getElementById('dbd').textContent=SC.bad;
@@ -702,11 +1405,13 @@ function showDone(){
 }
 function closeDone(){document.getElementById('done').classList.remove('vis');}
 
-// ── CONTROLS ─────────────────────────────────────
+// ════ CONTROLS ════
 function switchV(v){
   V=v;
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.v===v));
-  if(v==='india') drawIndia();
+  if(v==='geo') drawGeo();
+  else if(v==='cities') drawCities();
+  else if(v==='india') drawIndia();
   else if(v==='divs') drawDivs();
   else drawDists(null);
 }
@@ -716,48 +1421,20 @@ function setM(m){
   closeQ();
 }
 function resetAll(){
-  SC={ok:0,bad:0,rv:0}; RS={};
-  updSC(); updProg(); closeDone(); closeQ();
-  if(V==='india') drawIndia();
+  SC={ok:0,bad:0,rv:0};RS={};updSC();updProg();closeDone();closeQ();
+  if(V==='geo') drawGeo();
+  else if(V==='cities') drawCities();
+  else if(V==='india') drawIndia();
   else if(V==='divs') drawDivs();
   else drawDists(CURDIV);
 }
-function toggleFS(){
-  if(!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
-  else document.exitFullscreen();
-}
-
-// ── UI HELPERS ───────────────────────────────────
+function toggleFS(){if(!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});else document.exitFullscreen();}
 function setTitle(t){document.getElementById('mt').textContent=t;}
-function setBC(b2,b3){
-  document.getElementById('bc2').textContent=b2;
-  if(b3){
-    document.getElementById('bs3').style.display='';
-    document.getElementById('bc3').style.display='';
-    document.getElementById('bc3').textContent=b3;
-  }else{
-    document.getElementById('bs3').style.display='none';
-    document.getElementById('bc3').style.display='none';
-  }
-}
-function showLD(show,msg){
-  const el=document.getElementById('ld');
-  el.style.display=show?'flex':'none';
-  if(msg) document.getElementById('lmsg').textContent=msg;
-}
-function showErr(msg){
-  document.getElementById('ld').innerHTML=
-    `<p style="color:var(--err);text-align:center;padding:20px">${msg}</p>
-     <button onclick="location.reload()" style="margin-top:10px;padding:7px 16px;background:var(--s2);border:1px solid var(--bord);color:var(--txt);border-radius:8px;cursor:pointer;font-size:13px">↺ Retry</button>`;
-  document.getElementById('ld').style.display='flex';
-}
-function shuf(a){
-  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
-  return a;
-}
+function showLD(show,msg){const el=document.getElementById('ld');el.style.display=show?'flex':'none';if(msg) document.getElementById('lmsg').textContent=msg;}
+function showErr(msg){document.getElementById('ld').innerHTML=`<p style="color:var(--err);text-align:center;padding:20px">${msg}</p><button onclick="location.reload()" style="margin-top:10px;padding:7px 16px;background:var(--s2);border:1px solid var(--bord);color:var(--txt);border-radius:7px;cursor:pointer;font-family:inherit">↺ Retry</button>`;document.getElementById('ld').style.display='flex';}
 
-// ── BOOT ─────────────────────────────────────────
-drawIndia();
+// ════ BOOT ════
+drawGeo();
 </script>
 </body>
 </html>
