@@ -11,8 +11,13 @@
 <!-- SIDEBAR -->
 <nav class="sidebar" id="sidebar">
 <div class="logo">
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div>
 <div class="logo-title">MP GK Portal</div>
 <div class="logo-sub">MPPSC 2026 — Complete Prep</div>
+</div>
+<button class="sidebar-close" onclick="toggleSidebar()" title="Close menu">✕</button>
+</div>
 </div>
 <div class="nav-section">Study</div>
 <div class="nav-item active" onclick="showPage('dashboard')"><span class="ni">🏠</span>Dashboard</div>
@@ -354,20 +359,6 @@
 <script src="data_pyq.js"></script>
 <script src="data_notes.js"></script>
 <script src="app.js"></script>
-<!-- SIDEBAR CLOSE — fires on any nav interaction on mobile -->
-<script>
-function closeSidebarMobile() {
-  if (window.innerWidth <= 900) {
-    document.getElementById('sidebar').classList.remove('open');
-  }
-}
-(function(){
-  var orig = window.showPage;
-  window.showPage = function(id){
-    if(orig) orig(id);
-    closeSidebarMobile();
-  };
-})();
-</script>
+<!-- closeSidebarMobile() and showPage() are defined in app.js -->
 </body>
 </html>

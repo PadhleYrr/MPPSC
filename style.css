@@ -19,6 +19,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .streak-days{font-size:18px;font-weight:800;color:#FFD54F;font-family:'Syne',sans-serif}
 .streak-lbl{font-size:10px;color:rgba(255,255,255,.45)}
 .streak-info{flex:1}
+.sidebar-close{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:16px;width:30px;height:30px;border-radius:8px;cursor:pointer;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.sidebar-close:hover{background:rgba(255,255,255,.3)}
 
 /* MAIN */
 .main{margin-left:240px;min-height:100vh;padding:22px 24px}
@@ -234,6 +236,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   .sidebar{transform:translateX(-240px)}.sidebar.open{transform:translateX(0)}
   .main{margin-left:0;padding:14px}
   .hamburger{display:block}
+  .sidebar-close{display:flex}
   .grid-4,.grid-3{grid-template-columns:repeat(2,1fr)}
   .ch-grid{grid-template-columns:repeat(2,1fr)}
   .notes-layout{grid-template-columns:1fr}

@@ -100,7 +100,13 @@ function showToast(msg, color) {
 }
 
 // ── NAVIGATION ─────────────────────────────────
-function showPage(id) {
+function closeSidebarMobile() {
+  if (window.innerWidth <= 900) {
+    var sb = document.getElementById('sidebar');
+    if (sb) sb.classList.remove('open');
+  }
+}
+function showPage(id, skipTestReset) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const pg = el('page-' + id);
@@ -112,7 +118,6 @@ function showPage(id) {
   const meta = PAGE_META[id] || { title: id, sub: '' };
   el('pg-title') && (el('pg-title').textContent = meta.title);
   el('pg-sub') && (el('pg-sub').textContent = meta.sub);
-  // Lazy render each page
   if (id === 'dashboard') renderDashboard();
   if (id === 'notes') renderNotes();
   if (id === 'flashcards') renderFlashFilter();
@@ -120,8 +125,22 @@ function showPage(id) {
   if (id === 'weakareas') renderWeakAreas();
   if (id === 'progress') renderProgress();
   if (id === 'review') renderReviewPage();
-  if (id === 'test') resetTestHome();
+  if (id === 'test' && !skipTestReset) resetTestHome();
   if (id === 'daily') renderDailyPage();
+  closeSidebarMobile();
+}
+// Navigate to test page WITHOUT resetting — used when launching a test directly
+function launchTestPage() {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const pg = el('page-test');
+  if (pg) pg.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if ((n.getAttribute('onclick') || '').includes("'test'")) n.classList.add('active');
+  });
+  el('pg-title') && (el('pg-title').textContent = PAGE_META.test.title);
+  el('pg-sub') && (el('pg-sub').textContent = PAGE_META.test.sub);
+  closeSidebarMobile();
 }
 function toggleSidebar() { el('sidebar').classList.toggle('open'); }
 
@@ -335,7 +354,7 @@ function renderPYQPracticeSection() {
     btn.className = 'mode-card';
     const icon = p.year === '2021' ? (p.paper === 'Paper 1' ? '📜' : '📋') : '📄';
     btn.innerHTML = `<div class="mode-icon">${icon}</div><div class="mode-name">${p.year} ${p.paper}</div><div class="mode-desc">${p.mcqs.length} PYQ Qs</div>`;
-    btn.onclick = () => { testMode = 0; startTest(true, p.mcqs); showPage('test'); };
+    btn.onclick = () => { testMode = 0; startTest(true, p.mcqs); launchTestPage(); };
     wrap.appendChild(btn);
   });
 }
@@ -543,7 +562,7 @@ function startDaily() {
   appState.revArr = new Array(10).fill(false);
   appState.conf = new Array(10).fill(null);
   appState.cur = 0; appState.startTime = Date.now();
-  showPage('test');
+  launchTestPage();
   el('test-home-scr').style.display = 'none';
   el('test-q-scr').style.display = 'block';
   el('test-result-scr').style.display = 'none';
@@ -690,7 +709,7 @@ function practicePYQ(paperId) {
   if (!p || !p.mcqs || !p.mcqs.length) { showToast('No MCQs available for this paper yet', '#DC2626'); return; }
   testMode = 0;
   startTest(true, p.mcqs);
-  showPage('test');
+  launchTestPage();
 }
 
 // ── WEAK AREAS ────────────────────────────────
@@ -732,7 +751,7 @@ function startSmartRevision() {
   if (!src.length) { showToast('No wrong answers found yet. Try some tests first!', '#DC2626'); return; }
   testMode = 0;
   startTest(true, src.sort(() => Math.random() - .5));
-  showPage('test');
+  launchTestPage();
 }
 
 // ── PROGRESS ──────────────────────────────────
