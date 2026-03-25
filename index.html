@@ -56,7 +56,7 @@
 <!-- ═══ DASHBOARD ═══ -->
 <div class="page active" id="page-dashboard">
 <div class="grid-4">
-<div class="stat-card"><div class="stat-accent" style="background:var(--navy)"></div><div class="stat-lbl">Questions Attempted</div><div class="stat-val" id="d-attempted">0</div><div class="stat-delta" id="d-attempted-of" style="color:var(--muted)">of 821 total</div></div>
+<div class="stat-card"><div class="stat-accent" style="background:var(--navy)"></div><div class="stat-lbl">Questions Attempted</div><div class="stat-val" id="d-attempted">0</div><div class="stat-delta" id="d-attempted-of" style="color:var(--muted)">of 1021 total</div></div>
 <div class="stat-card"><div class="stat-accent" style="background:var(--success)"></div><div class="stat-lbl">Overall Accuracy</div><div class="stat-val" id="d-accuracy">0%</div><div class="stat-delta" style="color:var(--muted)">correct answer rate</div></div>
 <div class="stat-card"><div class="stat-accent" style="background:var(--saff)"></div><div class="stat-lbl">Study Streak</div><div class="stat-val" id="d-streak">0 🔥</div><div class="stat-delta" style="color:var(--muted)">days in a row</div></div>
 <div class="stat-card"><div class="stat-accent" style="background:var(--danger)"></div><div class="stat-lbl">Flagged Questions</div><div class="stat-val" id="d-flags">0</div><div class="stat-delta" style="color:var(--muted)">reported for review</div></div>
@@ -130,6 +130,10 @@
 <div class="card" style="margin-bottom:14px">
 <div class="sec-hd"><div class="sec-title">Filter by Chapter</div><button class="btn-ghost" onclick="selectAllChaps()">Select All</button></div>
 <div class="chip-row" id="ch-filter-chips"></div>
+</div>
+<div class="card" style="margin-bottom:14px" id="pyq-practice-card">
+<div class="sec-hd"><div class="sec-title">📄 Practice PYQ Papers</div><div style="font-size:11px;color:var(--muted)">Full paper MCQ practice</div></div>
+<div class="mode-grid" id="pyq-practice-section"></div>
 </div>
 <button class="btn-primary" onclick="startTest(false)">Start Test →</button>
 </div>
@@ -259,15 +263,15 @@
 <!-- ═══ PYQ PAPERS ═══ -->
 <div class="page" id="page-pyq">
 <div class="pyq-year-tabs">
-<div class="pyq-tab active" data-year="all" onclick="renderPYQ('all')">All Years</div>
-<div class="pyq-tab" data-year="2024" onclick="renderPYQ('2024')">2024</div>
-<div class="pyq-tab" data-year="2023" onclick="renderPYQ('2023')">2023</div>
-<div class="pyq-tab" data-year="2022" onclick="renderPYQ('2022')">2022</div>
-<div class="pyq-tab" data-year="2021" onclick="renderPYQ('2021')">2021</div>
+<div class="pyq-tab active" data-year="all" onclick="renderPYQ('all');closeSidebarMobile()">All Years</div>
+<div class="pyq-tab" data-year="2024" onclick="renderPYQ('2024');closeSidebarMobile()">2024</div>
+<div class="pyq-tab" data-year="2023" onclick="renderPYQ('2023');closeSidebarMobile()">2023</div>
+<div class="pyq-tab" data-year="2022" onclick="renderPYQ('2022');closeSidebarMobile()">2022</div>
+<div class="pyq-tab" data-year="2021" onclick="renderPYQ('2021');closeSidebarMobile()">2021</div>
 </div>
 <div class="card" style="margin-bottom:14px;background:#EEF0FF;border-color:#C5CAE9">
 <div style="font-size:13px;color:var(--navy);font-weight:600">📋 About PYQ Section</div>
-<div style="font-size:12px;color:var(--muted);margin-top:4px">Each paper has 100 practice MCQs based on MPPSC exam pattern. Click "Download" to get the official PDF from MPPSC website, or "Practice MCQs" to attempt questions here.</div>
+<div style="font-size:12px;color:var(--muted);margin-top:4px">2021 papers have full MCQ practice (100 Qs each). Click <b>Practice MCQs</b> to attempt questions here, or <b>Download</b> to get the official PDF. 2021 Paper 1 (General Studies) and Paper 2 (Aptitude & GS-II) are fully available.</div>
 </div>
 <div id="pyq-list"></div>
 </div>
@@ -350,15 +354,18 @@
 <script src="data_pyq.js"></script>
 <script src="data_notes.js"></script>
 <script src="app.js"></script>
-<!-- HAMBURGER FIX — closes sidebar when nav item is clicked on mobile -->
+<!-- SIDEBAR CLOSE — fires on any nav interaction on mobile -->
 <script>
+function closeSidebarMobile() {
+  if (window.innerWidth <= 900) {
+    document.getElementById('sidebar').classList.remove('open');
+  }
+}
 (function(){
   var orig = window.showPage;
   window.showPage = function(id){
     if(orig) orig(id);
-    if(window.innerWidth <= 900){
-      document.getElementById('sidebar').classList.remove('open');
-    }
+    closeSidebarMobile();
   };
 })();
 </script>

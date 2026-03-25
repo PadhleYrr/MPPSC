@@ -10,10 +10,10 @@ const PAGE_META = {
   dashboard:{title:'Dashboard',sub:'Your complete study overview'},
   notes:{title:'Study Notes',sub:'15 chapters — complete reference material'},
   flashcards:{title:'Flashcards',sub:'Rapid-fire revision mode'},
-  test:{title:'MCQ Test',sub:'421 questions + 400 PYQ across all chapters'},
+  test:{title:'MCQ Test',sub:'421 questions + 600 PYQ across all chapters'},
   daily:{title:'Daily 10',sub:'10 questions every day — build the habit'},
   timed:{title:'Timed Mock Test',sub:'Exam simulation with live countdown'},
-  pyq:{title:'PYQ Papers',sub:'MPPSC 2021–2024 — 400 questions + PDF download'},
+  pyq:{title:'PYQ Papers',sub:'MPPSC 2021–2024 — 600 questions + PDF download'},
   weakareas:{title:'Weak Areas',sub:'Chapter-wise performance analysis'},
   progress:{title:'My Progress',sub:'Study heatmap & chapter-wise progress rings'},
   review:{title:'Review Flags',sub:'Community-reported questions — admin panel'}
@@ -161,6 +161,7 @@ function renderDashboard() {
 }
 
 function totalPYQqs() {
+  if (typeof PYQ_PAPERS === 'undefined') return 0;
   return PYQ_PAPERS.reduce((s, p) => s + (p.mcqs ? p.mcqs.length : 0), 0);
 }
 
@@ -319,6 +320,24 @@ function resetTestHome() {
   el('test-result-scr') && (el('test-result-scr').style.display = 'none');
   el('review-answers-section') && (el('review-answers-section').style.display = 'none');
   initChipFilters();
+  renderPYQPracticeSection();
+}
+function renderPYQPracticeSection() {
+  const wrap = el('pyq-practice-section');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  // Show all papers that have MCQs, grouped by year
+  const withMCQ = PYQ_PAPERS.filter(p => p.mcqs && p.mcqs.length > 0);
+  if (!withMCQ.length) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  withMCQ.forEach(p => {
+    const btn = document.createElement('div');
+    btn.className = 'mode-card';
+    const icon = p.year === '2021' ? (p.paper === 'Paper 1' ? '📜' : '📋') : '📄';
+    btn.innerHTML = `<div class="mode-icon">${icon}</div><div class="mode-name">${p.year} ${p.paper}</div><div class="mode-desc">${p.mcqs.length} PYQ Qs</div>`;
+    btn.onclick = () => { testMode = 0; startTest(true, p.mcqs); showPage('test'); };
+    wrap.appendChild(btn);
+  });
 }
 function initChipFilters() {
   const wrap = el('ch-filter-chips');
@@ -641,33 +660,34 @@ function renderPYQ(year) {
     const card = document.createElement('div');
     card.className = 'pyq-paper-card';
     const qCount = p.mcqs ? p.mcqs.length : 0;
+    const pid = p.paperId;
+    const paperIcon = p.paper === 'Paper 2' ? '📋' : '📄';
+    const hasMCQ = qCount > 0;
     card.innerHTML = `
-      <div class="pyq-icon">📄</div>
+      <div class="pyq-icon">${paperIcon}</div>
       <div class="pyq-info">
         <div class="pyq-name">${p.name}</div>
         <div class="pyq-meta">${p.date} &nbsp;·&nbsp; <b>${qCount} practice questions</b> available &nbsp;·&nbsp; ${(p.tags||[]).map(t=>`<span style="background:#EEF0FF;color:var(--navy);padding:1px 6px;border-radius:4px;font-size:10px;font-weight:600">${t}</span>`).join(' ')}</div>
       </div>
       <div class="pyq-actions">
-        <button class="btn-dl" onclick="downloadPYQ('${p.year}')">⬇ Download</button>
-        <button class="btn-practice" onclick="practicePYQ('${p.year}')">Practice ${qCount} Qs</button>
+        <button class="btn-dl" onclick="downloadPYQ('${pid}')">⬇ Download</button>
+        ${hasMCQ
+          ? `<button class="btn-practice" onclick="practicePYQ('${pid}')">Practice ${qCount} Qs</button>`
+          : `<button class="btn-practice" style="opacity:.45;cursor:not-allowed" disabled>No MCQs yet</button>`
+        }
       </div>`;
     list.appendChild(card);
   });
 }
-function downloadPYQ(year) {
-  const p = PYQ_PAPERS.find(x => x.year === year);
-  const urls = {
-    '2024':'https://mppsc.mp.gov.in/uploads/examination/2024/answer_key/',
-    '2023':'https://mppsc.mp.gov.in/uploads/examination/2023/',
-    '2022':'https://mppsc.mp.gov.in/uploads/examination/2022/',
-    '2021':'https://mppsc.mp.gov.in/uploads/examination/2021/'
-  };
-  showToast('📥 Redirecting to MPPSC official site for PDF...', '#1A237E');
-  setTimeout(() => window.open(urls[year] || 'https://mppsc.mp.gov.in', '_blank'), 800);
+function downloadPYQ(paperId) {
+  const p = PYQ_PAPERS.find(x => x.paperId === paperId);
+  const url = p && p.pdfUrl ? p.pdfUrl : 'https://mppsc.mp.gov.in';
+  showToast('📥 Opening PDF...', '#1A237E');
+  setTimeout(() => window.open(url, '_blank'), 600);
 }
-function practicePYQ(year) {
-  const p = PYQ_PAPERS.find(x => x.year === year);
-  if (!p || !p.mcqs || !p.mcqs.length) { showToast('No MCQs available for ' + year, '#DC2626'); return; }
+function practicePYQ(paperId) {
+  const p = PYQ_PAPERS.find(x => x.paperId === paperId);
+  if (!p || !p.mcqs || !p.mcqs.length) { showToast('No MCQs available for this paper yet', '#DC2626'); return; }
   testMode = 0;
   startTest(true, p.mcqs);
   showPage('test');
@@ -816,8 +836,12 @@ window.addEventListener('DOMContentLoaded', () => {
   loadState();
   renderDashboard();
   initChipFilters();
-  // Set correct total count
-  const totalQs = Q.length + totalPYQqs();
-  const tb = document.querySelector('.nav-item .nav-badge');
-  if (tb) tb.textContent = Q.length;
+  renderPYQPracticeSection();
+  // Update nav badge with Q count
+  const testBadges = document.querySelectorAll('.nav-item .nav-badge');
+  testBadges.forEach(b => {
+    if (b.closest('.nav-item') && (b.closest('.nav-item').textContent || '').includes('MCQ')) {
+      b.textContent = Q.length;
+    }
+  });
 });
