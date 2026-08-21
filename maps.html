@@ -354,7 +354,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
   <!-- INFO / QUIZ PANEL -->
   <div id="qp">
     <button id="qcl" onclick="closeQ()">✕</button>
-    <img id="qimg" src="" alt="" onerror="this.style.display='none';document.getElementById('qimgph').classList.add('vis')"/>
+    <img id="qimg" src="" alt=""/>
     <div id="qimgph"></div>
     <div id="qbody">
       <div id="qtag"></div>
@@ -1367,32 +1367,73 @@ function sName(f){const p=f.properties||{};return p.ST_NM||p.state||p.NAME_1||p.
 // This self-heals — if a file moves, the search+pageimages combo just finds whatever
 // is current, instead of a dead link. Results are cached in-memory per session.
 const IMG_CACHE=new Map();
+// Static head-start manifest. Deliberately left empty by default — see note below.
+// Any entry here is a query string mapped straight to a known-good image URL,
+// completely skipping the live API for that item. Add entries here if/when you
+// hand-verify specific ones; every query not listed just uses the live+cached
+// path beneath it, exactly as before.
+const IMG_MANIFEST={};
+// Persistent local cache: once a real photo loads successfully, remember it in
+// localStorage keyed by query, so every future visit (even on a terrible connection)
+// skips the network call entirely and shows the image instantly. Wrapped in try/catch
+// because localStorage can throw in private-browsing modes — degrades to session-only
+// caching (the in-memory IMG_CACHE map above) if so, never breaks the app.
+const LS_KEY='mpatlas_img_cache_v1';
+function lsGet(query){
+  try{
+    const store=JSON.parse(localStorage.getItem(LS_KEY)||'{}');
+    return store[query]||null;
+  }catch(e){return null;}
+}
+function lsSet(query,url){
+  try{
+    const store=JSON.parse(localStorage.getItem(LS_KEY)||'{}');
+    store[query]=url;
+    localStorage.setItem(LS_KEY,JSON.stringify(store));
+  }catch(e){/* private mode or storage full — just skip persisting, session cache still works */}
+}
 async function fetchWikiImg(query){
   if(!query) return null;
   if(IMG_CACHE.has(query)) return IMG_CACHE.get(query);
+  if(IMG_MANIFEST[query]) return IMG_MANIFEST[query];
+  const cached=lsGet(query);
+  if(cached) return cached;
   const p=(async()=>{
+    // Single round-trip: generator=search finds the best-matching article AND
+    // pulls its lead image in ONE request, instead of a search call followed by
+    // a separate pageimages call. On a slow/high-latency connection this halves
+    // the number of request/response cycles that have to complete before the
+    // image shows — the single biggest lever we have, bigger than any timeout.
+    const url=`https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(query)}&gsrlimit=1&prop=pageimages&pithumbsize=520&format=json&origin=*`;
+    // 20s (not 7s): 0.2–1 KB/s connections (seen on this device) can take several
+    // seconds just to open the connection and download a small JSON payload, so a
+    // short timeout was aborting nearly every real-world request before it could
+    // ever finish, even though the request itself was working fine.
+    const ctrl=new AbortController();
+    const timer=setTimeout(()=>ctrl.abort(),20000);
     try{
-      const ctrl=new AbortController();
-      const timer=setTimeout(()=>ctrl.abort(),7000);
-      const sUrl=`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&srlimit=1&format=json&origin=*`;
-      const sRes=await fetch(sUrl,{signal:ctrl.signal});
-      if(!sRes.ok){clearTimeout(timer);return null;}
-      const sData=await sRes.json();
-      const title=sData?.query?.search?.[0]?.title;
-      if(!title){clearTimeout(timer);return null;}
-      const iUrl=`https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(title)}&prop=pageimages&pithumbsize=520&format=json&origin=*`;
-      const iRes=await fetch(iUrl,{signal:ctrl.signal});
+      const res=await fetch(url,{signal:ctrl.signal});
       clearTimeout(timer);
-      if(!iRes.ok) return null;
-      const iData=await iRes.json();
-      const pages=iData?.query?.pages||{};
+      if(!res.ok) return null;
+      const data=await res.json();
+      const pages=data?.query?.pages||{};
       const page=Object.values(pages)[0];
-      return page?.thumbnail?.source||null;
-    }catch(e){return null;}
+      const imgUrl=page?.thumbnail?.source||null;
+      if(imgUrl) lsSet(query,imgUrl); // remember it — next visit needs zero network calls for this one
+      return imgUrl;
+    }catch(e){
+      clearTimeout(timer);
+      // Distinguish "genuinely no image" (null) from "network/timeout failure"
+      // so callers — and you, in the console — can tell the difference instead
+      // of both looking like an identical silent placeholder.
+      console.warn(`[MP Atlas] image lookup failed for "${query}":`,e.name==='AbortError'?'timed out (slow connection)':e.message);
+      return null;
+    }
   })();
   IMG_CACHE.set(query,p);
   const result=await p;
-  IMG_CACHE.set(query,result); // replace in-flight promise with resolved value for future sync-ish reads
+  if(result) IMG_CACHE.set(query,result); // only cache successes — a failure should be retryable on the next click, not permanently "stuck"
+  else IMG_CACHE.delete(query);
   return result;
 }
 let IMG_TOKEN=0;
